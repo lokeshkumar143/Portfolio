@@ -27,6 +27,7 @@
   top: 0;
   height: 100svh;
   overflow: hidden;
+  background: #000;
 }
 
 #chronoStage {

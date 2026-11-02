@@ -1,4 +1,4 @@
-// Renders LOKESH into a single coverage texture and reports the ink rectangle
+// Renders GIREESH into a single coverage texture and reports the ink rectangle
 // of every individual letter.
 //
 // Why a texture and not DOM text: the two people who live inside the G and the H

@@ -40,11 +40,10 @@ export async function initFinale() {
   const stage1 = document.getElementById('finStage1');
   const dim = document.getElementById('finDim');
   const frame2 = document.getElementById('finFrame2');
+  const frame2Video = document.getElementById('finFrame2Video');
   const frame2Img = document.getElementById('finFrame2Img');
-  let frame2Ready = false;
-  if (frame2 && frame2Img) {
-    // canonical home first, then the naming pattern the reference images
-    // use; while the image is absent each miss logs one benign 404
+  let frame2Ready = !!frame2Video;
+  if (!frame2Ready && frame2 && frame2Img) {
     const candidates = [
       'footer%202nd%20image.jpg',
       'public/fin/frame2.jpg',
@@ -118,6 +117,13 @@ export async function initFinale() {
       } else if (frame2.style.filter) {
         frame2.style.filter = '';
       }
+      if (frame2Video) {
+        if (e > 0.05 && state.visible) {
+          if (frame2Video.paused) frame2Video.play().catch(() => {});
+        } else {
+          if (!frame2Video.paused) frame2Video.pause();
+        }
+      }
       // frame 1 is pushed gently aside and dimmed as the new frame covers it
       if (stage1) stage1.style.transform = `translate3d(${(e * 4.5).toFixed(3)}%, 0, 0)`;
       if (dim) dim.style.opacity = (e * 0.5).toFixed(3);
@@ -135,7 +141,11 @@ export async function initFinale() {
     if (!state.started) state.started = performance.now();
     state.raf = requestAnimationFrame(frame);
   };
-  const stop = () => { state.running = false; cancelAnimationFrame(state.raf); };
+  const stop = () => {
+    state.running = false;
+    cancelAnimationFrame(state.raf);
+    if (frame2Video && !frame2Video.paused) frame2Video.pause();
+  };
 
   new IntersectionObserver((entries) => {
     for (const e of entries) {

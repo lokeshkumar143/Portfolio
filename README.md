@@ -1,29 +1,24 @@
 # LOKESH — cinematic portfolio
 
-Two scenes so far, both WebGL, no frameworks and no build step.
+Cinematic portfolio for **Lokesh Kumar S** — iOS Developer, SwiftUI & UIKit Engineer, and Technical Trainer at SIMATS. Built with native WebGL and modern web standards with no build step.
 
-**Scene 1 — the opening.** Black screen → the man walks out of the dark → the
-LOKESH wordmark materialises behind him → chips, arrows and dots snap into
-place → header draws itself in → the composition settles and breathes.
+**Scene 1 — The Opening (Hero).** Black screen → Lokesh walks out of the dark toward the camera in a tailored suit → the `LOKESH` wordmark materialises behind him with red rim light and contact shadows → interactive chips, navigation, and badges snap into place.
 
-**Scene 2 — the creative universe.** The supplied film, played as the section:
-the visitor scrolls into it, it arrives from black, and a veil breathes over
-the 10-second loop point so the wrap is never seen as a cut. Decoding stops
-whenever the section is off screen.
+**Scene 2 — The Developer Universe.** Deep space cybernetic cosmos with floating Xcode IDE windows, Swift logo, Firebase, and floating glowing code terminals. A seamless veil breathes over the 10-second loop point.
 
-**Scene 3 — the time machine.** A warm black room → the timeline rail draws
-itself → a giant clock resolves → six year cards arrive → the floor mechanism
-turns → and then the visitor takes control: moving the cursor swings the clock
-hand across 2021–2026, and whichever year it points at lights up.
+**Scene 3 — A Journey Through Time.** Golden architectural chamber with turning clockwork gears, Roman numerals XII, and rotating concentric rings. The interactive timeline rail and clock hand sweep across 2021–2026, illuminating his growth from foundations to SIMATS Technical Trainer & iOS Developer.
+
+**Scene 4 — The Project Universe (Arena).** Futuristic circular marble stage with concentric glowing cyan rings and atmospheric volumetric smoke. 12 interactive project cards float in 3D parallax with depth sorting and tilt physics.
+
+**Scene 5 & 6 — The Finale & Device Showcase.** Frame 1 reveals Lokesh giving a confident nod amidst red atmospheric embers and cinematic quotes. Extra scroll depth slides in Frame 2: a cinematic showcase of MacBook Pro and iPhone running live Swift applications on Apple Silicon.
 
 ## Run it
 
 ```bash
-python tools/serve.py 5173
+python3 tools/serve.py 5173
 ```
 
-then open http://localhost:5173. Any static file server works in production —
-there is nothing to compile.
+then open http://localhost:5173. Any static file server works in production — there is nothing to compile.
 
 Review helpers (dev only):
 

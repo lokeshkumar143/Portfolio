@@ -16,6 +16,7 @@ import { initUniverse } from './scene2/boot2.js';
 import { initChrono } from './scene3/boot3.js';
 import { initGallery } from './scene4/boot4.js';
 import { initFinale } from './scene6/boot6.js';
+import { initDevCard } from './scene/devcard.js';
 
 // a cinematic page manages its own positions; the browser restoring an old
 // scroll offset mid-boot yanks the visitor (and any scripted anchor) around
@@ -47,6 +48,8 @@ const app = {
 // --------------------------------------------------------------------------
 
 async function main() {
+  initDevCard();
+
   const canvas = document.getElementById('stage');
   app.stage = new Stage(canvas);
   app.furniture = new Furniture(document);
@@ -76,11 +79,11 @@ async function main() {
 
   const mk = (name, loopFade) => {
     const c = manifest.clips[name];
+    const src = [];
+    if (c.mp4) src.push({ url: MEDIA + c.mp4, type: 'video/mp4' });
+    if (c.webm) src.push({ url: MEDIA + c.webm, type: 'video/webm' });
     return new Clip({
-      src: [
-        { url: MEDIA + c.webm, type: 'video/webm' },
-        { url: MEDIA + c.mp4, type: 'video/mp4' },
-      ],
+      src,
       poster: MEDIA + c.poster,
       w: c.w, h: c.h, track: c.track, loopFade,
     });

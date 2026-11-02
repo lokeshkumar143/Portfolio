@@ -48,7 +48,7 @@
         <li><a href="#gallery" data-nav>Work</a></li>
         <li><a href="#chrono" data-nav>Journey</a></li>
         <li><a href="public/resume.pdf" target="_blank" data-nav>Resume</a></li>
-        <li><a href="mailto:lokeshkumar142005@gmail.com" data-nav>Contact</a></li>
+        <li><a href="mailto:lokeshkumar142005@gmail.com" class="js-open-devcard" data-nav>Contact</a></li>
       </ul>
     </nav>
 
@@ -88,7 +88,7 @@
       <li><a href="#gallery" data-nav>Work</a></li>
       <li><a href="#chrono" data-nav>Journey</a></li>
       <li><a href="public/resume.pdf" target="_blank" data-nav>Resume</a></li>
-      <li><a href="mailto:lokeshkumar142005@gmail.com" data-nav>Contact</a></li>
+      <li><a href="mailto:lokeshkumar142005@gmail.com" class="js-open-devcard" data-nav>Contact</a></li>
     </ul>
     <p class="menu__tag">••• Welcome to my world •••</p>
   </nav>
@@ -114,19 +114,17 @@
   <div class="hero-spacer" aria-hidden="true"></div>
 
   <!-- ==================================================================== -->
-  <!-- The creative-universe film itself, played as supplied. All labels and
-       cards are part of the footage; the DOM adds only what a screen reader
-       needs and a veil that breathes over the loop seam. -->
+  <!-- The developer-universe film: Swift, Xcode, Firebase and code cosmos. -->
   <section class="universe" id="universe" aria-labelledby="uniTitle">
     <header class="universe__title" id="uniTitle">
       <p class="universe__over">Scene 02</p>
-      <h2 class="universe__name">The Mobile<br>Ecosystem</h2>
-      <p class="universe__sub">Swift · Architecture · Quality · Impact</p>
+      <h2 class="universe__name">The Developer<br>Universe</h2>
+      <p class="universe__sub">Swift · SwiftUI · Xcode · Firebase</p>
     </header>
     <ul class="sr-only">
-      <li>Swift</li><li>SwiftUI</li><li>UIKit</li><li>Xcode</li>
-      <li>Firebase</li><li>MapKit</li><li>CoreLocation</li><li>Postman</li>
-      <li>Selenium</li><li>Appium</li><li>REST APIs</li><li>MySQL</li>
+      <li>Swift</li><li>SwiftUI</li><li>Xcode</li><li>Firebase</li>
+      <li>UIKit</li><li>CoreData</li><li>Combine</li><li>MapKit</li>
+      <li>CoreML</li><li>Git</li><li>App Store</li><li>Metal</li>
     </ul>
     <video id="uniFilm" muted playsinline loop preload="metadata"
            poster="public/media/universe.jpg" aria-hidden="true">
@@ -145,8 +143,8 @@
       </h2>
       <p class="chrono__rail" aria-hidden="true">
         <i></i>
-        <span>Ideas</span><span>Experiences</span><span>People</span>
-        <span>Projects</span><span>Me</span>
+        <span>Foundations</span><span>Engineering</span><span>AI & Data</span>
+        <span>iOS Mastery</span><span>Leadership</span>
         <i></i>
       </p>
 
@@ -157,7 +155,7 @@
         Same<br>curiosity<br>a brighter<br>tomorrow
       </p>
       <p class="chrono__note chrono__note--br" aria-hidden="true">
-        Still<br>designing<br>what's<br>next<i></i>
+        Still<br>architecting<br>what's<br>next<i></i>
       </p>
 
       <div class="chrono__deck" id="chronoDeck"></div>
@@ -176,21 +174,21 @@
       <div class="gallery__world">
         <div class="gallery__deck" id="galleryDeck"></div>
         <img class="gallery__person" id="galleryPerson"
-             src="public/projects/person.png" alt="" draggable="false">
+             src="public/projects/person.png" alt="Lokesh Kumar S" draggable="false">
       </div>
 
       <h2 class="g-label g-label--projects" id="galleryTitle">Projects</h2>
       <p class="g-label g-label--ideas" aria-hidden="true">
-        SwiftUI<br>UIKit<br>Architecture<br><b>Real Impact</b>
+        SwiftUI<br>Fluid Interfaces<br>Native Systems<br><b>Real Impact</b>
       </p>
       <p class="g-label g-label--scroll" aria-hidden="true">
         Scroll<br>Explore<br>Interact
       </p>
       <p class="g-label g-label--real" aria-hidden="true">
-        Healthcare<br>Medical AI<br>Real<br>Solutions
+        Real<br>Code<br>Real<br>Impact
       </p>
       <p class="g-label g-label--tomorrow" aria-hidden="true">
-        Engineering<br>Native Apps<br>For Tomorrow
+        Architecting<br>Fluid<br>Experiences
       </p>
       <span class="g-label g-label--num" id="galleryNum" aria-hidden="true">01</span>
     </div>
@@ -208,37 +206,101 @@
     <canvas id="finMan" aria-hidden="true"></canvas>
 
     <p class="f-cap f-cap--tl" aria-hidden="true">
-      Swift<br>SwiftUI<br>Architecture<br>Real Impact
+      Architecting<br>Fluid Interfaces<br>Native Systems<br>Real Impact
     </p>
     <blockquote class="f-cap f-cap--quote">
-      &ldquo;Ship<br>Clean.<br>Build<br>Fast.&rdquo;
+      &ldquo;Great<br>Code<br>Feels<br>Like Magic.&rdquo;
     </blockquote>
-    <p class="f-cap f-cap--blw" aria-hidden="true">An<br>Engineer&rsquo;s<br>World</p>
+    <p class="f-cap f-cap--blw" aria-hidden="true">An<br>iOS Engineer&rsquo;s<br>World</p>
     <p class="f-cap f-cap--tr" aria-hidden="true">
-      Native<br>Performance<br>A Brighter<br>Tomorrow
+      SwiftUI<br>& UIKit<br>Crafted With<br>Precision
     </p>
-    <p class="f-cap f-cap--br" aria-hidden="true">Build<br>Test<br>Ship<br>Repeat</p>
+    <p class="f-cap f-cap--br" aria-hidden="true">Design<br>Build<br>Profile<br>Ship</p>
   </div>
 
   <div class="fin__dim" id="finDim" aria-hidden="true"></div>
 
-  <!-- the second frame of the finale: slides in from the left on scroll.
-       Dormant until its image exists (see boot6's candidate list). -->
-  <figure class="fin__frame2" id="finFrame2" aria-hidden="true" hidden>
-    <img id="finFrame2Img" alt="" draggable="false" decoding="async">
+  <!-- the second frame of the finale: slides in from the left on scroll. -->
+  <figure class="fin__frame2" id="finFrame2" aria-hidden="true">
+    <video id="finFrame2Video" class="fin__frame2Video" muted playsinline loop preload="metadata"
+           poster="public/media/device_showcase.jpg" aria-hidden="true">
+      <source src="public/media/device_showcase.mp4" type="video/mp4">
+    </video>
+    <div class="fin__frame2Cap">
+      <p class="fin__frame2Over">Ecosystem · Hardware & Craft</p>
+      <h3 class="fin__frame2Title">MacBook Pro & iPhone</h3>
+      <p class="fin__frame2Sub">Architected for Apple Silicon with SwiftUI, UIKit & CoreML</p>
+    </div>
   </figure>
 
   <div class="fin__bar">
-    <a href="mailto:lokeshkumar142005@gmail.com" data-nav>Contact</a>
+    <button class="fin__devBadge" id="devBadgeBtn" type="button" aria-label="Open Lokesh Kumar S Profile and Contact Card">
+      <span class="fin__devAvatar">
+        <video class="fin__devVideo" muted playsinline loop autoplay poster="public/media/developer_nod.jpg" aria-hidden="true">
+          <source src="public/media/developer_nod.mp4" type="video/mp4">
+        </video>
+      </span>
+      <span class="fin__devMeta">
+        <span class="fin__devName">Lokesh Kumar S</span>
+        <span class="fin__devStatus"><span class="fin__devDot" aria-hidden="true"></span>Open for iOS Roles</span>
+      </span>
+    </button>
     <nav class="fin__soc" aria-label="Social">
+      <a href="mailto:lokeshkumar142005@gmail.com" class="js-open-devcard" data-nav>Contact</a>
       <a href="https://github.com/lokeshkumar143" target="_blank" rel="me">GitHub</a>
-      <a href="https://linkedin.com/in/lokesh-kumar-s-16984a268/" target="_blank" rel="me">LinkedIn</a>
-      <a href="tel:+918825489412" rel="me">+91 8825489412</a>
+      <a href="https://linkedin.com/in/lokeshkumars" target="_blank" rel="me">LinkedIn</a>
+      <a href="public/resume.pdf" target="_blank" rel="me">Resume</a>
     </nav>
     <small class="fin__c">&copy; 2026 Lokesh Kumar S &mdash; All rights reserved</small>
   </div>
   </div>
 </footer>
+
+<!-- Interactive Cinematic Developer Card -->
+<dialog class="dev-modal" id="devModal" aria-labelledby="devModalTitle">
+  <div class="dev-modal__sheet">
+    <button class="dev-modal__close" id="devModalClose" type="button" aria-label="Close dialog">&times;</button>
+    <div class="dev-modal__media">
+      <video class="dev-modal__video" muted playsinline loop poster="public/media/developer_nod.jpg">
+        <source src="public/media/developer_nod.mp4" type="video/mp4">
+      </video>
+      <div class="dev-modal__overlay"></div>
+    </div>
+    <div class="dev-modal__content">
+      <p class="dev-modal__over">iOS Engineer · Technical Trainer</p>
+      <h3 class="dev-modal__title" id="devModalTitle">Lokesh Kumar S</h3>
+      <p class="dev-modal__tag">Specializing in SwiftUI, UIKit, CoreData, Combine, CoreML, and clean mobile architectures. Experienced in building high-performance, accessible Apple ecosystem applications.</p>
+      <div class="dev-modal__pills">
+        <span class="dev-modal__pill">SwiftUI</span>
+        <span class="dev-modal__pill">UIKit</span>
+        <span class="dev-modal__pill">Combine</span>
+        <span class="dev-modal__pill">CoreData</span>
+        <span class="dev-modal__pill">CoreML</span>
+        <span class="dev-modal__pill">Firebase</span>
+        <span class="dev-modal__pill">REST APIs</span>
+      </div>
+      <div class="dev-modal__actions">
+        <a href="mailto:lokeshkumar142005@gmail.com" class="dev-modal__btn dev-modal__btn--primary">
+          <span>Send Email</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+        <button type="button" class="dev-modal__btn" id="devCopyEmail">
+          <span>Copy Email</span>
+        </button>
+        <a href="https://linkedin.com/in/lokeshkumars" target="_blank" rel="me" class="dev-modal__btn">
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/lokeshkumar143" target="_blank" rel="me" class="dev-modal__btn">
+          <span>GitHub</span>
+        </a>
+        <a href="public/resume.pdf" target="_blank" rel="me" class="dev-modal__btn">
+          <span>Resume PDF</span>
+        </a>
+      </div>
+      <span class="dev-modal__feedback" id="devCopyFeedback" role="status">Email copied!</span>
+    </div>
+  </div>
+</dialog>
 
 <script type="module" src="src/main.js"></script>
 </body>
