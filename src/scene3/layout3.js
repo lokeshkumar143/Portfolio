@@ -12,33 +12,33 @@
 export const YEARS = [
   {
     year: 2021,
-    key: 'Beginning',
-    lines: ['New city', 'New chapter', 'Bigger dreams'],
+    key: 'Foundations',
+    lines: ['Higher Secondary', 'Vellore SDA', 'Math & Science'],
   },
   {
     year: 2022,
-    key: 'Exploration',
-    lines: ['Learned design', 'Found direction'],
+    key: 'Engineering',
+    lines: ['Joined SIMATS', 'Computer Science', 'Code foundations'],
   },
   {
     year: 2023,
-    key: 'Practice',
-    lines: ['Built skills', 'Made projects', 'Kept going'],
+    key: 'AI & Data',
+    lines: ['Oracle AI Certified', 'Full-stack & SQL', 'Deep algorithms'],
   },
   {
     year: 2024,
-    key: 'Growth',
-    lines: ['Real projects', 'Real people', 'Real learning'],
+    key: 'iOS Mastery',
+    lines: ['Swift & SwiftUI', 'UIKit & MapKit', 'Mobile architectures'],
   },
   {
     year: 2025,
-    key: 'Opportunities',
-    lines: ['Collaborated', 'Solved problems', 'Stepped up'],
+    key: 'Promotion',
+    lines: ['iOS Developer', 'Technical Trainer', 'Medical AI apps'],
   },
   {
     year: 2026,
-    key: 'Next chapter',
-    lines: ['Bigger goals', 'More impact', 'Still designing'],
+    key: 'Next Chapter',
+    lines: ['App Store releases', 'Senior mobile lead', 'Global impact'],
   },
 ];
 
