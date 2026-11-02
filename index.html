@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="src/styles/chrono.css">
 <link rel="stylesheet" href="src/styles/projects.css">
 <link rel="stylesheet" href="src/styles/finale.css">
+<link rel="stylesheet" href="src/styles/cinematic.css">
 </head>
 <body>
 
@@ -53,6 +54,12 @@
     </nav>
 
     <div class="hdr__meta">
+      <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false" aria-label="Toggle cinematic audio">
+        <span class="sound-btn__bars" aria-hidden="true">
+          <i></i><i></i><i></i>
+        </span>
+        <span class="sound-btn__label">Audio: Off</span>
+      </button>
       <span class="hdr__metaLabel">Portfolio — MMXXVI</span>
       <span class="hdr__pips" aria-hidden="true"><i></i><i></i><i></i></span>
     </div>
@@ -116,21 +123,23 @@
   <!-- ==================================================================== -->
   <!-- The developer-universe film: Swift, Xcode, Firebase and code cosmos. -->
   <section class="universe" id="universe" aria-labelledby="uniTitle">
-    <header class="universe__title" id="uniTitle">
-      <p class="universe__over">Scene 02</p>
-      <h2 class="universe__name">The Developer<br>Universe</h2>
-      <p class="universe__sub">Swift · SwiftUI · Xcode · Firebase</p>
-    </header>
-    <ul class="sr-only">
-      <li>Swift</li><li>SwiftUI</li><li>Xcode</li><li>Firebase</li>
-      <li>UIKit</li><li>CoreData</li><li>Combine</li><li>MapKit</li>
-      <li>CoreML</li><li>Git</li><li>App Store</li><li>Metal</li>
-    </ul>
-    <video id="uniFilm" muted playsinline loop preload="metadata"
-           poster="public/media/universe.jpg" aria-hidden="true">
-      <source src="public/media/universe.mp4" type="video/mp4">
-    </video>
-    <div class="universe__veil" id="uniVeil" aria-hidden="true"></div>
+    <div class="universe__pin">
+      <header class="universe__title" id="uniTitle">
+        <p class="universe__over">Scene 02</p>
+        <h2 class="universe__name">The Developer<br>Universe</h2>
+        <p class="universe__sub">Swift · SwiftUI · Xcode · Firebase</p>
+      </header>
+      <ul class="sr-only">
+        <li>Swift</li><li>SwiftUI</li><li>Xcode</li><li>Firebase</li>
+        <li>UIKit</li><li>CoreData</li><li>Combine</li><li>MapKit</li>
+        <li>CoreML</li><li>Git</li><li>App Store</li><li>Metal</li>
+      </ul>
+      <video id="uniFilm" muted playsinline loop preload="metadata"
+             poster="public/media/universe.jpg" aria-hidden="true">
+        <source src="public/media/universe.mp4" type="video/mp4">
+      </video>
+      <div class="universe__veil" id="uniVeil" aria-hidden="true"></div>
+    </div>
   </section>
 
   <!-- ==================================================================== -->
@@ -248,7 +257,7 @@
     <nav class="fin__soc" aria-label="Social">
       <a href="mailto:lokeshkumar142005@gmail.com" class="js-open-devcard" data-nav>Contact</a>
       <a href="https://github.com/lokeshkumar143" target="_blank" rel="me">GitHub</a>
-      <a href="https://linkedin.com/in/lokeshkumars" target="_blank" rel="me">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/lokesh-kumar-s-16984a268/" target="_blank" rel="me">LinkedIn</a>
       <a href="public/resume.pdf" target="_blank" rel="me">Resume</a>
     </nav>
     <small class="fin__c">&copy; 2026 Lokesh Kumar S &mdash; All rights reserved</small>
@@ -267,27 +276,31 @@
       <div class="dev-modal__overlay"></div>
     </div>
     <div class="dev-modal__content">
-      <p class="dev-modal__over">iOS Engineer · Technical Trainer</p>
+      <p class="dev-modal__over">iOS Engineer · Technical Trainer · Chennai, India</p>
       <h3 class="dev-modal__title" id="devModalTitle">Lokesh Kumar S</h3>
-      <p class="dev-modal__tag">Specializing in SwiftUI, UIKit, CoreData, Combine, CoreML, and clean mobile architectures. Experienced in building high-performance, accessible Apple ecosystem applications.</p>
+      <p class="dev-modal__tag">iOS Developer & Technical Trainer at SIMATS. Creator of Personal Fitness Patient Recovery and Smart Ulcer Predictor Medical AI. Specializing in SwiftUI, UIKit, CoreData, Combine, REST APIs, and end-to-end App Store delivery.</p>
       <div class="dev-modal__pills">
         <span class="dev-modal__pill">SwiftUI</span>
         <span class="dev-modal__pill">UIKit</span>
+        <span class="dev-modal__pill">CoreML</span>
         <span class="dev-modal__pill">Combine</span>
         <span class="dev-modal__pill">CoreData</span>
-        <span class="dev-modal__pill">CoreML</span>
         <span class="dev-modal__pill">Firebase</span>
-        <span class="dev-modal__pill">REST APIs</span>
+        <span class="dev-modal__pill">App Store</span>
+        <span class="dev-modal__pill">QA & Testing</span>
       </div>
       <div class="dev-modal__actions">
         <a href="mailto:lokeshkumar142005@gmail.com" class="dev-modal__btn dev-modal__btn--primary">
           <span>Send Email</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
         </a>
+        <a href="tel:+918825489412" class="dev-modal__btn">
+          <span>+91 8825489412</span>
+        </a>
         <button type="button" class="dev-modal__btn" id="devCopyEmail">
           <span>Copy Email</span>
         </button>
-        <a href="https://linkedin.com/in/lokeshkumars" target="_blank" rel="me" class="dev-modal__btn">
+        <a href="https://www.linkedin.com/in/lokesh-kumar-s-16984a268/" target="_blank" rel="me" class="dev-modal__btn">
           <span>LinkedIn</span>
         </a>
         <a href="https://github.com/lokeshkumar143" target="_blank" rel="me" class="dev-modal__btn">
@@ -301,6 +314,80 @@
     </div>
   </div>
 </dialog>
+
+<!-- ====================================================================== -->
+<!-- Cinematic Interactive Project Dossier Modal -->
+<dialog class="proj-modal" id="projModal" aria-labelledby="projModalTitle">
+  <div class="proj-modal__sheet">
+    <button class="proj-modal__close" id="projModalClose" type="button" aria-label="Close project dossier">&times;</button>
+    <div class="proj-modal__header">
+      <span class="proj-modal__tag" id="projModalTag">iOS Engineering</span>
+      <h2 class="proj-modal__title" id="projModalTitle">Project Title</h2>
+      <p class="proj-modal__subtitle" id="projModalSubtitle">Subtitle</p>
+    </div>
+    <div class="proj-modal__body">
+      <div class="proj-modal__left">
+        <div class="proj-modal__art">
+          <img id="projModalImg" src="public/projects/p01_timeless.png" alt="Project artwork">
+          <div class="proj-modal__artOverlay"></div>
+        </div>
+        <div class="proj-modal__metrics" id="projModalMetrics"></div>
+      </div>
+      <div class="proj-modal__right">
+        <div class="proj-modal__pills" id="projModalPills"></div>
+        <p class="proj-modal__desc" id="projModalDesc"></p>
+        <h4 class="proj-modal__sectionTitle">Architecture & Key Features</h4>
+        <ul class="proj-modal__features" id="projModalFeatures"></ul>
+        <div class="proj-modal__actions">
+          <a href="https://github.com/lokeshkumar143" target="_blank" rel="me" class="proj-modal__btn proj-modal__btn--primary">
+            <span>View Architecture on GitHub</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+          <button type="button" class="proj-modal__btn js-open-devcard">
+            <span>Discuss With Lokesh</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- ====================================================================== -->
+<!-- Cinematic Chapter HUD Navigation Rail -->
+<aside class="chapter-rail" id="chapterRail" aria-label="Scene Navigator">
+  <button class="chapter-item is-active" data-target="stage" aria-label="Go to Scene 1: Hero">
+    <span class="chapter-item__line"></span>
+    <span class="chapter-item__num">01</span>
+    <span class="chapter-item__tag">Hero</span>
+  </button>
+  <button class="chapter-item" data-target="universe" aria-label="Go to Scene 2: Cosmos">
+    <span class="chapter-item__line"></span>
+    <span class="chapter-item__num">02</span>
+    <span class="chapter-item__tag">Cosmos</span>
+  </button>
+  <button class="chapter-item" data-target="chrono" aria-label="Go to Scene 3: Journey">
+    <span class="chapter-item__line"></span>
+    <span class="chapter-item__num">03</span>
+    <span class="chapter-item__tag">Journey</span>
+  </button>
+  <button class="chapter-item" data-target="gallery" aria-label="Go to Scene 4: Projects">
+    <span class="chapter-item__line"></span>
+    <span class="chapter-item__num">04</span>
+    <span class="chapter-item__tag">Projects</span>
+  </button>
+  <button class="chapter-item" data-target="fin" aria-label="Go to Scene 5: Finale">
+    <span class="chapter-item__line"></span>
+    <span class="chapter-item__num">05</span>
+    <span class="chapter-item__tag">Finale</span>
+  </button>
+</aside>
+
+<!-- ====================================================================== -->
+<!-- Custom HUD Magnetic Cursor -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true">
+  <span class="cursor-text" id="cursorText"></span>
+</div>
 
 <script type="module" src="src/main.js"></script>
 </body>

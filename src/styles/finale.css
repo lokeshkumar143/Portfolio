@@ -62,7 +62,7 @@
   z-index: 6;
   margin: 0;
   transform: translate3d(-104%, 0, 0);
-  will-change: transform, filter;
+  will-change: transform;
   pointer-events: none;
   box-shadow: 42px 0 110px rgba(0, 0, 0, 0.62);
   background: #0a0203;

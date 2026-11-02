@@ -18,6 +18,7 @@ export class Clip {
     const v = document.createElement('video');
     v.muted = true;
     v.defaultMuted = true;
+    v.setAttribute('muted', '');
     v.loop = true;
     v.playsInline = true;
     v.setAttribute('playsinline', '');

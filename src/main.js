@@ -17,6 +17,9 @@ import { initChrono } from './scene3/boot3.js';
 import { initGallery } from './scene4/boot4.js';
 import { initFinale } from './scene6/boot6.js';
 import { initDevCard } from './scene/devcard.js';
+import { initSoundUI } from './lib/sound.js';
+import { initHUD } from './scene/hud.js';
+import { initProjectModal } from './scene/projectModal.js';
 
 // a cinematic page manages its own positions; the browser restoring an old
 // scroll offset mid-boot yanks the visitor (and any scripted anchor) around
@@ -49,6 +52,9 @@ const app = {
 
 async function main() {
   initDevCard();
+  initSoundUI();
+  initHUD();
+  initProjectModal();
 
   const canvas = document.getElementById('stage');
   app.stage = new Stage(canvas);
@@ -276,6 +282,23 @@ menu?.addEventListener('click', (e) => {
 });
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && root.classList.contains('is-menu')) setMenu(false);
+});
+
+// Smooth in-page anchor navigation
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[data-nav]');
+  if (!a) return;
+  const href = a.getAttribute('href');
+  if (href === '#') {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else if (href && href.startsWith('#')) {
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 });
 
 // The hero is position:fixed behind the flow, so once scene two covers it there

@@ -76,10 +76,12 @@ export function computeLayout(w, h) {
     // clear of the header band and clear of his head; it renders in front of
     // the typography, so it stays readable wherever it lands
     welcomeY: portrait ? (feet - heroH) - h * 0.075 : h * 0.175,
-    legend: portrait
-      ? { x: w * 0.955, y: capTop - h * 0.052, h: 20, alignRight: true }
-      : { x: w * REF.legend.x, y: h * REF.legend.y,
-          h: Math.max(18, h * REF.legend.h) },
+    legend: {
+      x: portrait ? w * 0.955 : w * 0.982,
+      y: portrait ? capTop - h * 0.052 : h * REF.legend.y,
+      h: portrait ? 20 : Math.max(18, h * REF.legend.h),
+      alignRight: true,
+    },
     artist: portrait
       ? { x: w * 0.045, y: baseline + h * 0.055, h: 19 }
       : { x: w * REF.artist.x, y: h * REF.artist.y,

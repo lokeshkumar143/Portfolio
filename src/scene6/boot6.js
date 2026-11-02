@@ -111,12 +111,6 @@ export async function initFinale() {
       p2 = reduced ? raw : damp(p2, raw, 6.0, dt);
       const e = sstep(Math.min(1, Math.max(0, (p2 - 0.08) / 0.78)));
       frame2.style.transform = `translate3d(${((e - 1) * 103).toFixed(3)}%, 0, 0)`;
-      if (!reduced && e > 0.001 && e < 0.995) {
-        frame2.style.filter =
-          `blur(${((1 - e) * 6).toFixed(2)}px) brightness(${(0.72 + 0.28 * e).toFixed(3)})`;
-      } else if (frame2.style.filter) {
-        frame2.style.filter = '';
-      }
       if (frame2Video) {
         if (e > 0.05 && state.visible) {
           if (frame2Video.paused) frame2Video.play().catch(() => {});

@@ -171,8 +171,12 @@ vec4 sampleClip(vec2 uv){
 void main(){
   vec4 s = sampleClip(vUV);
   float a = s.a;
-  if(a <= 0.004) discard;
-  vec3 col = s.rgb / max(a, 0.06);        // undo premultiply before grading
+  if(a <= 0.035) discard;
+  
+  // Defringe: un-premultiply with floor and soften boundary luminance to eliminate white halo
+  vec3 col = s.rgb / max(a, 0.20);
+  float edgeDefringe = smoothstep(0.035, 0.50, a);
+  col = mix(col * edgeDefringe, col, edgeDefringe);
 
   // --- grade -------------------------------------------------------------
   float l = dot(col, vec3(0.2126, 0.7152, 0.0722));
@@ -181,11 +185,9 @@ void main(){
   col *= uExposure;
   col += vec3(0.010, 0.014, 0.030) * uLift * (1.0 - smoothstep(0.0, 0.5, l));
 
-  // Red bounce from the wall of type behind him. Keyed off the MATTE, not the
-  // quad, so it lands as a rim light on his actual silhouette - and gated to
-  // the rows where the wordmark actually sits behind him. A red edge on his
-  // shins, below the baseline where there is only blackness, reads as a fault.
-  float edge = 1.0 - smoothstep(0.20, 0.90, s.a);
+  // Red bounce from the wall of type behind him. Keyed off the MATTE,
+  // gated strictly to actual figure boundary rows where the wordmark sits.
+  float edge = (1.0 - smoothstep(0.35, 0.90, s.a)) * smoothstep(0.08, 0.35, s.a);
   float behindType = smoothstep(uBand.x - 0.04, uBand.x + 0.03, vScreen.y)
                    * (1.0 - smoothstep(uBand.y - 0.02, uBand.y + 0.05, vScreen.y));
   col += vec3(0.80, 0.10, 0.11) * uRimRed * edge * mix(0.12, 1.0, behindType);
