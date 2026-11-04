@@ -133,19 +133,50 @@ export function initDevCard() {
       if (!valid) return;
 
       if (statusText) {
-        statusText.textContent = 'Message verified! Opening mail composer...';
-        statusText.className = 'contact-status is-success';
+        statusText.textContent = 'Encrypting & dispatching message...';
+        statusText.className = 'contact-status is-sending';
       }
 
-      const mailtoUrl = `mailto:lokeshkumar142005@gmail.com?subject=${encodeURIComponent(`Project Opportunity from ${name}`)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
-      window.location.href = mailtoUrl;
+      const payload = {
+        name,
+        email,
+        message: msg,
+        _subject: `iOS Engineering Opportunity from ${name}`,
+      };
 
-      setTimeout(() => {
-        contactForm.reset();
-        if (statusText) {
-          statusText.textContent = 'Mail draft created successfully!';
+      const mailtoUrl = `mailto:lokeshkumar142005@gmail.com?subject=${encodeURIComponent(`Project Opportunity from ${name}`)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
+
+      // Attempt Formspree transmission with honest fallback to native mailto
+      fetch('https://formspree.io/f/mqapgvzy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      .then((res) => {
+        if (res.ok) {
+          if (statusText) {
+            statusText.textContent = 'Message sent directly to Lokesh! Thank you.';
+            statusText.className = 'contact-status is-success';
+          }
+          contactForm.reset();
+        } else {
+          throw new Error('API dispatch unavailable');
         }
-      }, 1000);
+      })
+      .catch(() => {
+        // Transparent fallback to system mail composer
+        if (statusText) {
+          statusText.textContent = 'Launching email composer to send directly...';
+          statusText.className = 'contact-status is-info';
+        }
+        window.location.href = mailtoUrl;
+        setTimeout(() => {
+          contactForm.reset();
+          if (statusText) {
+            statusText.textContent = 'Email composer launched with pre-filled message.';
+          }
+        }, 1200);
+      });
     });
   }
 }

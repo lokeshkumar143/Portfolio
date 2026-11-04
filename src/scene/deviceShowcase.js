@@ -183,6 +183,63 @@ export const DEVICE_APPS = {
       </div>
     `
   },
+  ulcer: {
+    id: 'p05_ideas',
+    name: 'Smart Ulcer Predictor',
+    category: 'Preventative Dermatology & Medical AI',
+    tagline: 'Multi-Modal Diabetic & Pressure Ulcer Risk Assessment',
+    tech: 'Swift · SwiftUI · CoreML · Vision · Python',
+    description: 'Predicts and grades early-stage pressure ulcer and diabetic foot ulcer formation by analyzing visual tissue erythema, patient mobility metrics, and localized skin temperature variance.',
+    features: [
+      'Multi-spectral camera and thermal variance pipeline for early sub-surface tissue stress detection',
+      'Computer vision boundary segmentation for early erythema detection',
+      'Automated Braden Scale clinical risk index calculation',
+      'Encrypted telemetry synchronization with hospital nursing care teams'
+    ],
+    statusPill: 'Braden Risk: Low (Stage I)',
+    accentColor: '#ff375f',
+    screenHtml: `
+      <div class="ios-screen ios-screen--ulcer">
+        <div class="ios-app-header">
+          <div>
+            <span class="ios-eyebrow">SMART ULCER AI</span>
+            <h4 class="ios-app-title">Tissue Assessment</h4>
+          </div>
+          <span class="ios-pill ios-pill--red">Vision + CoreML</span>
+        </div>
+        <div class="ios-ulcer-card">
+          <div class="ios-ulcer-frame">
+            <div class="ios-ulcer-thermal"></div>
+            <div class="ios-ulcer-reticle"></div>
+            <span class="ios-ulcer-label">Scan: Heel Locus Δ 1.4°C</span>
+          </div>
+        </div>
+        <div class="ios-metrics-grid">
+          <div class="ios-stat-card">
+            <span class="ios-stat-card__label">Braden Score</span>
+            <span class="ios-stat-card__val" style="color: #ff375f;">18 <small>/ 23</small></span>
+            <span class="ios-stat-card__tag">Low Risk Stage</span>
+          </div>
+          <div class="ios-stat-card">
+            <span class="ios-stat-card__label">Erythema Index</span>
+            <span class="ios-stat-card__val">12.4%</span>
+            <span class="ios-stat-card__tag">Local Baseline</span>
+          </div>
+        </div>
+        <div class="ios-card">
+          <span class="ios-card__badge">CLINICAL RECOMMENDATION</span>
+          <p class="ios-card__main" style="color: #30d158;">Repositioning Protocol Armed</p>
+          <p class="ios-card__sub">Schedule 2-hour lateral turns · Pressure relief boot active</p>
+        </div>
+        <div class="ios-tab-bar">
+          <span class="is-active">Assess</span>
+          <span>Thermal</span>
+          <span>History</span>
+          <span>Triage</span>
+        </div>
+      </div>
+    `
+  },
   dental: {
     id: 'p04_driven',
     name: 'Dental AI',

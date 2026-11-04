@@ -91,21 +91,26 @@ export const PROJECT_DETAILS = {
     github: 'https://github.com/lokeshkumar143'
   },
   p05_ideas: {
-    tag: 'Location Services · CoreLocation',
-    title: 'MapKit & CoreLocation Geo Engine',
-    subtitle: 'High-Precision Geographic Tracking & Real-Time Proximity Triggering',
-    desc: 'Integrated location-aware capabilities featuring custom map annotations, geofencing, heading calculations, and battery-optimized GPS polling.',
-    tech: ['MapKit', 'CoreLocation', 'Swift', 'Geofencing'],
+    tag: 'Medical AI · Computer Vision · Preventative Healthcare',
+    title: 'Smart Ulcer Predictor — Diabetic & Pressure Ulcer AI',
+    subtitle: 'Multi-Modal iOS Risk Assessment & Early Tissue Erythema Delineation',
+    desc: 'A clinical decision-support iOS application engineered to predict and grade early-stage diabetic and pressure ulcer formation. Combines native SwiftUI interfaces with CoreML computer vision and localized thermal variance analysis.',
+    tech: ['Swift', 'SwiftUI', 'CoreML', 'Vision Framework', 'Python', 'OpenCV', 'Braden Scale Model'],
     metrics: [
-      { label: 'Accuracy', val: 'Sub-10m' },
-      { label: 'Battery Impact', val: 'Minimal' },
-      { label: 'Clustering', val: 'Dynamic' },
+      { label: 'Algorithm', val: 'Vision + CoreML' },
+      { label: 'Metric', val: 'Braden Score & Thermal Δ' },
+      { label: 'Ecosystem', val: 'iPadOS & iOS Clinical' },
     ],
+    problem: 'Hospital-acquired pressure injuries and diabetic foot ulcers cause severe complications when identified late. Smart Ulcer Predictor provides non-invasive, objective wound assessment directly on iPad and iPhone at the patient bedside.',
     features: [
-      'Custom MKAnnotation views with animated pin transitions',
-      'Polygon region geofencing with background entry/exit triggers',
-      'Energy-efficient location throttling based on device movement state'
-    ]
+      'Multi-spectral camera and thermal variance pipeline for early sub-surface tissue stress detection',
+      'CoreML convolutional neural network segmenting wound boundaries and tissue necrosis',
+      'Automated clinical Braden Scale quantification and patient mobility telemetry',
+      'Longitudinal healing progression tracking with automated wound surface area calculation',
+      'HIPAA-compliant encrypted clinical report export for hospital electronic health record (EHR) sync'
+    ],
+    contrib: 'Architected the native SwiftUI mobile client, integrated Vision framework pipelines for real-time wound frame extraction, developed the localized temperature variance comparison module, and built the clinical export flow.',
+    github: 'https://github.com/lokeshkumar143'
   },
   p06_sound: {
     tag: 'Cloud Integration · Realtime DB',

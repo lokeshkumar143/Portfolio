@@ -22,7 +22,7 @@ export const CARDS = [
   { id: 'p04_driven', title: 'AI/ML Dental Segmentation Project',
     box: [998, 95, 460, 377], depth: 0.45,
     tint: [0.322, 0.278, 0.261] },
-  { id: 'p05_ideas', title: 'MapKit & CoreLocation Geo Engine',
+  { id: 'p05_ideas', title: 'Smart Ulcer Predictor — Diabetic & Pressure Ulcer AI',
     box: [394, 358, 232, 198], depth: 0.8,
     tint: [0.39, 0.303, 0.234] },
   { id: 'p06_sound', title: 'Firebase Realtime DB & Auth',

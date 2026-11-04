@@ -13,32 +13,32 @@ export const YEARS = [
   {
     year: 2021,
     key: 'Foundations',
-    lines: ['HSC Graduate', 'Tech Curiosity'],
+    lines: ['Higher Secondary', 'Computing Curiosity', 'Logic Foundations'],
   },
   {
     year: 2022,
     key: 'CS Engineering',
-    lines: ['SIMATS B.E. CSE', 'Core Systems'],
+    lines: ['SIMATS B.E. CSE', 'Software Systems', 'Core Engineering'],
   },
   {
     year: 2023,
-    key: 'Deep Dive',
-    lines: ['Data Structures', 'Mobile Concepts', 'Algorithms'],
+    key: 'Algorithms & Mobile',
+    lines: ['Data Structures', 'Swift & UIKit Basics', 'System Paradigms'],
   },
   {
     year: 2024,
     key: 'Full-Stack & QA',
-    lines: ['Selenium & Appium', 'Vulnerability Audits', 'Load Testing'],
+    lines: ['Selenium & Appium QA', 'Security Audits', 'Load Testing'],
   },
   {
     year: 2025,
     key: 'iOS Dev & Trainer',
-    lines: ['Promoted in 2 Mos', 'SwiftUI & UIKit', 'Mentored Engineers'],
+    lines: ['Full-Time in 2 Mos', 'SwiftUI Architecture', 'Engineering Mentor'],
   },
   {
     year: 2026,
-    key: 'Next Chapter',
-    lines: ['App Store Shipping', 'AI Integration', 'Apple Ecosystem'],
+    key: 'Production & AI',
+    lines: ['App Store Shipping', 'CoreML On-Device', 'Mentoring 100+ Devs'],
   },
 ];
 
