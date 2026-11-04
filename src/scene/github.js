@@ -44,7 +44,7 @@ export const CURATED_REPOS = [
   {
     name: 'Portfolio',
     html_url: 'https://github.com/lokeshkumar143/Portfolio',
-    description: 'Cinematic 3D WebGL developer experience for iOS Developer and AI/ML Engineer with zero build dependencies, custom shaders, and Web Audio.',
+    description: 'Cinematic 3D WebGL developer experience for iOS Developer (SwiftUI & UIKit) with zero build dependencies, custom shaders, and Web Audio.',
     language: 'JavaScript',
     stargazers_count: 14,
     forks_count: 4,
