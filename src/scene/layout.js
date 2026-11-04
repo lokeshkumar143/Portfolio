@@ -27,17 +27,16 @@ export function computeLayout(w, h) {
 
   // fit the word by whichever axis binds first, preserving its proportions
   const byWidth = (REF.wordWidth * w) / TARGET_RATIO;
-  const byHeight = REF.capHeight * h;
+  const byHeight = h * 0.36;
   let capH = Math.min(byWidth, byHeight);
 
   // On a phone the word is width-bound and ends up short, leaving a dead band of
   // empty screen. Letting it grow taller there keeps the composition dense
-  // instead of stranding the type in the middle of nowhere.
-  if (portrait) capH = Math.min(byWidth * 1.0, h * 0.30);
+  if (portrait) capH = Math.min(byWidth * 1.0, h * 0.20);
 
   const wordW = capH * TARGET_RATIO;
   const cx = w * 0.5;
-  const vCentre = portrait ? h * 0.50 : h * REF.vCentre;
+  const vCentre = portrait ? h * 0.48 : h * 0.52;
   const capTop = vCentre - capH * 0.5;
   const baseline = vCentre + capH * 0.5;
 
@@ -50,18 +49,14 @@ export function computeLayout(w, h) {
     baseline,
   };
 
-  // The figure stands BEHIND the wordmark, so he is sized to break out of it at
-  // both ends: head and shoulders clear the cap line, legs continue below the
-  // baseline, and the rest of him is glimpsed through the counters. Sized only
-  // to the cap height he would be swallowed whole by the letters.
-  let heroH = capH * 1.35;
-  let feet = baseline + capH * 0.22;
+  // The figure stands in front of the wordmark:
+  // Head clears the cap line, chest is in front of the letters,
+  // legs continue down to the runway floor
+  let heroH = Math.max(capH * 1.6, h * 0.62);
+  let feet = Math.min(h * 0.855, h - 90);
 
   if (portrait) {
-    // on a phone the word is width-bound and short, so tying the man to it would
-    // shrink him to a bystander; he is scaled to the viewport instead and the
-    // wordmark crosses his torso
-    heroH = h * 0.54;
+    heroH = h * 0.56;
     feet = h * 0.885;
   }
 

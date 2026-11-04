@@ -13,10 +13,10 @@
 // consistent with each other; per-letter fitting would distort the I into a slab
 // while squeezing the E, which is what makes lettering look counterfeit.
 
-const TEXT = 'LOKESH';
+const TEXT = 'LOKESH KUMAR S.';
 
 // measured for Anton font to keep heavy, impactful proportions
-export const TARGET_RATIO = 2.75;
+export const TARGET_RATIO = 7.15;
 
 function ctx2d(w, h) {
   const c = document.createElement('canvas');
@@ -63,8 +63,10 @@ export function buildWord(capHeightPx, maxTexture = 4096) {
   let natR = -Infinity;
   const walk = per.map((m, i) => {
     const at = pen;
-    natL = Math.min(natL, at - m.left);
-    natR = Math.max(natR, at + m.right);
+    if (TEXT[i] !== ' ') {
+      natL = Math.min(natL, at - m.left);
+      natR = Math.max(natR, at + m.right);
+    }
     pen += m.advance + tracking;
     return { char: TEXT[i], pen: at, m };
   });
@@ -105,15 +107,18 @@ export function buildWord(capHeightPx, maxTexture = 4096) {
   g.setTransform(scaleX * fit, 0, 0, fit, (-inkL * fit) + pad, capHeightPx * fit + pad);
 
   const letters = raw.map((r) => {
-    g.fillText(r.char, r.penX / scaleX, 0);
+    if (r.char !== ' ') {
+      g.fillText(r.char, r.penX / scaleX, 0);
+    }
     const x = (r.x0 - inkL) * fit + pad;
     const w = (r.x1 - r.x0) * fit;
+    const ascent = r.m.ascent || capHeightPx;
     return {
       char: r.char,
-      x,
-      y: pad + (capHeightPx - r.m.ascent) * fit,
-      w,
-      h: r.m.ascent * fit,
+      x: r.char === ' ' ? 0 : x,
+      y: pad + (capHeightPx - ascent) * fit,
+      w: r.char === ' ' ? 0 : Math.max(0, w),
+      h: r.char === ' ' ? 0 : ascent * fit,
     };
   });
   g.setTransform(1, 0, 0, 1, 0, 0);

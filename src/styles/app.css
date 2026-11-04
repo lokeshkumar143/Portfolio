@@ -143,8 +143,9 @@ html.is-booting .hdr { opacity: 0; }
 .mark-word {
   display: block;
   font-family: var(--disp);
-  font-size: clamp(20px, 2.05vw, 34px);
-  letter-spacing: .012em;
+  font-size: clamp(16px, 1.45vw, 24px);
+  letter-spacing: .025em;
+  white-space: nowrap;
   /* the same distressed surface as the big wordmark, so the two agree.
      NB the red must be a background-color: with background-clip:text the
      text fill is transparent, so `color` alone paints nothing and the mark
@@ -483,20 +484,31 @@ html.is-booting .hdr { opacity: 0; }
 
 .boot__enter {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
   appearance: none;
-  border: 1px solid rgba(255, 255, 255, .28);
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .4);
+  background: rgba(10, 8, 14, 0.85);
   color: var(--paper);
   font-family: var(--ui);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .32em;
   text-transform: uppercase;
-  padding: 14px 30px 12px;
+  padding: 14px 34px 12px;
   cursor: pointer;
-  transition: background .35s, border-color .35s, letter-spacing .35s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 60, 40, 0.3);
+  border-radius: 8px;
+  transition: all .35s;
 }
-.boot__enter:hover { background: var(--ink); border-color: var(--ink); letter-spacing: .4em; }
+.boot__enter:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  letter-spacing: .4em;
+  transform: translate(-50%, -50%) scale(1.05);
+}
 
 .fallback {
   position: absolute; inset: 0;

@@ -155,7 +155,7 @@ export class Stage {
       for (let i = 0; i < this.word.letters.length; i++) {
         const L = this.word.letters[i];
         const s = state.letters[i];
-        if (s.opacity <= 0.001) continue;
+        if (!s || s.opacity <= 0.001 || L.char === ' ' || L.w <= 0.001 || L.h <= 0.001) continue;
         const r = this.letterRect(i);
         const lift = s.dy * r[3];
         gl.uniform1f(p.u.uOpacity, s.opacity);

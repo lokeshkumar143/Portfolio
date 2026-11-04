@@ -228,93 +228,99 @@ export const PROJECT_DETAILS = {
   }
 };
 
+export function openProjectModal(id) {
+  const dialog = document.getElementById('projModal');
+  if (!dialog) return;
+  const data = PROJECT_DETAILS[id] || PROJECT_DETAILS.p01_timeless;
+
+  // Fill content
+  const tagEl = document.getElementById('projModalTag');
+  if (tagEl) tagEl.textContent = data.tag;
+  const titleEl = document.getElementById('projModalTitle');
+  if (titleEl) titleEl.textContent = data.title;
+  const subEl = document.getElementById('projModalSubtitle');
+  if (subEl) subEl.textContent = data.subtitle;
+  const descEl = document.getElementById('projModalDesc');
+  if (descEl) descEl.textContent = data.desc;
+
+  // Pills
+  const pillsWrap = document.getElementById('projModalPills');
+  if (pillsWrap && data.tech) {
+    pillsWrap.innerHTML = data.tech
+      .map((t) => `<span class="proj-modal__pill">${t}</span>`)
+      .join('');
+  }
+
+  // Metrics
+  const metricsWrap = document.getElementById('projModalMetrics');
+  if (metricsWrap && data.metrics) {
+    metricsWrap.innerHTML = data.metrics
+      .map(
+        (m) =>
+          `<div class="proj-modal__metric"><b>${m.val}</b><small>${m.label}</small></div>`
+      )
+      .join('');
+  }
+
+  // Features
+  const featsWrap = document.getElementById('projModalFeatures');
+  if (featsWrap && data.features) {
+    featsWrap.innerHTML = data.features
+      .map((f) => `<li><i></i><span>${f}</span></li>`)
+      .join('');
+  }
+
+  // Problem & Solution
+  const probEl = document.getElementById('projModalProblem');
+  const probBlock = document.getElementById('projModalProblemBlock');
+  if (probEl && probBlock) {
+    if (data.problem) {
+      probEl.textContent = data.problem;
+      probBlock.style.display = '';
+    } else {
+      probBlock.style.display = 'none';
+    }
+  }
+
+  // My Contribution
+  const contribEl = document.getElementById('projModalContrib');
+  const contribBlock = document.getElementById('projModalContribBlock');
+  if (contribEl && contribBlock) {
+    if (data.contrib) {
+      contribEl.textContent = data.contrib;
+      contribBlock.style.display = '';
+    } else {
+      contribBlock.style.display = 'none';
+    }
+  }
+
+  // GitHub repository link
+  const ghBtn = document.getElementById('projModalGithub');
+  if (ghBtn) {
+    ghBtn.href = data.github || 'https://github.com/lokeshkumar143';
+  }
+
+  // Artwork preview
+  const imgPreview = document.getElementById('projModalImg');
+  if (imgPreview) {
+    imgPreview.src = `public/projects/${id}.png`;
+    imgPreview.alt = data.title;
+  }
+
+  sound.playClick(true);
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+  } else {
+    dialog.setAttribute('open', '');
+  }
+  document.body.classList.add('modal-open');
+}
+
 export function initProjectModal() {
   const dialog = document.getElementById('projModal');
   const closeBtn = document.getElementById('projModalClose');
   const deck = document.getElementById('galleryDeck');
   if (!dialog || !deck) return;
-
-  function open(id) {
-    const data = PROJECT_DETAILS[id] || PROJECT_DETAILS.p01_timeless;
-
-    // Fill content
-    document.getElementById('projModalTag').textContent = data.tag;
-    document.getElementById('projModalTitle').textContent = data.title;
-    document.getElementById('projModalSubtitle').textContent = data.subtitle;
-    document.getElementById('projModalDesc').textContent = data.desc;
-
-    // Pills
-    const pillsWrap = document.getElementById('projModalPills');
-    if (pillsWrap) {
-      pillsWrap.innerHTML = data.tech
-        .map((t) => `<span class="proj-modal__pill">${t}</span>`)
-        .join('');
-    }
-
-    // Metrics
-    const metricsWrap = document.getElementById('projModalMetrics');
-    if (metricsWrap) {
-      metricsWrap.innerHTML = data.metrics
-        .map(
-          (m) =>
-            `<div class="proj-modal__metric"><b>${m.val}</b><small>${m.label}</small></div>`
-        )
-        .join('');
-    }
-
-    // Features
-    const featsWrap = document.getElementById('projModalFeatures');
-    if (featsWrap) {
-      featsWrap.innerHTML = data.features
-        .map((f) => `<li><i></i><span>${f}</span></li>`)
-        .join('');
-    }
-
-    // Problem & Solution
-    const probEl = document.getElementById('projModalProblem');
-    const probBlock = document.getElementById('projModalProblemBlock');
-    if (probEl && probBlock) {
-      if (data.problem) {
-        probEl.textContent = data.problem;
-        probBlock.style.display = '';
-      } else {
-        probBlock.style.display = 'none';
-      }
-    }
-
-    // My Contribution
-    const contribEl = document.getElementById('projModalContrib');
-    const contribBlock = document.getElementById('projModalContribBlock');
-    if (contribEl && contribBlock) {
-      if (data.contrib) {
-        contribEl.textContent = data.contrib;
-        contribBlock.style.display = '';
-      } else {
-        contribBlock.style.display = 'none';
-      }
-    }
-
-    // GitHub repository link
-    const ghBtn = document.getElementById('projModalGithub');
-    if (ghBtn) {
-      ghBtn.href = data.github || 'https://github.com/lokeshkumar143';
-    }
-
-    // Artwork preview
-    const imgPreview = document.getElementById('projModalImg');
-    if (imgPreview) {
-      imgPreview.src = `public/projects/${id}.png`;
-      imgPreview.alt = data.title;
-    }
-
-    sound.playClick(true);
-    if (typeof dialog.showModal === 'function') {
-      dialog.showModal();
-    } else {
-      dialog.setAttribute('open', '');
-    }
-    document.body.classList.add('modal-open');
-  }
 
   function close() {
     sound.playClick(false);
@@ -331,7 +337,7 @@ export function initProjectModal() {
     const card = e.target.closest('.g-card');
     if (!card) return;
     const cardId = card.querySelector('img')?.getAttribute('src')?.split('/')?.pop()?.replace('.png', '');
-    if (cardId) open(cardId);
+    if (cardId) openProjectModal(cardId);
   });
 
   if (closeBtn) closeBtn.addEventListener('click', close);

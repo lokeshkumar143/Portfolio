@@ -296,6 +296,16 @@ body.has-custom-cursor button {
   flex-direction: column;
   gap: 16px;
   pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.is-settled .chapter-rail,
+.is-cues .chapter-rail {
+  opacity: 1;
+}
+.is-booting .chapter-rail {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .chapter-item {

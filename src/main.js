@@ -72,9 +72,12 @@ async function main() {
     return degrade('media manifest missing');
   }
 
-  const steps = 4;
+  const steps = 3;
   let done = 0;
-  const tick = () => { bootFill.style.width = `${(++done / steps) * 100}%`; };
+  const tick = () => {
+    done++;
+    bootFill.style.width = `${Math.min(100, Math.round((done / steps) * 100))}%`;
+  };
 
   const startedAt = performance.now();
 
@@ -124,8 +127,19 @@ async function main() {
   initDeviceShowcase();
   initGitHub();
 
-  if (!playing) return awaitGesture();
   begin();
+
+  if (!playing) {
+    const unlock = () => {
+      app.clips.hero.play().catch(() => {});
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+      window.removeEventListener('scroll', unlock);
+    };
+    window.addEventListener('pointerdown', unlock, { once: true });
+    window.addEventListener('keydown', unlock, { once: true });
+    window.addEventListener('scroll', unlock, { once: true });
+  }
 }
 
 function begin() {
@@ -168,11 +182,20 @@ function begin() {
 
 /** Autoplay was refused — offer a single deliberate entry point. */
 function awaitGesture() {
+  const bar = document.querySelector('.boot__bar');
+  if (bar) bar.style.display = 'none';
   bootEnter.hidden = false;
-  bootEnter.addEventListener('click', async () => {
-    await app.clips.hero.play();
+  const unlock = async () => {
+    window.removeEventListener('pointerdown', unlock);
+    window.removeEventListener('keydown', unlock);
+    window.removeEventListener('scroll', unlock);
+    await app.clips.hero.play().catch(() => {});
     begin();
-  }, { once: true });
+  };
+  window.addEventListener('pointerdown', unlock, { once: true });
+  window.addEventListener('keydown', unlock, { once: true });
+  window.addEventListener('scroll', unlock, { once: true });
+  bootEnter.addEventListener('click', unlock, { once: true });
 }
 
 // --------------------------------------------------------------------------
@@ -263,7 +286,9 @@ function renderStill() {
   app.stage.render(state, T.settled + 1, app.clips);
 }
 
-const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+function wait(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
 function debounce(fn, ms) {
   let id;
