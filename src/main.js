@@ -25,6 +25,8 @@ import { initGitHub } from './scene/github.js';
 import { initParticles } from './scene/particles.js';
 import { initDynamicIsland } from './scene/dynamicIsland.js';
 import { initSpatialHUD } from './scene/spatialHUD.js';
+import { initUniversalTilt } from './scene/tilt.js';
+import { initMagicalReveal } from './scene/magicalReveal.js';
 
 // a cinematic page manages its own positions; the browser restoring an old
 // scroll offset mid-boot yanks the visitor (and any scripted anchor) around
@@ -63,6 +65,8 @@ async function main() {
   initDynamicIsland();
   initSpatialHUD();
   initParticles();
+  initUniversalTilt();
+  initMagicalReveal();
 
   const canvas = document.getElementById('stage');
   app.stage = new Stage(canvas);

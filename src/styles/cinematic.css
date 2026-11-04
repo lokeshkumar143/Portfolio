@@ -2900,3 +2900,290 @@ body.has-custom-cursor button {
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   Universal Interactive 3D Cursor Tilt & Gyroscopic Parallax
+   Recreates the floating 3D universe physics from Scene 02 across all sections
+   ========================================================================== */
+.about-narrative__grid,
+.about-narrative__card,
+.skills-grid,
+.dev-grid,
+.dev-showcase__body,
+.dev-phone-wrap,
+.gh-grid {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* 3D Dynamic Card Tilt Physics */
+.has-3d-tilt {
+  transform-style: preserve-3d !important;
+  will-change: transform;
+  transform: perspective(1000px)
+             rotateX(var(--rx, 0deg))
+             rotateY(var(--ry, 0deg))
+             translateZ(var(--tz, 0px)) !important;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease !important;
+}
+
+.has-3d-tilt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle 340px at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 80, 50, 0.18),
+    transparent 72%
+  );
+  opacity: var(--glare-op, 0);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: opacity 0.22s ease;
+  z-index: 10;
+}
+
+/* Elevated glass styling for About section responsibility cards */
+.about-item {
+  position: relative;
+  background: rgba(14, 11, 16, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 20px 22px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.about-item:hover {
+  border-color: rgba(255, 75, 45, 0.6);
+  background: rgba(24, 16, 22, 0.88);
+  box-shadow: 0 14px 38px rgba(255, 50, 30, 0.25);
+}
+
+/* ==========================================================================
+   Magical One-By-One Progressive Reveal Styles
+   Powers sequential card ignitions, radiant pulses, and spring materializations
+   ========================================================================== */
+
+/* 1. About Items */
+.about-item {
+  opacity: 0;
+  transform: translateY(32px) scale(0.92);
+  filter: blur(8px);
+  will-change: transform, opacity, filter, box-shadow;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.4s ease,
+              border-color 0.35s ease,
+              box-shadow 0.45s ease;
+}
+
+.about-item.magical-igniting {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(-4px) scale(1.04);
+  border-color: rgba(255, 120, 70, 0.95);
+  box-shadow: 0 0 32px rgba(255, 75, 45, 0.8), 0 0 60px rgba(255, 120, 50, 0.4);
+}
+
+.about-item.magical-revealed {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0) scale(1);
+}
+
+/* 2. Skills Monolith Cards */
+.sk-card {
+  opacity: 0;
+  transform: translateY(36px) scale(0.94);
+  filter: blur(8px);
+  will-change: transform, opacity, filter, box-shadow;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.45s ease,
+              border-color 0.35s ease,
+              box-shadow 0.45s ease;
+}
+
+.sk-card.magical-igniting {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(-6px) scale(1.03);
+  border-color: rgba(255, 130, 75, 0.95);
+  box-shadow: 0 0 40px rgba(255, 75, 45, 0.85), 0 0 70px rgba(255, 120, 60, 0.45);
+}
+
+.sk-card.magical-revealed {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0) scale(1);
+}
+
+/* Internal Skill Chips Cascade */
+.sk-chip {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.sk-chip.magical-chip-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 3. Devices Showcase Elements */
+.dev-phone {
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  filter: blur(10px);
+  will-change: transform, opacity, filter;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s ease;
+}
+
+.dev-phone.magical-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.dev-phone__island.is-pulsing {
+  animation: islandMagicalPulse 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+@keyframes islandMagicalPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(76, 217, 100, 0); }
+  50% { transform: scale(1.22); box-shadow: 0 0 25px rgba(76, 217, 100, 0.8), 0 0 50px rgba(255, 75, 45, 0.4); }
+  100% { transform: scale(1); box-shadow: 0 0 0 rgba(76, 217, 100, 0); }
+}
+
+.dev-tab {
+  opacity: 0;
+  transform: translateX(-16px) scale(0.92);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
+}
+
+.dev-tab.magical-igniting {
+  opacity: 1;
+  transform: translateX(4px) scale(1.05);
+  border-color: rgba(255, 130, 80, 0.9);
+  box-shadow: 0 0 24px rgba(255, 75, 45, 0.7);
+}
+
+.dev-tab.magical-revealed {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.dev-details {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dev-details.magical-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 4. Featured Projects */
+.proj-card {
+  opacity: 0;
+  transform: translateY(35px) scale(0.96);
+  filter: blur(6px);
+  will-change: transform, opacity, filter, box-shadow;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s ease,
+              border-color 0.4s ease,
+              box-shadow 0.5s ease;
+}
+
+.proj-card.magical-igniting {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(255, 120, 70, 0.9);
+  box-shadow: 0 0 45px rgba(255, 75, 45, 0.75), 0 0 90px rgba(255, 100, 50, 0.35);
+}
+
+.proj-card.magical-revealed {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0) scale(1);
+}
+
+/* 5. GitHub Cards */
+.gh-card {
+  opacity: 0;
+  transform: translateY(28px) scale(0.92);
+  filter: blur(6px);
+  will-change: transform, opacity, filter;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.35s ease,
+              border-color 0.3s ease,
+              box-shadow 0.4s ease;
+}
+
+.gh-card.magical-igniting {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(-4px) scale(1.04);
+  border-color: rgba(255, 130, 80, 0.9);
+  box-shadow: 0 0 30px rgba(255, 75, 45, 0.75);
+}
+
+.gh-card.magical-revealed {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0) scale(1);
+}
+
+/* 6. Hero Cascading Elements */
+.welcome__kicker,
+.welcome__tagline {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+.welcome__kicker.magical-revealed,
+.welcome__tagline.magical-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.welcome__tech .tech-pill {
+  opacity: 0;
+  transform: translateY(10px) scale(0.88);
+  transition: opacity 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.welcome__tech .tech-pill.magical-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.hero-btns .hero-btn {
+  opacity: 0;
+  transform: translateY(16px) scale(0.92);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+}
+
+.hero-btns .hero-btn.magical-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+

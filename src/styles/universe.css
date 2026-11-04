@@ -179,13 +179,65 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 14px rgba(255, 50, 30, 0.1);
   cursor: pointer;
   user-select: none;
-  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1),
+  will-change: transform, opacity, filter, box-shadow;
+
+  /* Start hidden in the deep cosmos for magical one-by-one ignition */
+  opacity: 0;
+  transform: translateY(28px) scale(0.72) translateZ(-40px);
+  filter: blur(10px);
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.45s ease,
+              filter 0.45s ease,
               border-color 0.3s ease,
               background 0.3s ease,
-              box-shadow 0.35s ease;
+              box-shadow 0.45s ease;
+}
+
+/* Magical Radiant Burst on Entrance */
+.uni-node::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 140, 70, 0.9), rgba(255, 50, 30, 0.4), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 0;
+}
+
+/* 1. Ignition State: The moment of magical spark & materialization */
+.uni-node.is-igniting {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(-6px) scale(1.10) translateZ(30px);
+  border-color: rgba(255, 160, 80, 0.95);
+  background: rgba(38, 16, 20, 0.95);
+  box-shadow: 0 0 35px rgba(255, 75, 45, 0.95), 0 0 75px rgba(255, 140, 60, 0.5), inset 0 0 20px rgba(255, 100, 60, 0.35);
+  pointer-events: auto;
+}
+.uni-node.is-igniting::before {
+  opacity: 1;
+  animation: magicalSparkFlash 0.45s ease-out forwards;
+}
+
+@keyframes magicalSparkFlash {
+  0% { opacity: 0; transform: scale(0.6); }
+  40% { opacity: 1; transform: scale(1.18); }
+  100% { opacity: 0; transform: scale(1.45); }
+}
+
+/* 2. Settled Revealed State: Floating steadily in the constellation */
+.uni-node.is-revealed {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0) scale(1) translateZ(0);
+  border-color: rgba(255, 60, 40, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.75), 0 0 14px rgba(255, 50, 30, 0.12);
+  pointer-events: auto;
   animation: uniNodeFloat 4.2s ease-in-out infinite alternate;
   animation-delay: calc(var(--d) * 0.45s);
-  will-change: transform;
 }
 
 .uni-cluster--left .uni-node:hover {

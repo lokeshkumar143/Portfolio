@@ -192,6 +192,26 @@ class SoundEngine {
     } catch {}
   }
 
+  playChime(index = 0) {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const pentatonic = [523.25, 587.33, 659.25, 783.99, 880.0, 1046.50, 1174.66, 1318.51, 1567.98, 1760.0];
+      const freq = pentatonic[index % pentatonic.length];
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.008, now + 0.24);
+      gain.gain.setValueAtTime(0.045, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.24);
+      osc.connect(gain);
+      gain.connect(this.fxGain);
+      osc.start(now);
+      osc.stop(now + 0.24);
+    } catch {}
+  }
+
   playSpatialBoot() {
     if (this.muted || !this.initialized || !this.ctx) return;
     try {
