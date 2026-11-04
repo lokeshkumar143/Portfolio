@@ -170,16 +170,53 @@ vec4 sampleClip(vec2 uv){
 
 void main(){
   vec4 s = sampleClip(vUV);
-  float a = s.a;
-  if(a <= 0.035) discard;
+  // Alpha choke: contract soft 1-2px edge to eliminate white studio cyclorama spill
+  float a = smoothstep(0.10, 0.94, s.a);
+  if(a <= 0.040) discard;
   
-  // Defringe: un-premultiply with floor and soften boundary luminance to eliminate white halo
-  vec3 col = s.rgb / max(a, 0.20);
-  float edgeDefringe = smoothstep(0.035, 0.50, a);
-  col = mix(col * edgeDefringe, col, edgeDefringe);
+  // Un-premultiply without blowing up boundary pixels
+  vec3 col = s.rgb / max(s.a, 0.35);
+
+  // -------------------------------------------------------------------------
+  // INNER HAND GAPS & OUTER SILHOUETTE STUDIO CYCLORAMA DEFRIEGING
+  // -------------------------------------------------------------------------
+  // 1. The only legitimate white clothing in the entire shot is the dress shirt
+  //    inside the suit jacket collar/chest.
+  bool inShirt = (vUV.x >= 0.42 && vUV.x <= 0.58 && vUV.y >= 0.17 && vUV.y <= 0.42);
+
+  // 2. Identify human skin tone (warm flesh: R noticeably exceeds B and G)
+  bool isSkin = (col.r - col.b > 0.11 && col.r > col.g * 0.92 && col.r > 0.28);
+
+  // 3. Luminance of this pixel
+  float l = dot(col, vec3(0.2126, 0.7152, 0.0722));
+
+  // 4. Studio cyclorama white leakage: high brightness without skin warmth, outside shirt
+  if (!inShirt && !isSkin) {
+    // Gap between hands/arms and torso
+    bool inArmGap = (vUV.x >= 0.24 && vUV.x <= 0.40 || vUV.x >= 0.60 && vUV.x <= 0.76)
+                 && (vUV.y >= 0.30 && vUV.y <= 0.68);
+    
+    // In the arm/hand gap, any bright pixels are cyclorama studio wall: punch transparent!
+    if (inArmGap && l > 0.36) {
+      a = 0.0;
+      discard;
+    }
+
+    // Outer silhouette white halo (trousers, cuffs, sleeves, shoulders):
+    // Neutral bright edge light from studio wall -> crush to dark charcoal suit
+    float whiteLeak = smoothstep(0.30, 0.62, l);
+    if (whiteLeak > 0.0) {
+      vec3 suitColor = vec3(0.038, 0.042, 0.048);
+      col = mix(col, suitColor, whiteLeak);
+      // Suppress the alpha fringe that caught the white studio wall
+      float edgeAlpha = 1.0 - smoothstep(0.40, 0.92, s.a);
+      a *= mix(1.0, 0.0, whiteLeak * edgeAlpha * 0.95);
+    }
+  }
+
+  if (a <= 0.040) discard;
 
   // --- grade -------------------------------------------------------------
-  float l = dot(col, vec3(0.2126, 0.7152, 0.0722));
   col = mix(vec3(l), col, 1.0 - uDesat);
   col = (col - 0.5) * uContrast + 0.5;
   col *= uExposure;
