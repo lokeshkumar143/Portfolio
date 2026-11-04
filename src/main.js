@@ -95,7 +95,7 @@ async function main() {
     }).then(tick),
   ]);
 
-  const mk = (name, loopFade) => {
+  const mk = (name, loopFade, loop = false) => {
     const c = manifest.clips[name];
     const src = [];
     if (c.mp4) src.push({ url: `${MEDIA}${c.mp4}${vStamp}`, type: 'video/mp4' });
@@ -103,10 +103,10 @@ async function main() {
     return new Clip({
       src,
       poster: `${MEDIA}${c.poster}${vStamp}`,
-      w: c.w, h: c.h, track: c.track, loopFade,
+      w: c.w, h: c.h, track: c.track, loopFade, loop,
     });
   };
-  app.clips.hero = mk('hero', 0.7);
+  app.clips.hero = mk('hero', 0.7, false);
 
   layout();
   window.addEventListener('resize', debounce(layout, 140));

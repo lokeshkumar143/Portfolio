@@ -1,25 +1,27 @@
 // Video playback for the packed-alpha clips.
 //
-// Two things every browser gets wrong if you do not handle them: autoplay can be
-// refused even for muted video, and a loop point on a walking figure snaps hard.
-// The seam is hidden by dissolving the figure into darkness across the wrap,
-// which reads as atmosphere rather than as a glitch.
+// Autoplay is handled gracefully with muted playsinline settings.
+// When loop=false, the video plays its full walk sequence once and permanently
+// settles and pauses on the final completed frame with full 100% opacity,
+// maintaining the hero's grounded, confident presence on the stage runway.
 
 export class Clip {
-  constructor({ src, poster, w, h, track, loopFade = 0.55 }) {
+  constructor({ src, poster, w, h, track, loopFade = 0.55, loop = false }) {
     this.w = w;
     this.h = h;
     this.track = track || null;
     this.loopFade = loopFade;
+    this.loop = !!loop;
     this.ready = false;
     this.needsUpload = false;
+    this.ended = false;
     this._lastTime = -1;
 
     const v = document.createElement('video');
     v.muted = true;
     v.defaultMuted = true;
     v.setAttribute('muted', '');
-    v.loop = true;
+    v.loop = this.loop;
     v.playsInline = true;
     v.setAttribute('playsinline', '');
     v.setAttribute('webkit-playsinline', '');
@@ -39,6 +41,25 @@ export class Clip {
     v.addEventListener('loadedmetadata', () => { this.duration = v.duration; });
     v.addEventListener('canplay', () => { this.ready = true; });
     v.addEventListener('loadeddata', () => { this.ready = true; });
+
+    // Handle single-play completion: pause on the final frame without looping back
+    const onEnd = () => {
+      if (!this.loop) {
+        this.ended = true;
+        v.pause();
+        if (this.duration > 0.05) {
+          v.currentTime = Math.max(0, this.duration - 0.03);
+        }
+      }
+    };
+
+    v.addEventListener('ended', onEnd);
+    v.addEventListener('timeupdate', () => {
+      if (!this.loop && this.duration > 0.1 && v.currentTime >= this.duration - 0.04) {
+        onEnd();
+      }
+    });
+
     v.load();
   }
 
@@ -74,6 +95,7 @@ export class Clip {
     try {
       this.el.muted = true;
       this.el.defaultMuted = true;
+      if (this.ended) return true;
       await this.el.play();
       return true;
     } catch {
@@ -104,6 +126,10 @@ export class Clip {
 
   /** 0..1 opacity that dips through the loop wrap so the cut is never seen. */
   seamFade() {
+    if (!this.loop) {
+      // Single-play mode: never fade out at the end, keep 100% full opacity on the completed frame
+      return 1;
+    }
     const d = this.duration;
     if (!d || !this.loopFade) return 1;
     const t = this.el.currentTime;
