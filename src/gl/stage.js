@@ -50,6 +50,10 @@ export class Stage {
     this.word = null;
     this.layout = null;
     this.parallax = { x: 0, y: 0 };
+    this.pointerScreen = [0.5, 0.5];
+    this.pointerActive = 0;
+    this.shockwave = 0;
+    this.shockwavePos = [0.5, 0.5];
     // exposed so the distressing can be dialled in against the reference art
     this.wear = 0.44;
     this.wearGain = 2.1;
@@ -130,6 +134,8 @@ export class Stage {
       gl.uniform1f(p.u.uEmber, state.ember);
       gl.uniform1f(p.u.uAspect, aspect);
       gl.uniform2f(p.u.uEmberAt, this.layout.ember.x, this.layout.ember.y);
+      if (p.u.uPointer) gl.uniform2f(p.u.uPointer, this.pointerScreen[0], this.pointerScreen[1]);
+      if (p.u.uPointerActive) gl.uniform1f(p.u.uPointerActive, this.pointerActive);
       this._quad(p, [0, 0, W, H]);
     }
 
@@ -151,6 +157,11 @@ export class Stage {
       gl.uniform2f(p.u.uGrungeOffset, 0.12, 0.31);
       gl.uniform1f(p.u.uWear, this.wear);
       gl.uniform1f(p.u.uWearGain, this.wearGain);
+      if (p.u.uPointer) gl.uniform2f(p.u.uPointer, this.pointerScreen[0], this.pointerScreen[1]);
+      if (p.u.uPointerActive) gl.uniform1f(p.u.uPointerActive, this.pointerActive);
+      if (p.u.uAspect) gl.uniform1f(p.u.uAspect, aspect);
+      if (p.u.uShockwave) gl.uniform1f(p.u.uShockwave, this.shockwave);
+      if (p.u.uShockwavePos) gl.uniform2f(p.u.uShockwavePos, this.shockwavePos[0], this.shockwavePos[1]);
 
       for (let i = 0; i < this.word.letters.length; i++) {
         const L = this.word.letters[i];
@@ -259,6 +270,9 @@ export class Stage {
     gl.uniform1f(p.u.uFloorY, 0.845);
     const { word, h } = this.layout;
     gl.uniform2f(p.u.uBand, word.y / h, (word.y + word.h) / h);
+    if (p.u.uPointer) gl.uniform2f(p.u.uPointer, this.pointerScreen[0], this.pointerScreen[1]);
+    if (p.u.uPointerActive) gl.uniform1f(p.u.uPointerActive, this.pointerActive);
+    if (p.u.uAspect) gl.uniform1f(p.u.uAspect, this.res[0] / this.res[1]);
     this._quad(p, geo.rect, [0, 0, 1, 1], skew);
   }
 }

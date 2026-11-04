@@ -22,6 +22,9 @@ import { initHUD } from './scene/hud.js';
 import { initProjectModal } from './scene/projectModal.js';
 import { initDeviceShowcase } from './scene/deviceShowcase.js';
 import { initGitHub } from './scene/github.js';
+import { initParticles } from './scene/particles.js';
+import { initDynamicIsland } from './scene/dynamicIsland.js';
+import { initSpatialHUD } from './scene/spatialHUD.js';
 
 // a cinematic page manages its own positions; the browser restoring an old
 // scroll offset mid-boot yanks the visitor (and any scripted anchor) around
@@ -57,6 +60,9 @@ async function main() {
   initSoundUI();
   initHUD();
   initProjectModal();
+  initDynamicIsland();
+  initSpatialHUD();
+  initParticles();
 
   const canvas = document.getElementById('stage');
   app.stage = new Stage(canvas);
@@ -225,10 +231,28 @@ function bindPointer() {
     // deliberately small — depth, not a toy
     app.pointer.tx = (e.clientX / window.innerWidth) * 2 - 1;
     app.pointer.ty = (e.clientY / window.innerHeight) * 2 - 1;
+
+    // Direct screen-space pointer for real-time specular spotlight
+    if (app.stage) {
+      app.stage.pointerScreen[0] = e.clientX / window.innerWidth;
+      app.stage.pointerScreen[1] = e.clientY / window.innerHeight;
+      app.stage.pointerActive = 1.0;
+    }
   }, { passive: true });
+
   window.addEventListener('pointerleave', () => {
     app.pointer.tx = 0;
     app.pointer.ty = 0;
+    if (app.stage) app.stage.pointerActive = 0.0;
+  });
+
+  // Stage click shockwave ripple
+  window.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('button, a, input, select, textarea, .dev-modal, .proj-modal, .dynamic-island, .spatial-hud')) return;
+    if (app.stage) {
+      app.stage.shockwave = 0.02;
+      app.stage.shockwavePos = [e.clientX / window.innerWidth, e.clientY / window.innerHeight];
+    }
   });
 }
 
@@ -253,6 +277,12 @@ function frame(now) {
   const gate = clamp((t - T.settled + 0.9) / 1.2);
   app.stage.parallax.x = p.x * gate;
   app.stage.parallax.y = p.y * gate;
+
+  // Progress shockwave ripple
+  if (app.stage && app.stage.shockwave > 0) {
+    app.stage.shockwave += dt * 1.6;
+    if (app.stage.shockwave >= 1.0) app.stage.shockwave = 0;
+  }
 
   const state = sample(t, app.word.letters.length, app.order);
 

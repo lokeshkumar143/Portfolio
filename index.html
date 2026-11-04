@@ -78,12 +78,57 @@
       </nav>
 
       <div class="hdr__meta">
-        <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false" aria-label="Toggle cinematic audio">
-          <span class="sound-btn__bars" aria-hidden="true">
-            <i></i><i></i><i></i>
-          </span>
-          <span class="sound-btn__label">Audio: Off</span>
-        </button>
+        <div class="hdr__metaRow">
+          <!-- Apple Dynamic Island Telemetry -->
+          <div class="dynamic-island" id="dynamicIsland" role="region" aria-label="Apple Silicon Neural Engine Telemetry">
+            <div class="di-idle" tabindex="0" role="button" aria-label="Expand Apple Silicon Mission Control">
+              <span class="di-led" aria-hidden="true"></span>
+              <span class="di-title"> Apple Silicon · CoreML Active</span>
+              <span class="di-badge">Swift 6.0</span>
+            </div>
+            <div class="di-expanded">
+              <div class="di-header">
+                <div class="di-badge-group">
+                  <span class="di-pill di-pill--apple"> A18 Pro / M4</span>
+                  <span class="di-pill di-pill--coreml">Neural Engine Active</span>
+                </div>
+                <button class="di-close" id="diCloseBtn" type="button" aria-label="Close Island">&times;</button>
+              </div>
+              <div class="di-body">
+                <div class="di-metric">
+                  <span class="di-label">Inference Latency</span>
+                  <span class="di-val di-val--cyan">3.8 ms</span>
+                </div>
+                <div class="di-metric">
+                  <span class="di-label">Active CoreML Model</span>
+                  <span class="di-val">RecovFit · PoseNet v2</span>
+                </div>
+                <div class="di-waveform" id="diWaveform" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+              </div>
+              <div class="di-actions">
+                <button type="button" class="di-act-btn js-toggle-spatial">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  <span>VisionOS Spatial HUD</span>
+                </button>
+                <button type="button" class="di-act-btn di-act-btn--sub js-goto-devices">
+                  <span>Simulate iPhone</span>
+                </button>
+                <button type="button" class="di-act-btn di-act-btn--sub js-open-contact">
+                  <span>Ping Lokesh</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false" aria-label="Toggle cinematic audio">
+            <span class="sound-btn__bars" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </span>
+            <span class="sound-btn__label">Audio: Off</span>
+          </button>
+        </div>
         <span class="hdr__metaLabel">Vellore, TN · MMXXVI</span>
         <span class="hdr__pips" aria-hidden="true"><i></i><i></i><i></i></span>
       </div>
@@ -124,6 +169,14 @@
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
           </svg>
         </a>
+        <button type="button" class="hero-btn hero-btn--spatial js-open-spatial" aria-label="Open Apple VisionOS Spatial HUD">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+            <path d="M2 12h20"/>
+          </svg>
+          <span>⌘ Spatial Mode</span>
+        </button>
         <a href="https://github.com/lokeshkumar143" target="_blank" rel="me" class="hero-btn hero-btn--social"
           aria-label="GitHub Profile">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -176,6 +229,115 @@
       <button class="boot__enter" id="bootEnter" hidden>
         <span>Enter</span>
       </button>
+    </div>
+
+    <!-- Apple VisionOS Spatial Computing HUD Overlay -->
+    <div class="spatial-hud" id="spatialHUD" aria-label="Apple VisionOS Spatial Computing HUD" aria-hidden="true">
+      <div class="spatial-hud__bar">
+        <div class="spatial-hud__barLeft">
+          <span class="spatial-badge"> VISIONOS SPATIAL ARCHITECTURE</span>
+          <span class="spatial-tag">SWIFT 6 & APPLIED AI TELEMETRY</span>
+        </div>
+        <div class="spatial-hud__barRight">
+          <span class="spatial-hud__keyHint">Press <kbd>ESC</kbd> to exit</span>
+          <button type="button" class="spatial-hud__close" id="spatialCloseBtn" aria-label="Exit Spatial Mode">&times;</button>
+        </div>
+      </div>
+
+      <div class="spatial-hud__content">
+        <!-- Left Panel: Swift 6 Core Architecture -->
+        <div class="spatial-panel spatial-panel--left">
+          <div class="spatial-panel__glass">
+            <div class="spatial-panel__header">
+              <span class="spatial-pill spatial-pill--swift">Swift 6.0</span>
+              <span class="spatial-panel__title">RecovFit · Kinematics Pipeline</span>
+            </div>
+            <pre class="spatial-code" id="spatialSwiftCode"><code><span class="kw">import</span> <span class="mod">SwiftUI</span>
+<span class="kw">import</span> <span class="mod">CoreML</span>
+<span class="kw">import</span> <span class="mod">Accelerate</span>
+
+<span class="attr">@Observable</span> <span class="kw">final class</span> <span class="type">KinematicTracker</span> {
+    <span class="attr">@ObservationIgnored</span>
+    <span class="kw">private let</span> neuralEngine = <span class="kw">try</span>? <span class="type">RecovFitPoseNet</span>()
+    <span class="kw">var</span> currentAngle: <span class="type">Double</span> = <span class="num">114.2</span>
+    <span class="kw">var</span> confidence: <span class="type">Float</span> = <span class="num">0.994</span>
+
+    <span class="kw">func</span> <span class="fn">processFrame</span>(<span class="param">_</span> buffer: <span class="type">CVPixelBuffer</span>) <span class="kw">async</span> {
+        <span class="kw">guard let</span> output = <span class="kw">try</span>? <span class="kw">await</span> neuralEngine?.prediction(image: buffer) <span class="kw">else</span> { <span class="kw">return</span> }
+        <span class="kw">await</span> <span class="type">MainActor</span>.run {
+            <span class="kw">self</span>.currentAngle = output.jointAngle
+            <span class="kw">self</span>.confidence = output.confidence
+        }
+    }
+}</code></pre>
+            <div class="spatial-panel__footer">
+              <button type="button" class="spatial-copy-btn" id="spatialCopySwiftBtn">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copy Swift 6 Snippet</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Apple Neural Engine Diagnostics -->
+        <div class="spatial-panel spatial-panel--right">
+          <div class="spatial-panel__glass">
+            <div class="spatial-panel__header">
+              <span class="spatial-pill spatial-pill--ane">Apple Neural Engine</span>
+              <span class="spatial-panel__title">Live Telemetry & Diagnostics</span>
+            </div>
+            <div class="spatial-telemetry">
+              <div class="spatial-meter">
+                <div class="spatial-meter__row">
+                  <span>Inference Throughput</span>
+                  <b class="spatial-val--cyan">248 FPS (3.8ms)</b>
+                </div>
+                <div class="spatial-bar"><i style="width: 86%;"></i></div>
+              </div>
+              <div class="spatial-meter">
+                <div class="spatial-meter__row">
+                  <span>Compute Allocation</span>
+                  <b class="spatial-val--green">16-Core ANE Exclusive</b>
+                </div>
+                <div class="spatial-bar"><i style="width: 94%;"></i></div>
+              </div>
+              <div class="spatial-meter">
+                <div class="spatial-meter__row">
+                  <span>Quantization Scheme</span>
+                  <b>FP16 / INT8 Mixed Precision</b>
+                </div>
+                <div class="spatial-bar"><i style="width: 100%;"></i></div>
+              </div>
+              <div class="spatial-spec-grid">
+                <div class="spatial-spec-box">
+                  <span class="spatial-spec-label">Engine</span>
+                  <span class="spatial-spec-val">A18 Pro / M4</span>
+                </div>
+                <div class="spatial-spec-box">
+                  <span class="spatial-spec-label">Thermal Load</span>
+                  <span class="spatial-spec-val">Nominal (1.2W)</span>
+                </div>
+                <div class="spatial-spec-box">
+                  <span class="spatial-spec-label">Location</span>
+                  <span class="spatial-spec-val">Vellore, IN</span>
+                </div>
+                <div class="spatial-spec-box">
+                  <span class="spatial-spec-label">Coordinates</span>
+                  <span class="spatial-spec-val">12.91°N 79.13°E</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Holographic Interactive Reticle -->
+      <div class="spatial-reticle" id="spatialReticle" aria-hidden="true">
+        <div class="spatial-reticle__ring"></div>
+        <div class="spatial-reticle__cross"></div>
+        <span class="spatial-reticle__tag">LOKESH KUMAR S. · TARGET LOCKED</span>
+        <span class="spatial-reticle__coords" id="spatialCoords">X:0.000 Y:0.000 · ANE:SYNC</span>
+      </div>
     </div>
 
     <noscript>

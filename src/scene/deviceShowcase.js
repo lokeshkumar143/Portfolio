@@ -270,6 +270,15 @@ export function initDeviceShowcase() {
     // Update phone screen
     if (screenContainer) {
       screenContainer.innerHTML = data.screenHtml;
+      // Make simulated tab bar interactive with haptic audio feedback
+      screenContainer.querySelectorAll('.ios-tab-bar span').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          e.stopPropagation();
+          screenContainer.querySelectorAll('.ios-tab-bar span').forEach(t => t.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          sound.playHapticClick();
+        });
+      });
     }
 
     // Update dynamic island

@@ -38,6 +38,8 @@ uniform float uTime;
 uniform float uEmber;      // 0..1 glow behind the type
 uniform vec2  uEmberAt;    // normalised centre
 uniform float uAspect;
+uniform vec2  uPointer;
+uniform float uPointerActive;
 out vec4 frag;
 
 void main(){
@@ -50,6 +52,13 @@ void main(){
   vec2 d = (p - uEmberAt) * vec2(uAspect, 1.0);
   float ember = exp(-dot(d, d) * 2.4);
   col += vec3(0.115, 0.012, 0.014) * ember * uEmber;
+
+  // Interactive dynamic cursor ambient glow
+  if (uPointerActive > 0.001) {
+    vec2 dp = (p - uPointer) * vec2(uAspect, 1.0);
+    float cursorGlow = exp(-dot(dp, dp) * 10.0) * uPointerActive;
+    col += vec3(0.065, 0.010, 0.014) * cursorGlow;
+  }
 
   vec2 v = (p - 0.5) * vec2(uAspect, 1.0);
   float vig = 1.0 - smoothstep(0.38, 1.15, length(v));
@@ -79,6 +88,11 @@ uniform float uSoften;      // simulated defocus while materialising
 uniform float uEdgeLight;
 uniform float uWear;        // how distressed the paint is
 uniform float uWearGain;    // contrast of the wear pattern
+uniform vec2  uPointer;     // screen-space pointer 0..1
+uniform float uPointerActive;// 0..1
+uniform float uAspect;
+uniform float uShockwave;   // 0..1 click ripple
+uniform vec2  uShockwavePos;// ripple origin
 out vec4 frag;
 
 // Directional smear along the axis the letter is travelling. Blurring in x too
@@ -117,6 +131,29 @@ void main(){
   float lift = smoothstep(0.0, 0.22, 1.0 - vLocal.y);
   col += uInk * lift * uEdgeLight * 0.28;
 
+  // Interactive dynamic spotlight & iridescent specular glint
+  if (uPointerActive > 0.001) {
+    vec2 dP = (vScreen - uPointer) * vec2(uAspect, 1.0);
+    float pDist = length(dP);
+    float spot = exp(-pDist * pDist * 20.0) * uPointerActive;
+    float wideSpot = exp(-pDist * pDist * 4.8) * uPointerActive;
+    float flare = exp(-abs(dP.y) * 55.0) * exp(-dP.x * dP.x * 2.8) * uPointerActive;
+    
+    // Distressed scratches catch the dynamic light with rich gold/crimson metallic sheen
+    float glint = pow(wear, 2.2) * spot * 2.6;
+    vec3 specCol = vec3(1.0, 0.84, 0.48) * glint;
+    vec3 flareCol = vec3(1.0, 0.30, 0.22) * flare * 0.48;
+    col += specCol + flareCol + uInk * wideSpot * 0.38;
+  }
+
+  // Interactive shockwave ring on click / tap
+  if (uShockwave > 0.001) {
+    vec2 dShock = (vScreen - uShockwavePos) * vec2(uAspect, 1.0);
+    float sDist = length(dShock);
+    float ring = smoothstep(0.05, 0.0, abs(sDist - uShockwave)) * (1.0 - uShockwave);
+    col += vec3(1.0, 0.45, 0.35) * ring * 1.35;
+  }
+
   // dissolve: threshold the texture so the letter emerges in flecks rather than
   // fading uniformly. n is the "appears last" field - low n surfaces first, so
   // the letter builds from its base upward through the worn grain.
@@ -153,6 +190,9 @@ uniform float uDesat;
 uniform vec2  uTexel;
 uniform float uFloorY;        // frame-space start of the glossy-floor band
 uniform vec2  uBand;          // wordmark cap-top / baseline in screen space
+uniform vec2  uPointer;
+uniform float uPointerActive;
+uniform float uAspect;
 out vec4 frag;
 
 // uv arrives in FRAME space (0..1 over the source video). That lets a figure be
@@ -228,6 +268,15 @@ void main(){
   float behindType = smoothstep(uBand.x - 0.04, uBand.x + 0.03, vScreen.y)
                    * (1.0 - smoothstep(uBand.y - 0.02, uBand.y + 0.05, vScreen.y));
   col += vec3(0.80, 0.10, 0.11) * uRimRed * edge * mix(0.12, 1.0, behindType);
+
+  // Interactive dynamic rim light tracking cursor angle
+  if (uPointerActive > 0.001) {
+    vec2 dirToMouse = (uPointer - vScreen) * vec2(uAspect, 1.0);
+    float distMouse = length(dirToMouse);
+    float mouseKey = exp(-distMouse * distMouse * 3.6) * uPointerActive;
+    float sideFactor = (dirToMouse.x > 0.0) ? (1.0 - vLocal.x) : vLocal.x;
+    col += vec3(0.95, 0.22, 0.16) * edge * mouseKey * (0.35 + 0.65 * sideFactor) * 0.65;
+  }
 
   col = max(col, vec3(0.0));
 
