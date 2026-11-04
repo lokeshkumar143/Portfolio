@@ -825,7 +825,7 @@ body.has-custom-cursor button {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
-    opacity: 0.2;
+  opacity: 0.2;
   transform: translateY(22px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1076,4 +1076,1013 @@ body.has-custom-cursor button {
   font-size: 12.5px;
   line-height: 1.6;
   color: #b8aba0;
+}
+
+/* ==========================================================================
+   Hero Tagline & Welcome Refinement
+   ========================================================================== */
+.welcome {
+  flex-direction: column;
+  gap: 0.45em;
+  text-align: center;
+}
+
+.welcome__kicker {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  white-space: nowrap;
+}
+
+.welcome__tagline {
+  margin: 0;
+  font-family: var(--ui);
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(235, 225, 215, 0.82);
+  text-transform: none;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  max-width: 640px;
+}
+
+/* ==========================================================================
+   Scene 02: About Me Narrative
+   ========================================================================== */
+.about-sec {
+  position: relative;
+  padding: clamp(80px, 10vh, 120px) clamp(20px, 4vw, 60px);
+  background: #060508;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-sec__inner {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.about-sec__header {
+  text-align: center;
+  margin-bottom: clamp(32px, 4.5vh, 56px);
+}
+
+.about-sec__over {
+  font-family: var(--ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #ff4830;
+  margin: 0 0 10px;
+}
+
+.about-sec__title {
+  margin: 0 0 14px;
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(24px, 3.2vw, 44px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f7ede2;
+}
+
+.about-sec__sub {
+  margin: 0;
+  font-family: var(--ui);
+  font-size: clamp(11px, 0.9vw, 13.5px);
+  color: rgba(200, 190, 180, 0.65);
+  letter-spacing: 0.08em;
+}
+
+.about-narrative {
+  position: relative;
+  z-index: 4;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.about-narrative__card {
+  background: rgba(12, 10, 16, 0.85);
+  border: 1px solid rgba(255, 60, 40, 0.22);
+  border-radius: 18px;
+  padding: clamp(24px, 3.5vw, 44px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), 0 0 30px rgba(255, 60, 40, 0.1);
+  text-align: left;
+}
+
+.about-narrative__badge {
+  display: inline-block;
+  font-family: var(--ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ff4830;
+  background: rgba(255, 72, 48, 0.12);
+  border: 1px solid rgba(255, 72, 48, 0.35);
+  border-radius: 9999px;
+  padding: 4px 12px;
+  margin-bottom: 16px;
+}
+
+.about-narrative__title {
+  margin: 0 0 16px;
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(20px, 2.2vw, 32px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.about-narrative__copy {
+  margin: 0 0 28px;
+  font-family: var(--ui);
+  font-size: clamp(12.5px, 1.05vw, 14.5px);
+  line-height: 1.7;
+  color: rgba(220, 210, 200, 0.82);
+}
+
+.about-narrative__copy strong {
+  color: #ff5545;
+  font-weight: 600;
+}
+
+.about-narrative__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 24px;
+}
+
+.about-item {
+  position: relative;
+}
+
+.about-item__num {
+  font-family: var(--disp);
+  font-size: 20px;
+  color: rgba(255, 72, 48, 0.5);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.about-item h4 {
+  margin: 0 0 8px;
+  font-family: var(--ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #f7ede2;
+}
+
+.about-item p {
+  margin: 0;
+  font-family: var(--ui);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: rgba(195, 185, 175, 0.7);
+}
+
+/* Featured visual emphasis on iOS Engineering card */
+.sk-card--featured {
+  border-color: rgba(255, 75, 45, 0.55);
+  background: rgba(22, 14, 22, 0.9);
+  box-shadow: 0 12px 36px rgba(255, 50, 30, 0.25), 0 0 24px rgba(255, 70, 40, 0.15);
+}
+
+.sk-card--featured .sk-card__glow {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Scene 05: Apple-Style Interactive Device Showcase
+   ========================================================================== */
+.dev-showcase {
+  position: relative;
+  padding: clamp(80px, 11vh, 140px) clamp(20px, 4vw, 60px);
+  background: radial-gradient(circle at 50% 30%, rgba(25, 20, 32, 0.7) 0%, #050406 80%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dev-showcase__header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(36px, 5vh, 64px);
+}
+
+.dev-showcase__over {
+  font-family: var(--ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #ff4830;
+  margin: 0 0 10px;
+}
+
+.dev-showcase__title {
+  margin: 0 0 14px;
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(24px, 3.2vw, 44px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f7ede2;
+}
+
+.dev-showcase__sub {
+  margin: 0;
+  font-family: var(--ui);
+  font-size: clamp(11px, 0.9vw, 13.5px);
+  color: rgba(200, 190, 180, 0.65);
+  letter-spacing: 0.08em;
+}
+
+.dev-showcase__nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: clamp(30px, 4vh, 50px);
+}
+
+.dev-tab {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 8px 20px;
+  font-family: var(--ui);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(220, 210, 200, 0.7);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dev-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.dev-tab.is-active {
+  background: #c92218;
+  border-color: #ff4830;
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(201, 34, 24, 0.4);
+}
+
+.dev-showcase__body {
+  display: grid;
+  grid-template-columns: minmax(300px, 380px) 1fr;
+  align-items: center;
+  gap: clamp(30px, 5vw, 80px);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 820px) {
+  .dev-showcase__body {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+/* Realistic iPhone 16 Pro Frame */
+.dev-phone-wrap {
+  perspective: 1200px;
+}
+
+.dev-phone {
+  position: relative;
+  width: 320px;
+  height: 650px;
+  background: #111015;
+  border-radius: 54px;
+  box-shadow:
+    0 0 0 4px #2b2832,
+    0 0 0 6px #1c1a22,
+    0 24px 60px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(255, 60, 40, 0.15);
+  padding: 12px;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+.dev-phone__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 54px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 40%, rgba(255, 255, 255, 0.02) 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.dev-phone__island {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 106px;
+  height: 28px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dev-phone__island-pill {
+  font-family: var(--ui);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent, #30d158);
+}
+
+.dev-phone__screen {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 44px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-top: 52px;
+}
+
+/* Native iOS App Simulator Styling */
+.ios-screen {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+}
+
+.ios-app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.ios-eyebrow {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #8e8e93;
+}
+
+.ios-app-title {
+  margin: 2px 0 0;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.ios-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3a3a3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ios-card {
+  background: #1c1c1e;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.ios-card__badge {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #8e8e93;
+  margin-bottom: 4px;
+}
+
+.ios-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ios-card__main {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.ios-card__sub {
+  margin: 3px 0 0;
+  font-size: 10px;
+  color: #8e8e93;
+}
+
+.ios-pill {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 9999px;
+}
+
+.ios-pill--green {
+  background: rgba(48, 209, 88, 0.2);
+  color: #30d158;
+}
+
+.ios-pill--purple {
+  background: rgba(191, 90, 242, 0.2);
+  color: #bf5af2;
+}
+
+.ios-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ios-stat-card {
+  background: #1c1c1e;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ios-stat-card__label {
+  font-size: 8.5px;
+  color: #8e8e93;
+  margin-bottom: 4px;
+}
+
+.ios-stat-card__val {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.ios-stat-card__tag {
+  font-size: 8px;
+  color: #30d158;
+}
+
+.ios-progress-bar {
+  height: 4px;
+  background: #2c2c2e;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ios-progress-bar i {
+  display: block;
+  height: 100%;
+  background: #30d158;
+  border-radius: 2px;
+}
+
+.ios-tab-bar {
+  margin-top: auto;
+  border-top: 1px solid #2c2c2e;
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 9px;
+  color: #8e8e93;
+}
+
+.ios-tab-bar .is-active {
+  color: #0a84ff;
+  font-weight: 600;
+}
+
+/* Audio / Urosonic Waveform Simulation */
+.ios-mic-indicator {
+  font-size: 9px;
+  color: #0a84ff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ios-mic-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0a84ff;
+  animation: pulseMic 1.2s infinite;
+}
+
+@keyframes pulseMic {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.6);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ios-flow-chart {
+  position: relative;
+  height: 75px;
+  margin: 6px 0;
+}
+
+.ios-chart-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ios-chart-marker {
+  position: absolute;
+  font-size: 9px;
+  font-weight: 700;
+  color: #64d2ff;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(10, 132, 255, 0.5);
+}
+
+/* Gamified DSA Phoenix UI */
+.ios-streak-pill {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #ff9f0a;
+  background: rgba(255, 159, 10, 0.15);
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.ios-mascot-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1c1c1e;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.ios-mascot-avatar {
+  font-size: 24px;
+}
+
+.ios-mascot-speech p {
+  margin: 0;
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: #e5e5ea;
+}
+
+.ios-tree-vis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.tree-branches {
+  display: flex;
+  gap: 28px;
+}
+
+.tree-branches--sub {
+  gap: 12px;
+}
+
+.tree-node {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2c2c2e;
+  border: 1px solid #3a3a3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8.5px;
+  font-weight: 600;
+}
+
+.tree-node--root {
+  background: #ff9f0a;
+  color: #000;
+  font-weight: 700;
+}
+
+.tree-node.is-active {
+  background: #30d158;
+  color: #000;
+}
+
+/* Dental Vision X-Ray Frame */
+.ios-xray-card {
+  background: #151518;
+  border-radius: 12px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.ios-xray-frame {
+  position: relative;
+  height: 90px;
+  background: #08080a;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ios-xray-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #bf5af2;
+  box-shadow: 0 0 8px #bf5af2;
+  animation: xrayScan 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes xrayScan {
+  from {
+    top: 4px;
+  }
+
+  to {
+    top: 84px;
+  }
+}
+
+.ios-xray-mask {
+  display: flex;
+  gap: 12px;
+}
+
+.ios-xray-tooth {
+  width: 20px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px 4px 10px 10px;
+}
+
+.ios-xray-tooth.is-target {
+  background: rgba(191, 90, 242, 0.35);
+  border: 1px solid #bf5af2;
+}
+
+.ios-xray-label {
+  position: absolute;
+  bottom: 4px;
+  font-size: 7.5px;
+  color: #8e8e93;
+}
+
+/* Device Details Column */
+.dev-details {
+  text-align: left;
+}
+
+.dev-details__category {
+  display: inline-block;
+  font-family: var(--ui);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ff4830;
+  margin-bottom: 8px;
+}
+
+.dev-details__title {
+  margin: 0 0 14px;
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(24px, 2.5vw, 36px);
+  color: #fff;
+  letter-spacing: 0.06em;
+}
+
+.dev-details__desc {
+  margin: 0 0 16px;
+  font-family: var(--ui);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(220, 210, 200, 0.8);
+}
+
+.dev-details__techBlock {
+  margin-bottom: 20px;
+}
+
+.dev-details__techBlock h5 {
+  margin: 0 0 6px;
+  font-family: var(--ui);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8e8e93;
+}
+
+.dev-details__tech {
+  font-family: var(--ui);
+  font-size: 12px;
+  color: #f7ede2;
+  font-weight: 600;
+}
+
+.dev-details__features {
+  margin: 0 0 28px;
+  padding-left: 18px;
+  font-family: var(--ui);
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(200, 190, 180, 0.75);
+}
+
+.dev-details__features li {
+  margin-bottom: 6px;
+}
+
+.dev-details__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dev-details__caseBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  background: #c92218;
+  border: 1px solid #ff4830;
+  color: #fff;
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(201, 34, 24, 0.4);
+  transition: all 0.25s ease;
+}
+
+.dev-details__caseBtn:hover {
+  background: #e6281e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 60, 40, 0.6);
+}
+
+.dev-details__ghBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.dev-details__ghBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Scene 07: Live GitHub Profile Architecture Hub
+   ========================================================================== */
+.gh-section {
+  position: relative;
+  padding: clamp(80px, 11vh, 130px) clamp(20px, 4vw, 60px);
+  background: #08070b;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gh-section__header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(36px, 5vh, 60px);
+}
+
+.gh-section__over {
+  font-family: var(--ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #ff4830;
+  margin: 0 0 10px;
+}
+
+.gh-section__title {
+  margin: 0 0 14px;
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(24px, 3.2vw, 44px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f7ede2;
+}
+
+.gh-section__sub {
+  margin: 0 0 14px;
+  font-family: var(--ui);
+  font-size: clamp(11px, 0.9vw, 13.5px);
+  color: rgba(200, 190, 180, 0.65);
+  letter-spacing: 0.08em;
+}
+
+.gh-section__profileBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  padding: 6px 16px;
+  transition: all 0.25s ease;
+}
+
+.gh-section__profileBadge:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 72, 48, 0.5);
+  color: #ff5545;
+}
+
+.gh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.gh-card {
+  position: relative;
+  background: rgba(14, 12, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+  overflow: hidden;
+}
+
+.gh-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 75, 45, 0.6);
+  box-shadow: 0 12px 32px rgba(255, 60, 40, 0.2);
+}
+
+.gh-card__glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 75, 45, 0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gh-card:hover .gh-card__glow {
+  opacity: 1;
+}
+
+.gh-card__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.gh-card__icon {
+  color: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.gh-card__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.gh-card__title:hover {
+  color: #ff5545;
+}
+
+.gh-card__desc {
+  margin: 0 0 16px;
+  font-family: var(--ui);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: rgba(200, 190, 180, 0.7);
+  flex-grow: 1;
+}
+
+.gh-card__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.gh-topic {
+  font-family: var(--ui);
+  font-size: 9.5px;
+  color: rgba(255, 100, 80, 0.9);
+  background: rgba(255, 72, 48, 0.08);
+  border: 1px solid rgba(255, 72, 48, 0.2);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+.gh-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: 12px;
+  font-family: var(--ui);
+  font-size: 10.5px;
+  color: rgba(200, 190, 180, 0.65);
+}
+
+.gh-card__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gh-card__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.gh-card__stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gh-card__stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }

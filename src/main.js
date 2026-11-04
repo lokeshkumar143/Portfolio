@@ -20,6 +20,8 @@ import { initDevCard } from './scene/devcard.js';
 import { initSoundUI } from './lib/sound.js';
 import { initHUD } from './scene/hud.js';
 import { initProjectModal } from './scene/projectModal.js';
+import { initDeviceShowcase } from './scene/deviceShowcase.js';
+import { initGitHub } from './scene/github.js';
 
 // a cinematic page manages its own positions; the browser restoring an old
 // scroll offset mid-boot yanks the visitor (and any scripted anchor) around
@@ -119,6 +121,8 @@ async function main() {
     .catch((e) => console.warn('[lokesh] gallery unavailable:', e.message));
   initFinale().then((f) => { app.finale = f; })
     .catch((e) => console.warn('[lokesh] finale unavailable:', e.message));
+  initDeviceShowcase();
+  initGitHub();
 
   if (!playing) return awaitGesture();
   begin();

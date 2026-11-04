@@ -47,6 +47,8 @@ function initCursor() {
     const yr = e.target.closest('.yr');
     const node = e.target.closest('.uni-node');
     const sk = e.target.closest('.sk-card');
+    const dev = e.target.closest('.dev-phone, .dev-tab');
+    const gh = e.target.closest('.gh-card');
     const btn = e.target.closest('button, a, .fin__devBadge');
 
     if (card) {
@@ -61,6 +63,12 @@ function initCursor() {
     } else if (sk) {
       ring.classList.add('is-hover-card');
       hoverLabel = 'TECH';
+    } else if (dev) {
+      ring.classList.add('is-hover-card');
+      hoverLabel = 'DEVICE';
+    } else if (gh) {
+      ring.classList.add('is-hover-card');
+      hoverLabel = 'CODE';
     } else if (btn) {
       ring.classList.add('is-hover-btn');
       hoverLabel = '';
@@ -93,10 +101,12 @@ function initChapterRail() {
   const items = rail.querySelectorAll('.chapter-item');
   const sections = [
     { id: 'stage', el: document.querySelector('.stage-wrap') },
-    { id: 'universe', el: document.getElementById('universe') },
-    { id: 'chrono', el: document.getElementById('chrono') },
-    { id: 'gallery', el: document.getElementById('gallery') },
+    { id: 'about', el: document.getElementById('about') || document.getElementById('universe') },
     { id: 'skills', el: document.getElementById('skills') },
+    { id: 'gallery', el: document.getElementById('gallery') },
+    { id: 'devices', el: document.getElementById('devices') },
+    { id: 'chrono', el: document.getElementById('chrono') },
+    { id: 'github', el: document.getElementById('github') },
     { id: 'fin', el: document.getElementById('fin') },
   ];
 
