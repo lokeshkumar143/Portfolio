@@ -63,8 +63,9 @@ async function main() {
   if (!app.stage.ok) return degrade('WebGL unavailable');
 
   let manifest;
+  const vStamp = `?v=${Date.now()}`;
   try {
-    manifest = await fetch(`${MEDIA}manifest.json`).then((r) => r.json());
+    manifest = await fetch(`${MEDIA}manifest.json${vStamp}`).then((r) => r.json());
   } catch {
     return degrade('media manifest missing');
   }
@@ -86,11 +87,11 @@ async function main() {
   const mk = (name, loopFade) => {
     const c = manifest.clips[name];
     const src = [];
-    if (c.mp4) src.push({ url: MEDIA + c.mp4, type: 'video/mp4' });
-    if (c.webm) src.push({ url: MEDIA + c.webm, type: 'video/webm' });
+    if (c.mp4) src.push({ url: `${MEDIA}${c.mp4}${vStamp}`, type: 'video/mp4' });
+    if (c.webm) src.push({ url: `${MEDIA}${c.webm}${vStamp}`, type: 'video/webm' });
     return new Clip({
       src,
-      poster: MEDIA + c.poster,
+      poster: `${MEDIA}${c.poster}${vStamp}`,
       w: c.w, h: c.h, track: c.track, loopFade,
     });
   };
@@ -300,6 +301,17 @@ document.addEventListener('click', (e) => {
     }
   }
 });
+
+const heroScrollBtn = document.getElementById('heroScroll');
+if (heroScrollBtn) {
+  heroScrollBtn.addEventListener('click', () => {
+    const target = document.getElementById('universe');
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+  window.addEventListener('scroll', () => {
+    heroScrollBtn.classList.toggle('is-hidden', window.scrollY > 60);
+  }, { passive: true });
+}
 
 // The hero is position:fixed behind the flow, so once scene two covers it there
 // is nothing to see - stop decoding its video rather than burning battery on

@@ -22,6 +22,81 @@ body::after {
   mix-blend-mode: overlay;
 }
 
+/* --- Hero Scroll to Explore Indicator ------------------------------------- */
+.hero-scroll {
+  position: absolute;
+  bottom: clamp(22px, 4.2vh, 44px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 12, 0.74);
+  border: 1px solid rgba(220, 50, 30, 0.35);
+  border-radius: 9999px;
+  padding: 7px 18px 7px 14px;
+  color: #dfd8d0;
+  font-family: var(--ui);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.65), 0 0 12px rgba(220, 50, 30, 0.16);
+  transition: transform 0.4s var(--ease-out), border-color 0.3s, color 0.3s, opacity 0.5s ease;
+  will-change: transform, opacity;
+  animation: heroScrollFloat 3.2s ease-in-out infinite alternate;
+}
+.hero-scroll:hover {
+  transform: translateX(-50%) translateY(-2px);
+  border-color: rgba(255, 60, 40, 0.85);
+  color: #fff;
+  box-shadow: 0 6px 30px rgba(220, 50, 30, 0.45);
+}
+.hero-scroll.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(16px);
+}
+.hero-scroll__mouse {
+  position: relative;
+  width: 14px;
+  height: 22px;
+  border: 1.5px solid rgba(220, 60, 40, 0.75);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  padding-top: 3px;
+}
+.hero-scroll__wheel {
+  width: 2px;
+  height: 5px;
+  background: #ff3c28;
+  border-radius: 1px;
+  animation: wheelScroll 1.8s ease-in-out infinite;
+}
+.hero-scroll__arrow {
+  color: #ff3c28;
+  animation: arrowBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes heroScrollFloat {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-50%) translateY(-5px); }
+}
+@keyframes wheelScroll {
+  0% { transform: translateY(0); opacity: 1; }
+  60% { transform: translateY(6px); opacity: 0.2; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
 /* --- Ambient Audio Button ------------------------------------------------- */
 .sound-btn {
   display: inline-flex;

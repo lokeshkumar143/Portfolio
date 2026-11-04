@@ -11,11 +11,13 @@ import { createGL } from '../gl/renderer.js';
 import { Chrono } from './chrono.js';
 import { YEARS, timeAt } from './layout3.js';
 import { T3 } from './timeline3.js';
+import { sound } from '../lib/sound.js';
 
 export async function initChrono() {
   const section = document.getElementById('chrono');
   const canvas = document.getElementById('chronoStage');
   const deck = document.getElementById('chronoDeck');
+  const film = document.getElementById('chronoFilm');
   if (!section || !canvas || !deck) return null;
 
   const gl = createGL(canvas);
@@ -62,6 +64,11 @@ export async function initChrono() {
       + `<path d="M4 12 L12 4 M6 4 H12 V10" fill="none" stroke="currentColor" `
       + `stroke-width="1.4"/></svg>`
       + `</span>`;
+    el.addEventListener('pointerenter', () => sound.playHover());
+    el.addEventListener('click', () => {
+      sound.playClick(true);
+      setTarget(i);
+    });
     deck.appendChild(el);
     return el;
   });
@@ -75,8 +82,14 @@ export async function initChrono() {
     el.textContent = String(y.year);
     el.tabIndex = -1;                 // the cards already carry the tab order
     el.setAttribute('aria-label', `Show ${y.year}`);
-    el.addEventListener('click', () => setTarget(i));
-    el.addEventListener('pointerenter', () => { if (!coarseMQ.matches) setTarget(i); });
+    el.addEventListener('click', () => {
+      sound.playClick(true);
+      setTarget(i);
+    });
+    el.addEventListener('pointerenter', () => {
+      sound.playHover();
+      if (!coarseMQ.matches) setTarget(i);
+    });
     deck.appendChild(el);
     return el;
   });
@@ -165,10 +178,14 @@ export async function initChrono() {
         labels[i].style.setProperty('--near', near.toFixed(3));
       }
       if (chrono.active !== lastActive) {
+        const prev = lastActive;
         lastActive = chrono.active;
         cards.forEach((el, i) => el.classList.toggle('is-active', i === chrono.active));
         labels.forEach((el, i) => el.classList.toggle('is-active', i === chrono.active));
         section.dataset.year = String(YEARS[chrono.active].year);
+        if (prev !== -1) {
+          sound.playTone(340 + chrono.active * 70, 'sine', 0.18, 0.04);
+        }
       }
     }
     state.raf = requestAnimationFrame(frame);
@@ -179,9 +196,14 @@ export async function initChrono() {
     state.running = true;
     state.last = performance.now();
     if (!state.started) state.started = performance.now();
+    if (film && !reduced) film.play().catch(() => {});
     state.raf = requestAnimationFrame(frame);
   };
-  const stop = () => { state.running = false; cancelAnimationFrame(state.raf); };
+  const stop = () => {
+    state.running = false;
+    cancelAnimationFrame(state.raf);
+    if (film) film.pause();
+  };
 
   new IntersectionObserver((entries) => {
     for (const e of entries) {

@@ -11,12 +11,15 @@
 // particles.js, shaders2.js) is parked, not deleted — swap this module's
 // implementation back if the live, pointer-reactive variant is ever wanted.
 
+import { sound } from '../lib/sound.js';
+
 const SEAM = 0.45;   // seconds of veil on each side of the wrap
 
 export async function initUniverse() {
   const section = document.getElementById('universe');
   const film = document.getElementById('uniFilm');
   const veil = document.getElementById('uniVeil');
+  const constellation = document.getElementById('uniConstellation');
   if (!section || !film || !veil) return null;
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -92,6 +95,52 @@ export async function initUniverse() {
       film.load();
     }
   }, { once: true });
+
+  // 3D Constellation Gyroscopic Parallax & Sound Interaction
+  if (constellation && !reduced) {
+    const clusterL = constellation.querySelector('.uni-cluster--left');
+    const clusterR = constellation.querySelector('.uni-cluster--right');
+    const nodes = constellation.querySelectorAll('.uni-node');
+
+    let cx = 0, cy = 0, tcx = 0, tcy = 0;
+    section.addEventListener('pointermove', (e) => {
+      const r = section.getBoundingClientRect();
+      tcx = ((e.clientX - r.left) / r.width) * 2 - 1;
+      tcy = ((e.clientY - r.top) / r.height) * 2 - 1;
+    }, { passive: true });
+
+    section.addEventListener('pointerleave', () => {
+      tcx = 0;
+      tcy = 0;
+    });
+
+    const tiltLoop = () => {
+      if (state.visible) {
+        cx += (tcx - cx) * 0.08;
+        cy += (tcy - cy) * 0.08;
+        const rotY = (cx * 12).toFixed(2);
+        const rotX = (-cy * 8).toFixed(2);
+        const transZ = (Math.abs(cx) * 15).toFixed(2);
+        if (clusterL) {
+          clusterL.style.transform = `translateY(-50%) rotateY(${rotY}deg) rotateX(${rotX}deg) translateZ(${transZ}px)`;
+        }
+        if (clusterR) {
+          clusterR.style.transform = `translateY(-50%) rotateY(${rotY}deg) rotateX(${rotX}deg) translateZ(${transZ}px)`;
+        }
+      }
+      requestAnimationFrame(tiltLoop);
+    };
+    requestAnimationFrame(tiltLoop);
+
+    nodes.forEach((node) => {
+      node.addEventListener('mouseenter', () => sound.playHover());
+      node.addEventListener('click', () => {
+        sound.playClick(true);
+        node.style.transform = 'scale(1.12)';
+        setTimeout(() => { node.style.transform = ''; }, 300);
+      });
+    });
+  }
 
   return { film, section };
 }

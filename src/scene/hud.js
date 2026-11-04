@@ -45,6 +45,7 @@ function initCursor() {
   document.addEventListener('mouseover', (e) => {
     const card = e.target.closest('.g-card');
     const yr = e.target.closest('.yr');
+    const node = e.target.closest('.uni-node');
     const btn = e.target.closest('button, a, .fin__devBadge');
 
     if (card) {
@@ -53,6 +54,9 @@ function initCursor() {
     } else if (yr) {
       ring.classList.add('is-hover-card');
       hoverLabel = 'INSPECT';
+    } else if (node) {
+      ring.classList.add('is-hover-card');
+      hoverLabel = 'SKILL';
     } else if (btn) {
       ring.classList.add('is-hover-btn');
       hoverLabel = '';

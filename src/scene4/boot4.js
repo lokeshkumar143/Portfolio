@@ -15,6 +15,7 @@ import { createGL } from '../gl/renderer.js';
 import { Gallery } from './gallery.js';
 import { CARDS, PERSON, PORTRAIT, fitCover } from './layout4.js';
 import { sample4, cardIn, popEase, T4 } from './timeline4.js';
+import { sound } from '../lib/sound.js';
 
 const damp = (v, to, k, dt) => v + (to - v) * (1 - Math.exp(-k * dt));
 
@@ -23,6 +24,7 @@ export async function initGallery() {
   const canvas = document.getElementById('galleryStage');
   const deck = document.getElementById('galleryDeck');
   const person = document.getElementById('galleryPerson');
+  const film = document.getElementById('galleryFilm');
   if (!section || !canvas || !deck || !person) return null;
 
   const gl = createGL(canvas);
@@ -57,6 +59,7 @@ export async function initGallery() {
     el.innerHTML = `<span class="g-card__in">`
       + `<img src="public/projects/${c.id}.png" alt="" `
       + `draggable="false" loading="eager" decoding="async"></span>`;
+    el.addEventListener('pointerenter', () => sound.playHover());
     deck.appendChild(el);
     return el;
   });
@@ -209,9 +212,14 @@ export async function initGallery() {
     state.running = true;
     state.last = performance.now();
     if (!state.started) state.started = performance.now();
+    if (film && !reduced) film.play().catch(() => {});
     state.raf = requestAnimationFrame(frame);
   };
-  const stop = () => { state.running = false; cancelAnimationFrame(state.raf); };
+  const stop = () => {
+    state.running = false;
+    cancelAnimationFrame(state.raf);
+    if (film) film.pause();
+  };
 
   new IntersectionObserver((entries) => {
     for (const e of entries) {

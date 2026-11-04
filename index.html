@@ -86,6 +86,14 @@
     <!-- only the bottom-right grid remains: the top-left one sat under the
          navigation and fought with it -->
     <div class="grid-dots grid-dots--br" id="dotsBR"></div>
+
+    <button class="hero-scroll" id="heroScroll" type="button" aria-label="Scroll to explore">
+      <span class="hero-scroll__mouse" aria-hidden="true"><i class="hero-scroll__wheel"></i></span>
+      <span class="hero-scroll__text">Scroll to Explore</span>
+      <svg class="hero-scroll__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M7 10l5 5 5-5"/>
+      </svg>
+    </button>
   </div>
 
   <!-- ------------------------------------------------------------------ -->
@@ -138,6 +146,115 @@
              poster="public/media/universe.jpg" aria-hidden="true">
         <source src="public/media/universe.mp4" type="video/mp4">
       </video>
+
+      <div class="universe__constellation" id="uniConstellation" aria-label="Technical Skill Constellation">
+        <div class="uni-cluster uni-cluster--left">
+          <div class="uni-node" data-skill="SwiftUI" style="--d: 0; --x: -2vw; --y: -4vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">◈</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">SwiftUI</span>
+                <span class="uni-node__tag">Declarative UI · 120Hz Animation</span>
+              </div>
+            </div>
+          </div>
+          <div class="uni-node" data-skill="UIKit" style="--d: 1; --x: 3vw; --y: 6vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">❖</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">UIKit</span>
+                <span class="uni-node__tag">AutoLayout · Custom Renderers</span>
+              </div>
+            </div>
+          </div>
+          <div class="uni-node" data-skill="Swift" style="--d: 2; --x: -4vw; --y: 16vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">✦</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">Swift Core</span>
+                <span class="uni-node__tag">Actors · Concurrency · Protocols</span>
+              </div>
+            </div>
+          </div>
+          <div class="uni-node" data-skill="Combine" style="--d: 3; --x: 2vw; --y: 26vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">⟐</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">Combine</span>
+                <span class="uni-node__tag">Reactive Streams · Publishers</span>
+              </div>
+            </div>
+          </div>
+          <div class="uni-node" data-skill="Metal" style="--d: 4; --x: -1vw; --y: 36vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">▲</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">Metal & Shaders</span>
+                <span class="uni-node__tag">GPU Computing · Render Passes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="uni-cluster uni-cluster--right">
+          <div class="uni-node" data-skill="CoreML" style="--d: 0; --x: 2vw; --y: -4vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">◆</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">CoreML & Vision</span>
+                <span class="uni-node__tag">On-Device AI Classification</span>
+              </div>
+            </div>
+          </div>
+          <div class="uni-node" data-skill="Firebase" style="--d: 1; --x: -3vw; --y: 6vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">◉</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">Firebase Cloud</span>
+                <span class="uni-node__tag">Realtime DB · FCM · Auth</span>
+              </div>
+            </div>
+          </div>
+          <div class="uni-node" data-skill="CoreData" style="--d: 2; --x: 4vw; --y: 16vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">◎</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">CoreData</span>
+                <span class="uni-node__tag">Schema Modeling · Performance Caching</span>
+              </div>
+            </div>
+          </div>
+          <div class="uni-node" data-skill="MapKit" style="--d: 3; --x: -2vw; --y: 26vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">◬</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">MapKit & GPS</span>
+                <span class="uni-node__tag">Geofencing · Spatial Clustering</span>
+              </div>
+            </div>
+          </div>
+          <div class="uni-node" data-skill="AppStore" style="--d: 4; --x: 1vw; --y: 36vh;">
+            <div class="uni-node__glow"></div>
+            <div class="uni-node__content">
+              <span class="uni-node__icon">✓</span>
+              <div class="uni-node__info">
+                <span class="uni-node__title">App Store & QA</span>
+                <span class="uni-node__tag">Zero Rejection · TestFlight CI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="universe__veil" id="uniVeil" aria-hidden="true"></div>
     </div>
   </section>
@@ -145,6 +262,10 @@
   <!-- ==================================================================== -->
   <section class="chrono" id="chrono" aria-labelledby="chronoTitle">
     <div class="chrono__pin">
+      <video id="chronoFilm" class="chrono__film" muted playsinline loop preload="metadata"
+             poster="public/media/chrono_chamber.jpg" aria-hidden="true">
+        <source src="public/media/chrono_chamber.mp4" type="video/mp4">
+      </video>
       <canvas id="chronoStage" aria-hidden="true"></canvas>
 
       <h2 class="chrono__title" id="chronoTitle">
@@ -178,6 +299,10 @@
   <!-- ==================================================================== -->
   <section class="gallery" id="gallery" aria-labelledby="galleryTitle">
     <div class="gallery__pin">
+      <video id="galleryFilm" class="gallery__film" muted playsinline loop preload="metadata"
+             poster="public/media/gallery_stage.jpg" aria-hidden="true">
+        <source src="public/media/gallery_stage.mp4" type="video/mp4">
+      </video>
       <canvas id="galleryStage" aria-hidden="true"></canvas>
 
       <div class="gallery__world">

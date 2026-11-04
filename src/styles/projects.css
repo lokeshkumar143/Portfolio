@@ -21,12 +21,27 @@
   background: #000;
 }
 
+.gallery__film {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.36;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
+  filter: contrast(1.1) brightness(0.9);
+  transition: opacity 1.2s ease;
+}
+
 #galleryStage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   display: block;
+  z-index: 2;
 }
 
 /* the 3D room the cards live in */
@@ -35,6 +50,7 @@
   inset: 0;
   perspective: 1200px;
   perspective-origin: 50% 42%;
+  z-index: 3;
 }
 
 .gallery__deck {
