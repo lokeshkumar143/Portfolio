@@ -178,26 +178,26 @@ void main(){
   vec3 col = s.rgb / max(s.a, 0.35);
 
   // -------------------------------------------------------------------------
-  // INNER HAND GAPS & OUTER SILHOUETTE STUDIO CYCLORAMA DEFRIEGING
+  // INNER HAND GAPS & OUTER SILHOUETTE STUDIO CYCLORAMA DEFRINGING
   // -------------------------------------------------------------------------
   // 1. The only legitimate white clothing in the entire shot is the dress shirt
-  //    inside the suit jacket collar/chest.
-  bool inShirt = (vUV.x >= 0.42 && vUV.x <= 0.58 && vUV.y >= 0.17 && vUV.y <= 0.42);
+  //    extending from collar to belt across the chest.
+  bool inShirt = (vUV.x >= 0.38 && vUV.x <= 0.68 && vUV.y >= 0.18 && vUV.y <= 0.53);
 
   // 2. Identify human skin tone (warm flesh: R noticeably exceeds B and G)
-  bool isSkin = (col.r - col.b > 0.11 && col.r > col.g * 0.92 && col.r > 0.28);
+  bool isSkin = (col.r - col.b > 0.10 && col.r > col.g * 0.90 && col.r > 0.25);
 
   // 3. Luminance of this pixel
   float l = dot(col, vec3(0.2126, 0.7152, 0.0722));
 
   // 4. Studio cyclorama white leakage: high brightness without skin warmth, outside shirt
   if (!inShirt && !isSkin) {
-    // Gap between hands/arms and torso
-    bool inArmGap = (vUV.x >= 0.24 && vUV.x <= 0.40 || vUV.x >= 0.60 && vUV.x <= 0.76)
-                 && (vUV.y >= 0.30 && vUV.y <= 0.68);
+    // Gap between hands/arms and jacket flanks
+    bool inArmGap = ((vUV.x >= 0.22 && vUV.x <= 0.38) || (vUV.x >= 0.62 && vUV.x <= 0.78))
+                 && (vUV.y >= 0.38 && vUV.y <= 0.68);
     
     // In the arm/hand gap, any bright pixels are cyclorama studio wall: punch transparent!
-    if (inArmGap && l > 0.36) {
+    if (inArmGap && l > 0.38) {
       a = 0.0;
       discard;
     }
