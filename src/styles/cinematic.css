@@ -675,16 +675,18 @@ body.has-custom-cursor button {
 /* --- Hero Actions Buttons ------------------------------------------------- */
 .hero-actions {
   position: absolute;
-  bottom: clamp(66px, 10.5vh, 108px);
+  bottom: clamp(68px, 9.8vh, 96px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: 10px;
   z-index: 24;
   opacity: 0;
   transition: opacity 1.2s var(--ease-out) 1s, transform 1.2s var(--ease-out) 1s;
   pointer-events: auto;
+  max-width: 95vw;
 }
 
 .is-cues .hero-actions,
@@ -695,15 +697,15 @@ body.has-custom-cursor button {
 .hero-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
+  gap: 7px;
+  padding: 9px 18px;
   border-radius: 9999px;
-  background: rgba(14, 12, 16, 0.72);
+  background: rgba(14, 12, 16, 0.78);
   border: 1px solid rgba(255, 60, 40, 0.35);
   font-family: var(--ui);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
   color: #f0e6dc;
@@ -711,12 +713,14 @@ body.has-custom-cursor button {
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap !important;
+  flex-shrink: 0;
 }
 
 .hero-btn:hover {
   transform: translateY(-2px);
   border-color: rgba(255, 80, 50, 0.85);
-  background: rgba(28, 16, 20, 0.9);
+  background: rgba(28, 16, 20, 0.92);
   color: #fff;
   box-shadow: 0 6px 26px rgba(255, 50, 30, 0.4);
 }
@@ -745,8 +749,20 @@ body.has-custom-cursor button {
   box-shadow: 0 0 20px rgba(255, 72, 48, 0.4);
 }
 
+.hero-btn--spatial {
+  background: rgba(22, 18, 22, 0.72);
+  border-color: rgba(255, 60, 40, 0.32);
+  color: #e5ded6;
+}
+
+.hero-btn--spatial:hover {
+  border-color: rgba(255, 75, 45, 0.75);
+  color: #fff;
+  box-shadow: 0 0 18px rgba(255, 60, 40, 0.35);
+}
+
 .hero-btn--social {
-  padding: 10px 16px;
+  padding: 9px 14px;
   background: rgba(14, 12, 16, 0.55);
   border-color: rgba(255, 255, 255, 0.16);
   color: #c0b4a8;
@@ -761,15 +777,15 @@ body.has-custom-cursor button {
   .hero-actions {
     flex-wrap: wrap;
     justify-content: center;
-    bottom: clamp(56px, 8.5vh, 80px);
-    width: 92vw;
-    gap: 8px;
+    bottom: clamp(54px, 8vh, 76px);
+    width: 94vw;
+    gap: 7px;
   }
 
   .hero-btn {
-    padding: 8px 14px;
+    padding: 7px 13px;
     font-size: 9.5px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
   }
 }
 
@@ -1105,58 +1121,72 @@ body.has-custom-cursor button {
    ========================================================================== */
 .welcome {
   flex-direction: column;
-  gap: 0.45em;
+  gap: 6px;
   text-align: center;
+  max-width: 90vw;
 }
 
 .welcome__kicker {
   margin: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55em;
+  gap: 8px;
   white-space: nowrap;
+  font-family: var(--ui);
+  font-size: clamp(12px, 1.15vw, 15px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+}
+
+.welcome__dots {
+  color: #ff3b2f;
+  letter-spacing: 0.14em;
+  font-size: 1.05em;
+}
+
+.welcome__text {
+  color: #f5ede6;
+  letter-spacing: 0.18em;
 }
 
 .welcome__tagline {
   margin: 0;
   font-family: var(--ui);
-  font-size: clamp(10px, 0.9vw, 13px);
+  font-size: clamp(10.5px, 0.88vw, 12.5px);
   font-weight: 400;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   color: rgba(235, 225, 215, 0.82);
   text-transform: none;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
-  max-width: 640px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+  max-width: 580px;
 }
 
 .welcome__tech {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: 2px;
 }
 
 .tech-pill {
   font-family: var(--ui);
-  font-size: clamp(9px, 0.72vw, 11px);
+  font-size: clamp(9px, 0.72vw, 10.5px);
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #ff5238;
   background: rgba(255, 72, 48, 0.10);
   border: 1px solid rgba(255, 72, 48, 0.32);
-  padding: 3px 10px;
+  padding: 2.5px 9px;
   border-radius: 9999px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-}
-
-.tech-sep {
-  color: rgba(255, 255, 255, 0.22);
-  font-size: 10px;
 }
 
 /* ==========================================================================
