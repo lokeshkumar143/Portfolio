@@ -12,6 +12,7 @@ import { Chrono } from './chrono.js';
 import { YEARS, timeAt } from './layout3.js';
 import { T3 } from './timeline3.js';
 import { sound } from '../lib/sound.js';
+import { clamp } from '../lib/ease.js';
 
 export async function initChrono() {
   const section = document.getElementById('chrono');
@@ -119,12 +120,18 @@ export async function initChrono() {
       const tilt = portrait ? 0 : (L.angles[i] - L.angles[L.angles.length - 1]) * 14;
       el.style.setProperty('--tilt', `${tilt.toFixed(2)}deg`);
       el.style.setProperty('--depth', String(i));
+      const near = 1 - Math.min(1, Math.abs(i - chrono.u));
+      el.style.setProperty('--in', '1');
+      el.style.setProperty('--near', near.toFixed(3));
 
       const n = L.nodes[i];
       labels[i].style.left = `${n[0]}px`;
       labels[i].style.top = `${n[1]}px`;
       labels[i].style.fontSize = `${Math.max(19, c.w * 0.30)}px`;
+      labels[i].style.setProperty('--in', '1');
+      labels[i].style.setProperty('--near', near.toFixed(3));
     }
+    section.classList.add('is-live');
     section.classList.toggle('is-portrait', portrait);
   }
   place();
@@ -158,6 +165,18 @@ export async function initChrono() {
     el.addEventListener('click', () => setTarget(i));
     el.addEventListener('focus', () => setTarget(i));
   });
+
+  // Scroll progress through the pinned 240svh section drives timeline scrubbing
+  window.addEventListener('scroll', () => {
+    if (!state.visible) return;
+    const r = section.getBoundingClientRect();
+    const travel = section.offsetHeight - window.innerHeight;
+    if (travel <= 0) return;
+    const progress = clamp(-r.top / travel, 0, 1);
+    if (!chrono.pointer.inside) {
+      setTarget(progress * (YEARS.length - 1));
+    }
+  }, { passive: true });
 
   // ---- frame -------------------------------------------------------------
   let lastActive = -1;
@@ -208,9 +227,14 @@ export async function initChrono() {
   new IntersectionObserver((entries) => {
     for (const e of entries) {
       state.visible = e.isIntersecting;
-      if (e.isIntersecting) start(); else stop();
+      if (e.isIntersecting) {
+        section.classList.add('is-live');
+        start();
+      } else {
+        stop();
+      }
     }
-  }, { threshold: 0.22 }).observe(section);
+  }, { threshold: 0.05 }).observe(section);
 
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') stop();

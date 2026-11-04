@@ -17,18 +17,18 @@
 import { clamp, span, lerp, smoothstep, easeOutCubic, easeOutExpo } from '../lib/ease.js';
 
 export const T3 = {
-  warm: 0.25,
-  rail: 0.80,
-  railDur: 1.30,
-  clock: 1.50,
-  clockDur: 1.15,
-  cards: 2.05,
-  cardStagger: 0.11,
-  cardDur: 0.75,
-  figure: 2.75,
-  rings: 3.15,
-  energy: 3.50,
-  live: 4.20,
+  warm: 0.10,
+  rail: 0.20,
+  railDur: 0.60,
+  clock: 0.35,
+  clockDur: 0.55,
+  cards: 0.45,
+  cardStagger: 0.08,
+  cardDur: 0.50,
+  figure: 0.55,
+  rings: 0.65,
+  energy: 0.75,
+  live: 1.05,
 };
 
 export function sample3(t, n = 6) {
