@@ -82,5 +82,71 @@ export function initDevCard() {
       }
     });
   }
+
+  // Working Contact Form with validation & user feedback
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    const nameInput = document.getElementById('contactName');
+    const emailInput = document.getElementById('contactEmail');
+    const msgInput = document.getElementById('contactMessage');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const msgError = document.getElementById('msgError');
+    const statusText = document.getElementById('contactStatus');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      const name = nameInput?.value.trim() || '';
+      const email = emailInput?.value.trim() || '';
+      const msg = msgInput?.value.trim() || '';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name) {
+        nameError?.classList.add('is-visible');
+        nameInput?.classList.add('is-invalid');
+        valid = false;
+      } else {
+        nameError?.classList.remove('is-visible');
+        nameInput?.classList.remove('is-invalid');
+      }
+
+      if (!email || !emailRegex.test(email)) {
+        emailError?.classList.add('is-visible');
+        emailInput?.classList.add('is-invalid');
+        valid = false;
+      } else {
+        emailError?.classList.remove('is-visible');
+        emailInput?.classList.remove('is-invalid');
+      }
+
+      if (!msg) {
+        msgError?.classList.add('is-visible');
+        msgInput?.classList.add('is-invalid');
+        valid = false;
+      } else {
+        msgError?.classList.remove('is-visible');
+        msgInput?.classList.remove('is-invalid');
+      }
+
+      if (!valid) return;
+
+      if (statusText) {
+        statusText.textContent = 'Message verified! Opening mail composer...';
+        statusText.className = 'contact-status is-success';
+      }
+
+      const mailtoUrl = `mailto:lokeshkumar142005@gmail.com?subject=${encodeURIComponent(`Project Opportunity from ${name}`)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
+      window.location.href = mailtoUrl;
+
+      setTimeout(() => {
+        contactForm.reset();
+        if (statusText) {
+          statusText.textContent = 'Mail draft created successfully!';
+        }
+      }, 1000);
+    });
+  }
 }
 

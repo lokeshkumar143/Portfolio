@@ -209,7 +209,7 @@ export function initSoundUI() {
 
   // Attach hover sounds to interactive elements
   const hoverables = document.querySelectorAll(
-    'a, button, .g-card, .yr, .fin__devBadge'
+    'a, button, .g-card, .yr, .fin__devBadge, .sk-card, .uni-node'
   );
   hoverables.forEach((el) => {
     el.addEventListener('mouseenter', () => sound.playHover());

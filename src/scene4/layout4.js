@@ -10,16 +10,16 @@
 export const FRAME = [1600, 900];
 
 export const CARDS = [
-  { id: 'p01_timeless', title: 'Personal Fitness Patient Recovery',
+  { id: 'p01_timeless', title: 'RecovFit — Patient Recovery & Fitness',
     box: [213, 72, 384, 273], depth: 0.45,
     tint: [0.309, 0.334, 0.382] },
-  { id: 'p02_game', title: 'Smart Ulcer Predictor (CoreML AI)',
+  { id: 'p02_game', title: 'Urosonic / UroFlow — Acoustic Uroflowmetry',
     box: [63, 251, 428, 269], depth: 0.25,
     tint: [0.249, 0.267, 0.295] },
-  { id: 'p03_build', title: 'SIMATS Student Mobile Ecosystem',
+  { id: 'p03_build', title: 'Gamified DSA Learning (Phoenix Mascot)',
     box: [566, 41, 471, 288], depth: 0.6,
     tint: [0.414, 0.291, 0.291] },
-  { id: 'p04_driven', title: 'SwiftUI Architecture & Clean Code',
+  { id: 'p04_driven', title: 'AI/ML Dental Segmentation Project',
     box: [998, 95, 460, 377], depth: 0.45,
     tint: [0.322, 0.278, 0.261] },
   { id: 'p05_ideas', title: 'MapKit & CoreLocation Geo Engine',

@@ -4,73 +4,91 @@ import { sound } from '../lib/sound.js';
 export const PROJECT_DETAILS = {
   p01_timeless: {
     tag: 'iOS Engineering · Healthcare',
-    title: 'Personal Fitness Patient Recovery',
-    subtitle: 'End-to-End iOS Application for Clinical Recovery & Patient Monitoring',
-    desc: 'Architected and shipped a healthcare iOS platform using Swift and SwiftUI designed to guide recovering patients through tailored rehabilitation routines, doctor-patient consultations, and real-time appointment bookings.',
-    tech: ['Swift', 'SwiftUI', 'Xcode', 'REST APIs', 'PHP', 'MySQL', 'AI Chatbot'],
+    title: 'RecovFit — Patient Recovery & Fitness',
+    subtitle: 'End-to-End iOS Application with Patient & Doctor Portals',
+    desc: 'A comprehensive healthcare and rehabilitation platform connecting recovering patients with healthcare professionals. Built natively with SwiftUI and powered by an authenticated PHP/MySQL backend.',
+    tech: ['Swift', 'SwiftUI', 'Xcode', 'PHP', 'MySQL', 'REST APIs', 'Patient & Doctor Portals'],
     metrics: [
-      { label: 'Platform', val: 'iOS 17+' },
-      { label: 'Role', val: 'Lead iOS Engineer' },
-      { label: 'Architecture', val: 'MVVM + Clean' },
+      { label: 'Platform', val: 'iOS Native' },
+      { label: 'Backend', val: 'PHP & MySQL' },
+      { label: 'Architecture', val: 'Dual Portals' },
     ],
+    problem: 'Post-operative recovery and rehabilitation often suffer from low patient adherence, fragmented communication between doctors and patients, and lack of real-time visibility into daily exercise progress. RecovFit bridges this gap by providing an intuitive dual-portal mobile ecosystem with scheduled video consultations and interactive recovery dashboards.',
     features: [
-      'Interactive appointment booking and real-time consultation scheduling',
-      'AI chatbot integration for preliminary patient assistance and triage',
-      'Secure PHP/MySQL backend synchronization via authenticated RESTful endpoints',
-      'Fluid, accessible SwiftUI interface built according to Apple Human Interface Guidelines'
-    ]
+      'Patient experience: intuitive recovery tracking and tailored daily rehab exercises',
+      'Doctor dashboard: clinical progress monitoring, patient oversight, and review portals',
+      'Appointment booking: seamless consultation scheduling with healthcare providers',
+      'Exercise management: structured rehabilitation routines with real-time feedback',
+      'Backend integration: secure PHP & MySQL endpoints with authenticated patient sync'
+    ],
+    contrib: 'Led native iOS development in Swift & SwiftUI, engineered custom exercise tracking workflows, integrated doctor appointment booking flows, and developed secure RESTful endpoints in PHP connecting to a normalized MySQL database schema.',
+    github: 'https://github.com/lokeshkumar143'
   },
   p02_game: {
-    tag: 'Computer Vision · Deep Learning · iOS',
-    title: 'Smart Ulcer Predictor (CoreML AI)',
-    subtitle: 'Diagnostic Skin Ulcer Classification via Deep Learning Vision Models',
-    desc: 'An AI-powered clinical decision-support tool enabling patients and practitioners to capture skin ulcer imagery and receive instantaneous prediction classes: Healing, Not Healing, or Normal Skin.',
-    tech: ['SwiftUI', 'CoreML', 'Vision Framework', 'Deep Learning', 'Image Processing'],
+    tag: 'Acoustic AI · Healthcare Diagnostics',
+    title: 'Urosonic / UroFlow — Smartphone Uroflowmetry',
+    subtitle: 'Audio-Based Urine Stream Analysis & Clinical Uroflow Curve Generation',
+    desc: 'An innovative non-invasive clinical uroflowmetry system transforming smartphone microphones into diagnostic medical sensors through acoustic signal processing.',
+    tech: ['Signal Processing', 'Audio Analysis', 'SwiftUI', 'Python', 'Acoustic Modeling', 'Doctor & Patient Portals'],
     metrics: [
-      { label: 'Model', val: 'CNN Classifier' },
-      { label: 'Inference', val: 'On-Device CoreML' },
-      { label: 'Latency', val: '< 80ms' },
+      { label: 'Modality', val: 'Audio-Based' },
+      { label: 'Output', val: 'Clinical Curves' },
+      { label: 'Metric', val: 'Qmax & Volume' },
     ],
+    problem: 'Traditional clinical uroflowmetry requires expensive, stationary hospital flowmeters that cause psychological discomfort and fail to capture natural day-to-day urinary dynamics. Urosonic utilizes acoustic signal acquisition through standard smartphone microphones, filtering background noise and computing continuous volume flow curves non-invasively.',
     features: [
-      'Real-time camera capture with Vision framework alignment guidance',
-      'On-device CoreML inference ensuring complete medical patient data privacy',
-      'Instant tri-state diagnostic classification with confidence scoring',
-      'Clear medical disclaimer workflows aligned with healthcare compliance'
-    ]
+      'Audio-based urine stream analysis via smartphone acoustic acquisition',
+      'Advanced signal processing algorithms with background environmental noise filtering',
+      'Clinical uroflow curve generation with continuous volumetric flow rate modeling',
+      'Qmax calculation and voided volume metrics benchmarked to clinical diagnostics',
+      'Patient and doctor portals for non-invasive self-monitoring and physician review'
+    ],
+    contrib: 'Designed the mobile user experience in SwiftUI, researched audio signal processing pipelines for acoustic flow signature extraction, benchmarked voided volume algorithms against clinical curve templates, and engineered patient review interfaces.',
+    github: 'https://github.com/lokeshkumar143'
   },
   p03_build: {
-    tag: 'Education · Mobile Ecosystem',
-    title: 'SIMATS Student Mobile Ecosystem',
-    subtitle: 'Cross-Disciplinary Engineering & Mentorship Mobile Platform',
-    desc: 'Led iOS mobile initiatives and student development workflows across SIMATS Engineering, reviewing student pull requests, driving code standards, and coaching 50+ aspiring engineers toward App Store releases.',
-    tech: ['Swift', 'UIKit', 'SwiftUI', 'Git Workflow', 'CI/CD Pipelines'],
+    tag: 'EdTech · Gamification · Algorithms',
+    title: 'Gamified DSA Learning Platform',
+    subtitle: 'Duolingo-Inspired Programming Education with Phoenix Mascot',
+    desc: 'A gamified computer science education application designed to make Data Structures and Algorithms intuitive, rewarding, and deeply visual for aspiring software engineers.',
+    tech: ['Swift', 'SwiftUI', 'Gamification Engine', 'Algorithms', 'Interactive Canvas', 'Animation'],
     metrics: [
-      { label: 'Engineers Trained', val: '50+' },
-      { label: 'Promotion', val: 'Intern to Full-Time in 2 Mos' },
-      { label: 'Review Velocity', val: 'Daily PRs' },
+      { label: 'Pedagogy', val: 'Bite-Sized DSA' },
+      { label: 'Mascot', val: 'Phoenix Guide' },
+      { label: 'Format', val: 'Gamified Streaks' },
     ],
+    problem: 'Computer science students often struggle with abstract algorithmic concepts and dry textbook theory. This platform turns Data Structures and Algorithms into an engaging, gamified adventure with interactive visual memory layouts and an encouraging Phoenix mascot.',
     features: [
-      'Hands-on technical mentorship in Swift, UIKit, memory management, and Instruments',
-      'Strict code review standards prioritizing performance, accessibility, and clean architecture',
-      'Direct guidance through TestFlight distribution and App Store review protocols'
-    ]
+      'Phoenix mascot providing motivational coaching, dynamic hints, and celebration loops',
+      'Gamified learning mechanics with Duolingo-style streaks, XP progression, and level unlocks',
+      'Data structure visualization: real-time interactive animations for trees, heaps, and graphs',
+      'Interactive learning levels: bite-sized challenges breaking complex algorithms down',
+      'Programming concepts: hands-on coding playground with visual edge-case validation'
+    ],
+    contrib: 'Architected the gamification engine, created animated Canvas visualizers for linked lists, binary search trees, and Dijkstra graphs, implemented XP/streak reward mechanics, and crafted the responsive SwiftUI interface.',
+    github: 'https://github.com/lokeshkumar143'
   },
   p04_driven: {
-    tag: 'Architecture & Design Systems',
-    title: 'SwiftUI Architecture & Clean Code',
-    subtitle: 'Modular, Testable, and Scalable iOS Component Frameworks',
-    desc: 'A showcase of reactive iOS architecture patterns utilizing Combine, dependency injection, and state-driven SwiftUI components for smooth 120Hz ProMotion animation loops.',
-    tech: ['SwiftUI', 'Combine', 'Async/Await', 'XCTest', 'ViewModifiers'],
+    tag: 'Computer Vision · Deep Learning · Healthcare',
+    title: 'Dental AI — Radiographic Image Segmentation',
+    subtitle: 'Deep Learning Architecture for Automated Dental Structure Delineation',
+    desc: 'An advanced biomedical computer vision project employing deep learning neural networks and OpenCV image preprocessing for automated dental anatomy and pathology segmentation.',
+    tech: ['Python', 'PyTorch', 'OpenCV', 'Deep Learning', 'Image Segmentation', 'Model Evaluation'],
     metrics: [
-      { label: 'Framerate', val: '120 FPS' },
-      { label: 'Test Coverage', val: 'High Unit/UI' },
-      { label: 'Reusability', val: 'Componentized' },
+      { label: 'Architecture', val: 'U-Net / Deep CNN' },
+      { label: 'Preprocessing', val: 'OpenCV Pipeline' },
+      { label: 'Domain', val: 'Biomedical AI' },
     ],
+    problem: 'Manual identification of dental structures, bone levels, and lesions in panoramic radiographs is labor-intensive and susceptible to diagnostic variance. Dental AI provides automated, pixel-accurate segmentation to assist dentists in identifying early-stage dental pathologies.',
     features: [
-      'Decoupled domain layers with unidirectional data flow (UDF)',
-      'Custom animated ViewModifiers and interactive gestural transitions',
-      'Robust unit tests for business logic and snapshot testing for visual fidelity'
-    ]
+      'Dental image processing: adaptive contrast and morphological filtering with OpenCV',
+      'Segmentation pipeline: automated pixel-level tooth and pathology delineation',
+      'Deep learning architecture: custom deep neural networks optimized for dental radiographs',
+      'Model training and evaluation: rigorous cross-validation benchmarking with IoU and Dice metrics',
+      'Clinical decision support: exportable diagnostic reports assisting dental practitioners'
+    ],
+    contrib: 'Developed OpenCV image enhancement pipelines (CLAHE, morphological operations), trained and fine-tuned deep segmentation architectures in PyTorch, evaluated cross-validation performance with Dice and IoU metrics, and constructed exported visual diagnostic overlays.',
+    github: 'https://github.com/lokeshkumar143'
   },
   p05_ideas: {
     tag: 'Location Services · CoreLocation',
@@ -250,6 +268,36 @@ export function initProjectModal() {
       featsWrap.innerHTML = data.features
         .map((f) => `<li><i></i><span>${f}</span></li>`)
         .join('');
+    }
+
+    // Problem & Solution
+    const probEl = document.getElementById('projModalProblem');
+    const probBlock = document.getElementById('projModalProblemBlock');
+    if (probEl && probBlock) {
+      if (data.problem) {
+        probEl.textContent = data.problem;
+        probBlock.style.display = '';
+      } else {
+        probBlock.style.display = 'none';
+      }
+    }
+
+    // My Contribution
+    const contribEl = document.getElementById('projModalContrib');
+    const contribBlock = document.getElementById('projModalContribBlock');
+    if (contribEl && contribBlock) {
+      if (data.contrib) {
+        contribEl.textContent = data.contrib;
+        contribBlock.style.display = '';
+      } else {
+        contribBlock.style.display = 'none';
+      }
+    }
+
+    // GitHub repository link
+    const ghBtn = document.getElementById('projModalGithub');
+    if (ghBtn) {
+      ghBtn.href = data.github || 'https://github.com/lokeshkumar143';
     }
 
     // Artwork preview

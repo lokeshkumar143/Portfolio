@@ -330,6 +330,24 @@ if (heroWrap && 'IntersectionObserver' in window) {
   }
 }
 
+// Scene 05 Technical Skills Matrix entrance animation
+const skillsSec = document.getElementById('skills');
+if (skillsSec && 'IntersectionObserver' in window) {
+  const skCards = skillsSec.querySelectorAll('.sk-card');
+  const skObserver = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        skillsSec.classList.add('is-visible');
+        skCards.forEach((c, idx) => {
+          setTimeout(() => c.classList.add('is-revealed'), idx * 100);
+        });
+        skObserver.unobserve(skillsSec);
+      }
+    }
+  }, { threshold: 0.15 });
+  skObserver.observe(skillsSec);
+}
+
 // pause the decoder when the tab is hidden rather than burning battery
 // decoding frames nobody is looking at
 document.addEventListener('visibilitychange', () => {

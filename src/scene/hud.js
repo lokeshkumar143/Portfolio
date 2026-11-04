@@ -46,6 +46,7 @@ function initCursor() {
     const card = e.target.closest('.g-card');
     const yr = e.target.closest('.yr');
     const node = e.target.closest('.uni-node');
+    const sk = e.target.closest('.sk-card');
     const btn = e.target.closest('button, a, .fin__devBadge');
 
     if (card) {
@@ -53,10 +54,13 @@ function initCursor() {
       hoverLabel = 'EXPLORE';
     } else if (yr) {
       ring.classList.add('is-hover-card');
-      hoverLabel = 'INSPECT';
+      hoverLabel = 'JOURNEY';
     } else if (node) {
       ring.classList.add('is-hover-card');
       hoverLabel = 'SKILL';
+    } else if (sk) {
+      ring.classList.add('is-hover-card');
+      hoverLabel = 'TECH';
     } else if (btn) {
       ring.classList.add('is-hover-btn');
       hoverLabel = '';
@@ -92,6 +96,7 @@ function initChapterRail() {
     { id: 'universe', el: document.getElementById('universe') },
     { id: 'chrono', el: document.getElementById('chrono') },
     { id: 'gallery', el: document.getElementById('gallery') },
+    { id: 'skills', el: document.getElementById('skills') },
     { id: 'fin', el: document.getElementById('fin') },
   ];
 

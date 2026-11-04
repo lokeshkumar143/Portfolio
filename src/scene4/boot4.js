@@ -58,7 +58,8 @@ export async function initGallery() {
     el.style.setProperty('--i', String(i));   // float dephasing
     el.innerHTML = `<span class="g-card__in">`
       + `<img src="public/projects/${c.id}.png" alt="" `
-      + `draggable="false" loading="eager" decoding="async"></span>`;
+    + `draggable="false" loading="eager" decoding="async">`
+      + `<span class="g-card__label">${c.title}</span></span>`;
     el.addEventListener('pointerenter', () => sound.playHover());
     deck.appendChild(el);
     return el;
@@ -212,7 +213,7 @@ export async function initGallery() {
     state.running = true;
     state.last = performance.now();
     if (!state.started) state.started = performance.now();
-    if (film && !reduced) film.play().catch(() => {});
+    if (film && !reduced) film.play().catch(() => { });
     state.raf = requestAnimationFrame(frame);
   };
   const stop = () => {
