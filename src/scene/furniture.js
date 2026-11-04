@@ -27,7 +27,7 @@ export class Furniture {
 
   _build() {
     for (const [box, n] of [[this.arrowsL, REF.arrows.count],
-      [this.arrowsR, REF.arrows.count]]) {
+    [this.arrowsR, REF.arrows.count]]) {
       box.innerHTML = '';
       for (let i = 0; i < n; i++) {
         const el = document.createElement('i');
@@ -58,9 +58,9 @@ export class Furniture {
 
     s.setProperty('--welcome-y', `${L.welcomeY}px`);
     s.setProperty('--welcome-size',
-      `${clampPx(word.capH * 0.125, 12, 30)}px`);
+    `${clampPx(word.capH * 0.042, 11, 22)}px`);
 
-    const chip = clampPx(word.capH * (portrait ? 0.11 : 0.075), 9.5, 18);
+    const chip = clampPx(word.capH * (portrait ? 0.038 : 0.026), 9.5, 14.5);
     s.setProperty('--chip-size', `${chip}px`);
     s.setProperty('--artist-x', `${L.artist.x}px`);
     s.setProperty('--artist-y', `${L.artist.y}px`);

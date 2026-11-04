@@ -1,22 +1,19 @@
-// Composition geometry.
+// Composition geometry for the 2-tier architectural wordmark.
 //
-// Every constant here was measured off the supplied hero artwork rather than
-// eyeballed, so the live page keeps the reference's proportions exactly:
-//   GIREESH ink box   x 3.31% .. 96.75%,  cap top 27.00%, baseline 80.22%
-//   WELCOME strip     centred, y 20.44%
-//   LEGEND chip       x 88.12%, y 26.78%, 10.38% x 4.22%
-//   ARTIST chip       x  1.50%, y 68.78%, 15.00% x 3.67%
-// The word is then fitted to whatever viewport it lands in without ever
-// changing its own width : cap-height ratio.
+// Proportions calibrated to maintain monumental, cinematic presence across
+// any viewport size:
+//   Block ink box: width ~88% of screen, cap height ~54% of viewport
+//   Figure: commands the central stage, walking through both lines
+//   Side chips & HUD: re-anchored to the dual-line proportions
 
 import { TARGET_RATIO } from './type.js';
 
 export const REF = {
-  wordWidth: 0.9344,     // fraction of viewport width
-  capHeight: 0.5320,     // fraction of viewport height
-  vCentre: 0.5361,       // vertical centre of the cap box
-  legend: { x: 0.8812, y: 0.2678, h: 0.0422 },
-  artist: { x: 0.0150, y: 0.6878, h: 0.0367 },
+  wordWidth: 0.88,     // fraction of viewport width
+  capHeight: 0.54,     // fraction of viewport height for the 2-line block
+  vCentre: 0.51,       // vertical centre of the block
+  legend: { x: 0.8812, y: 0.2450, h: 0.0422 },
+  artist: { x: 0.0150, y: 0.7250, h: 0.0367 },
   dotsBR: { x: 0.9844, y: 0.9500 },
   arrows: { left: 0.0181, right: 0.9750, top: 0.345, bottom: 0.625, count: 5 },
 };
@@ -25,38 +22,38 @@ export function computeLayout(w, h) {
   const portrait = h / w > 1.05;
   const narrow = w < 760;
 
-  // fit the word by whichever axis binds first, preserving its proportions
+  // fit the word block by whichever axis binds first
   const byWidth = (REF.wordWidth * w) / TARGET_RATIO;
-  const byHeight = h * 0.36;
-  let capH = Math.min(byWidth, byHeight);
+  const byHeight = h * REF.capHeight;
+  let blockH = Math.min(byWidth, byHeight);
 
-  // On a phone the word is width-bound and ends up short, leaving a dead band of
-  // empty screen. Letting it grow taller there keeps the composition dense
-  if (portrait) capH = Math.min(byWidth * 1.0, h * 0.20);
+  if (portrait) blockH = Math.min(byWidth * 1.0, h * 0.44);
 
-  const wordW = capH * TARGET_RATIO;
+  const wordW = blockH * TARGET_RATIO;
   const cx = w * 0.5;
-  const vCentre = portrait ? h * 0.48 : h * 0.52;
-  const capTop = vCentre - capH * 0.5;
-  const baseline = vCentre + capH * 0.5;
+  const vCentre = portrait ? h * 0.48 : h * REF.vCentre;
+  const capTop = vCentre - blockH * 0.5;
+  const baseline = vCentre + blockH * 0.5;
 
   const word = {
     x: cx - wordW * 0.5,
     y: capTop,
     w: wordW,
-    h: capH,
-    capH,
+    h: blockH,
+    capH: blockH,
     baseline,
   };
 
-  // The figure stands in front of the wordmark:
-  // Head clears the cap line, chest is in front of the letters,
-  // legs continue down to the runway floor
-  let heroH = Math.max(capH * 1.6, h * 0.62);
-  let feet = Math.min(h * 0.855, h - 90);
+  // Sized so he commands the stage in front of the 2-tier block:
+  // Head rises above top line (LOKESH),
+  // Chest is in front of LOKESH,
+  // Torso & hips are in front of KUMAR S.,
+  // Legs and shoes land on the runway above the action pills
+  let heroH = Math.max(blockH * 1.16, h * 0.65);
+  let feet = Math.min(baseline + blockH * 0.16, h * 0.87);
 
   if (portrait) {
-    heroH = h * 0.56;
+    heroH = h * 0.58;
     feet = h * 0.885;
   }
 
@@ -68,9 +65,7 @@ export function computeLayout(w, h) {
     narrow,
     word,
     hero: { h: heroH, cx, feet },
-    // clear of the header band and clear of his head; it renders in front of
-    // the typography, so it stays readable wherever it lands
-    welcomeY: portrait ? (feet - heroH) - h * 0.075 : h * 0.175,
+    welcomeY: portrait ? (feet - heroH) - h * 0.075 : Math.max(76, capTop - h * 0.065),
     legend: {
       x: portrait ? w * 0.955 : w * 0.982,
       y: portrait ? capTop - h * 0.052 : h * REF.legend.y,
@@ -79,31 +74,37 @@ export function computeLayout(w, h) {
     },
     artist: portrait
       ? { x: w * 0.045, y: baseline + h * 0.055, h: 19 }
-      : { x: w * REF.artist.x, y: h * REF.artist.y,
-          h: Math.max(16, h * REF.artist.h) },
+      : {
+        x: w * REF.artist.x, y: h * REF.artist.y,
+        h: Math.max(16, h * REF.artist.h)
+      },
     ember: { x: 0.5, y: vCentre / h },
   };
 }
 
 /**
  * Place a clip so the SUBJECT (not the video rectangle) lands where we want.
- * The tracks baked into the manifest give the subject's box per frame, so a
- * figure can be anchored by his feet and held at a chosen height even though he
- * walks toward the camera and grows through the shot.
+ * The tracks baked into the manifest give the subject's box per frame.
  */
 export function fitSubject(track, frameAspect, opts) {
   const [x0, y0, x1, y1] = track;
-  const subH = Math.max(y1 - y0, 1e-3);
+  const subW = x1 - x0;
+  const subH = y1 - y0;
+  const subAspect = (subW * frameAspect) / subH;
   const subCX = (x0 + x1) * 0.5;
 
-  const quadH = opts.height / subH;          // video height needed
-  const quadW = quadH * frameAspect;
+  const h = opts.height;
+  const w = h * subAspect;
+  const x = opts.cx - w * 0.5;
+  const y = opts.feet - h;
 
-  const footY = opts.feet !== undefined ? opts.feet : opts.top + opts.height;
+  const frameH = h / subH;
+  const frameW = frameH * frameAspect;
+  const frameX = opts.cx - frameW * subCX;
+  const frameY = opts.feet - frameH * y1;
+
   return {
-    x: opts.cx - quadW * subCX,
-    y: footY - quadH * y1,
-    w: quadW,
-    h: quadH,
+    subject: { x, y, w, h },
+    frame: { x: frameX, y: frameY, w: frameW, h: frameH },
   };
 }
