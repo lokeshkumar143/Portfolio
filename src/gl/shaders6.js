@@ -88,8 +88,15 @@ void main(){
   vec2 l = (vUV - uRect.xy) / uRect.zw;
   if(l.x < 0.0 || l.x > 1.0 || l.y < 0.0 || l.y > 1.0) discard;
   vec4 s = texture(uMan, l);
-  if(s.a < 0.004) discard;
-  frag = vec4(s.rgb * s.a * uOp, s.a * uOp);
+  
+  // Softly dissolve the bottom torso and side borders into the atmospheric smoke
+  float bottomFade = smoothstep(1.0, 0.72, l.y);
+  float topFade = smoothstep(0.0, 0.04, l.y);
+  float sideFade = smoothstep(0.0, 0.08, l.x) * smoothstep(1.0, 0.92, l.x);
+  float a = s.a * bottomFade * topFade * sideFade * uOp;
+  
+  if(a < 0.003) discard;
+  frag = vec4(s.rgb * a, a);
 }`;
 
 // --------------------------------------------------------------------------
