@@ -3,25 +3,35 @@ import { sound } from '../lib/sound.js';
 
 export const PROJECT_DETAILS = {
   p01_timeless: {
-    tag: 'iOS Engineering · Healthcare',
-    title: 'RecovFit — Patient Recovery & Fitness',
-    subtitle: 'End-to-End iOS Application with Patient & Doctor Portals',
-    desc: 'A comprehensive healthcare and rehabilitation platform connecting recovering patients with healthcare professionals. Built natively with SwiftUI and powered by an authenticated PHP/MySQL backend.',
-    tech: ['Swift', 'SwiftUI', 'Xcode', 'PHP', 'MySQL', 'REST APIs', 'Patient & Doctor Portals'],
+    tag: 'Apple App Store Live · Medical & Fitness iOS App',
+    title: 'RecovFit — Personal Fitness Trainer for Patient Recovery',
+    subtitle: 'Live on Apple App Store (ID: 6753745934) · Developed for SIMATS',
+    appStoreUrl: 'https://apps.apple.com/in/app/recovfit/id6753745934',
+    appId: '6753745934',
+    icon: 'public/projects/recovfit/icon.jpg',
+    screenshots: [
+      'public/projects/recovfit/screen1.jpg',
+      'public/projects/recovfit/screen2.jpg',
+      'public/projects/recovfit/screen3.jpg',
+      'public/projects/recovfit/screen4.jpg',
+      'public/projects/recovfit/screen5.jpg'
+    ],
+    desc: 'An official live iOS & iPadOS medical recovery and fitness application published on the Apple App Store. Empowers post-operative and physical rehabilitation patients with personalized recovery plans, doctor-patient consultation booking, a real-time video calling system for scheduled clinical appointments, and an integrated AI chatbot for instant query guidance.',
+    tech: ['Swift', 'SwiftUI', 'Xcode', 'WebRTC Video Calling', 'AI Clinical Chatbot', 'PHP', 'MySQL', 'REST APIs'],
     metrics: [
-      { label: 'Platform', val: 'iOS Native' },
-      { label: 'Backend', val: 'PHP & MySQL' },
-      { label: 'Architecture', val: 'Dual Portals' },
+      { label: 'Platform', val: 'iOS & iPadOS' },
+      { label: 'Status', val: 'Live on App Store' },
+      { label: 'Category', val: 'Medical & Health' },
     ],
-    problem: 'Post-operative recovery and rehabilitation often suffer from low patient adherence, fragmented communication between doctors and patients, and lack of real-time visibility into daily exercise progress. RecovFit bridges this gap by providing an intuitive dual-portal mobile ecosystem with scheduled video consultations and interactive recovery dashboards.',
+    problem: 'Post-operative recovery and orthopedic rehabilitation often suffer from low patient adherence, fragmented communication between doctors and patients, and lack of real-time visibility into daily exercise progress. RecovFit bridges this gap by providing an intuitive dual-portal mobile ecosystem with scheduled video consultations, an AI conversational assistant, and interactive recovery dashboards.',
     features: [
-      'Patient experience: intuitive recovery tracking and tailored daily rehab exercises',
-      'Doctor dashboard: clinical progress monitoring, patient oversight, and review portals',
-      'Appointment booking: seamless consultation scheduling with healthcare providers',
-      'Exercise management: structured rehabilitation routines with real-time feedback',
-      'Backend integration: secure PHP & MySQL endpoints with authenticated patient sync'
+      'Personalized Recovery Plans: Custom fitness and rehabilitation tracking supporting patients throughout their physical recovery journey',
+      'Doctor–Patient Consultations: Built-in appointment booking and real-time video calling system for scheduled clinical appointments',
+      'Integrated AI Chatbot: Instant conversational guidance and answers for patient recovery questions and rehabilitation steps',
+      'Intuitive Native UI/UX: Engineered natively with Swift and Xcode for fluid 120Hz ProMotion navigation and seamless accessibility',
+      'Secure Cloud Architecture: Developed robust front-end and back-end modules in PHP/MySQL for secure health data handling and real-time updates'
     ],
-    contrib: 'Led native iOS development in Swift & SwiftUI, engineered custom exercise tracking workflows, integrated doctor appointment booking flows, and developed secure RESTful endpoints in PHP connecting to a normalized MySQL database schema.',
+    contrib: 'Led native iOS development in Swift & SwiftUI, architected patient and doctor consultation flows, integrated WebRTC video calling and AI chatbot capabilities, and engineered secure RESTful endpoints in PHP connecting to a normalized MySQL database.',
     github: 'https://github.com/lokeshkumar143'
   },
   p02_game: {
@@ -47,25 +57,35 @@ export const PROJECT_DETAILS = {
     github: 'https://github.com/lokeshkumar143'
   },
   p03_build: {
-    tag: 'EdTech · Gamification · Algorithms',
-    title: 'Gamified DSA Learning Platform',
-    subtitle: 'Duolingo-Inspired Programming Education with Phoenix Mascot',
-    desc: 'A gamified computer science education application designed to make Data Structures and Algorithms intuitive, rewarding, and deeply visual for aspiring software engineers.',
-    tech: ['Swift', 'SwiftUI', 'Gamification Engine', 'Algorithms', 'Interactive Canvas', 'Animation'],
+    tag: 'Apple App Store Live · Medical AI & Computer Vision',
+    title: 'Smart Ulcer Predictor — Deep Learning Wound Diagnostic',
+    subtitle: 'Live on Apple App Store (ID: 6755873140) · Deep Learning Clinical Tool',
+    appStoreUrl: 'https://apps.apple.com/in/app/smart-ulcer-predictor/id6755873140',
+    appId: '6755873140',
+    icon: 'public/projects/smart_ulcer/icon.jpg',
+    screenshots: [
+      'public/projects/smart_ulcer/screen1.jpg',
+      'public/projects/smart_ulcer/screen2.jpg',
+      'public/projects/smart_ulcer/screen3.jpg',
+      'public/projects/smart_ulcer/screen4.jpg',
+      'public/projects/smart_ulcer/ipad1.jpg'
+    ],
+    desc: 'An AI-powered medical support application published on the Apple App Store for iPad and iPhone. Employs advanced deep learning image recognition models to analyze skin ulcer photos and deliver instant diagnostic predictions: Healing, Not Healing, or Normal Skin to support early clinical awareness and monitoring.',
+    tech: ['Swift', 'SwiftUI', 'CoreML', 'Vision Framework', 'Deep Learning', 'PyTorch', 'Image Recognition', 'iPadOS & iOS'],
     metrics: [
-      { label: 'Pedagogy', val: 'Bite-Sized DSA' },
-      { label: 'Mascot', val: 'Phoenix Guide' },
-      { label: 'Format', val: 'Gamified Streaks' },
+      { label: 'Platform', val: 'iPadOS & iOS' },
+      { label: 'Status', val: 'Live on App Store' },
+      { label: 'Inference', val: 'Deep CNN Classifier' },
     ],
-    problem: 'Computer science students often struggle with abstract algorithmic concepts and dry textbook theory. This platform turns Data Structures and Algorithms into an engaging, gamified adventure with interactive visual memory layouts and an encouraging Phoenix mascot.',
+    problem: 'Diabetic foot ulcers and pressure injuries pose major health risks when not monitored early. Manual visual grading by eye is subjective and difficult for patients at home. Smart Ulcer Predictor provides non-invasive, objective AI image analysis at the point of care.',
     features: [
-      'Phoenix mascot providing motivational coaching, dynamic hints, and celebration loops',
-      'Gamified learning mechanics with Duolingo-style streaks, XP progression, and level unlocks',
-      'Data structure visualization: real-time interactive animations for trees, heaps, and graphs',
-      'Interactive learning levels: bite-sized challenges breaking complex algorithms down',
-      'Programming concepts: hands-on coding playground with visual edge-case validation'
+      'Deep Learning Image Recognition: Advanced computer vision models analyzing skin ulcer photos and classifying them into Healing, Not Healing, or Normal Skin',
+      'Instant Diagnostic Insights: High-speed on-device and cloud neural inference delivering early predictive awareness in seconds',
+      'Photo Upload & Camera Pipeline: Seamless high-resolution capture with boundary alignment and lighting normalization',
+      'Early Awareness & Longitudinal Tracking: Empowers patients and clinical care teams to monitor healing progression over time',
+      'iPadOS & iOS Native Experience: Engineered natively with modern Swift and SwiftUI for high-definition clinical review and responsive touch interactions'
     ],
-    contrib: 'Architected the gamification engine, created animated Canvas visualizers for linked lists, binary search trees, and Dijkstra graphs, implemented XP/streak reward mechanics, and crafted the responsive SwiftUI interface.',
+    contrib: 'Engineered the native SwiftUI mobile application for iPad and iPhone, integrated image preprocessing and CoreML deep learning inference pipelines, designed intuitive prediction feedback cards, and implemented App Store submission compliance.',
     github: 'https://github.com/lokeshkumar143'
   },
   p04_driven: {
@@ -91,25 +111,25 @@ export const PROJECT_DETAILS = {
     github: 'https://github.com/lokeshkumar143'
   },
   p05_ideas: {
-    tag: 'Medical AI · Computer Vision · Preventative Healthcare',
-    title: 'Smart Ulcer Predictor — Diabetic & Pressure Ulcer AI',
-    subtitle: 'Multi-Modal iOS Risk Assessment & Early Tissue Erythema Delineation',
-    desc: 'A clinical decision-support iOS application engineered to predict and grade early-stage diabetic and pressure ulcer formation. Combines native SwiftUI interfaces with CoreML computer vision and localized thermal variance analysis.',
-    tech: ['Swift', 'SwiftUI', 'CoreML', 'Vision Framework', 'Python', 'OpenCV', 'Braden Scale Model'],
+    tag: 'EdTech · Gamification · Algorithms',
+    title: 'Gamified DSA Learning Platform',
+    subtitle: 'Duolingo-Inspired Programming Education with Phoenix Mascot',
+    desc: 'A gamified computer science education application designed to make Data Structures and Algorithms intuitive, rewarding, and deeply visual for aspiring software engineers.',
+    tech: ['Swift', 'SwiftUI', 'Gamification Engine', 'Algorithms', 'Interactive Canvas', 'Animation'],
     metrics: [
-      { label: 'Algorithm', val: 'Vision + CoreML' },
-      { label: 'Metric', val: 'Braden Score & Thermal Δ' },
-      { label: 'Ecosystem', val: 'iPadOS & iOS Clinical' },
+      { label: 'Pedagogy', val: 'Bite-Sized DSA' },
+      { label: 'Mascot', val: 'Phoenix Guide' },
+      { label: 'Format', val: 'Gamified Streaks' },
     ],
-    problem: 'Hospital-acquired pressure injuries and diabetic foot ulcers cause severe complications when identified late. Smart Ulcer Predictor provides non-invasive, objective wound assessment directly on iPad and iPhone at the patient bedside.',
+    problem: 'Computer science students often struggle with abstract algorithmic concepts and dry textbook theory. This platform turns Data Structures and Algorithms into an engaging, gamified adventure with interactive visual memory layouts and an encouraging Phoenix mascot.',
     features: [
-      'Multi-spectral camera and thermal variance pipeline for early sub-surface tissue stress detection',
-      'CoreML convolutional neural network segmenting wound boundaries and tissue necrosis',
-      'Automated clinical Braden Scale quantification and patient mobility telemetry',
-      'Longitudinal healing progression tracking with automated wound surface area calculation',
-      'HIPAA-compliant encrypted clinical report export for hospital electronic health record (EHR) sync'
+      'Phoenix mascot providing motivational coaching, dynamic hints, and celebration loops',
+      'Gamified learning mechanics with Duolingo-style streaks, XP progression, and level unlocks',
+      'Data structure visualization: real-time interactive animations for trees, heaps, and graphs',
+      'Interactive learning levels: bite-sized challenges breaking complex algorithms down',
+      'Programming concepts: hands-on coding playground with visual edge-case validation'
     ],
-    contrib: 'Architected the native SwiftUI mobile client, integrated Vision framework pipelines for real-time wound frame extraction, developed the localized temperature variance comparison module, and built the clinical export flow.',
+    contrib: 'Architected the gamification engine, created animated Canvas visualizers for linked lists, binary search trees, and Dijkstra graphs, implemented XP/streak reward mechanics, and crafted the responsive SwiftUI interface.',
     github: 'https://github.com/lokeshkumar143'
   },
   p06_sound: {
@@ -305,11 +325,59 @@ export function openProjectModal(id) {
     ghBtn.href = data.github || 'https://github.com/lokeshkumar143';
   }
 
-  // Artwork preview
+  // Live on App Store Badge
+  const liveBadge = document.getElementById('projModalLiveBadge');
+  if (liveBadge) {
+    liveBadge.style.display = data.appStoreUrl ? 'inline-flex' : 'none';
+  }
+
+  // App Store button
+  const appStoreBtn = document.getElementById('projModalAppStore');
+  if (appStoreBtn) {
+    if (data.appStoreUrl) {
+      appStoreBtn.href = data.appStoreUrl;
+      appStoreBtn.style.display = 'inline-flex';
+    } else {
+      appStoreBtn.style.display = 'none';
+    }
+  }
+
+  // Artwork & Live Screenshots Carousel
   const imgPreview = document.getElementById('projModalImg');
+  const galleryEl = document.getElementById('projModalGallery');
+
   if (imgPreview) {
-    imgPreview.src = `public/projects/${id}.png`;
+    const mainSrc = data.screenshots && data.screenshots.length > 0
+      ? data.screenshots[0]
+      : `public/projects/${id}.png`;
+    imgPreview.src = mainSrc;
     imgPreview.alt = data.title;
+  }
+
+  if (galleryEl) {
+    if (data.screenshots && data.screenshots.length > 0) {
+      galleryEl.innerHTML = data.screenshots
+        .map((src, i) => `
+          <button type="button" class="proj-modal__thumb ${i === 0 ? 'is-active' : ''}" data-src="${src}" aria-label="View screenshot ${i + 1}">
+            <img src="${src}" alt="Screenshot ${i + 1}">
+          </button>
+        `).join('');
+      galleryEl.style.display = 'flex';
+
+      galleryEl.querySelectorAll('.proj-modal__thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          galleryEl.querySelectorAll('.proj-modal__thumb').forEach(t => t.classList.remove('is-active'));
+          thumb.classList.add('is-active');
+          if (imgPreview) {
+            imgPreview.src = thumb.dataset.src;
+          }
+          sound.playHapticClick();
+        });
+      });
+    } else {
+      galleryEl.style.display = 'none';
+      galleryEl.innerHTML = '';
+    }
   }
 
   sound.playClick(true);

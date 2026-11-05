@@ -6,18 +6,29 @@ export const DEVICE_APPS = {
   recovfit: {
     id: 'p01_timeless',
     name: 'RecovFit',
-    category: 'Healthcare & Patient Recovery',
+    category: 'Healthcare & Patient Recovery · Live on App Store',
     tagline: 'Dual-Portal Patient & Doctor iOS Ecosystem',
-    tech: 'SwiftUI · PHP · MySQL · REST APIs',
-    description: 'Empowers post-operative patients with guided rehabilitation protocols, real-time exercise compliance monitoring, and encrypted doctor appointment consultations.',
+    tech: 'Swift · SwiftUI · WebRTC Video Calling · AI Chatbot · PHP · MySQL',
+    appStoreUrl: 'https://apps.apple.com/in/app/recovfit/id6753745934',
+    appId: '6753745934',
+    description: 'Official Apple App Store application empowering post-operative patients with guided rehabilitation protocols, real-time exercise compliance monitoring, encrypted doctor appointment video consultations, and conversational AI guidance.',
     features: [
-      'Patient portal with personalized daily recovery exercises',
-      'Clinical progress monitoring dashboard for orthopedists',
-      'Interactive consultation booking and encrypted messaging',
+      'Official Apple App Store Release (App ID: 6753745934)',
+      'Patient portal with tailored recovery plans and daily rehab exercises',
+      'Doctor dashboard for clinical progress monitoring and oversight',
+      'Built-in video calling system for real-time scheduled consultations',
+      'AI clinical chatbot for instant patient query guidance',
       'Authenticated PHP/MySQL cloud database synchronization'
     ],
-    statusPill: 'Patient Sync Active',
+    statusPill: ' App Store Live',
     accentColor: '#30d158',
+    screenshots: [
+      'public/projects/recovfit/screen1.jpg',
+      'public/projects/recovfit/screen2.jpg',
+      'public/projects/recovfit/screen3.jpg',
+      'public/projects/recovfit/screen4.jpg',
+      'public/projects/recovfit/screen5.jpg'
+    ],
     screenHtml: `
       <div class="ios-screen ios-screen--recovfit">
         <div class="ios-app-header">
@@ -124,7 +135,7 @@ export const DEVICE_APPS = {
     `
   },
   dsa: {
-    id: 'p03_build',
+    id: 'p05_ideas',
     name: 'Gamified DSA',
     category: 'EdTech & Interactive Algorithms',
     tagline: 'Duolingo-Inspired Coding Experience with Phoenix',
@@ -184,20 +195,30 @@ export const DEVICE_APPS = {
     `
   },
   ulcer: {
-    id: 'p05_ideas',
+    id: 'p03_build',
     name: 'Smart Ulcer Predictor',
-    category: 'Preventative Dermatology & Medical AI',
-    tagline: 'Multi-Modal Diabetic & Pressure Ulcer Risk Assessment',
-    tech: 'Swift · SwiftUI · CoreML · Vision · Python',
-    description: 'Predicts and grades early-stage pressure ulcer and diabetic foot ulcer formation by analyzing visual tissue erythema, patient mobility metrics, and localized skin temperature variance.',
+    category: 'Medical AI & Computer Vision · Live on App Store',
+    tagline: 'Deep Learning Clinical Wound Diagnostic Tool',
+    tech: 'Swift · SwiftUI · CoreML · Deep Learning · Vision Framework',
+    appStoreUrl: 'https://apps.apple.com/in/app/smart-ulcer-predictor/id6755873140',
+    appId: '6755873140',
+    description: 'Official Apple App Store AI-powered medical support tool for iPad and iPhone. Uses state-of-the-art deep learning image recognition models to analyze skin ulcer photos and deliver instant predictions: Healing, Not Healing, or Normal Skin.',
     features: [
-      'Multi-spectral camera and thermal variance pipeline for early sub-surface tissue stress detection',
-      'Computer vision boundary segmentation for early erythema detection',
-      'Automated Braden Scale clinical risk index calculation',
-      'Encrypted telemetry synchronization with hospital nursing care teams'
+      'Official Apple App Store Release (App ID: 6755873140)',
+      'Advanced deep learning image recognition for skin ulcer classification',
+      'Instant clinical predictive states: Healing, Not Healing, Normal Skin',
+      'High-resolution camera capture with adaptive boundary delineation',
+      'Longitudinal healing progression monitoring for patients and clinicians',
+      'Engineered natively in Swift & SwiftUI optimized for iPadOS & iOS'
     ],
-    statusPill: 'Braden Risk: Low (Stage I)',
+    statusPill: ' App Store Live',
     accentColor: '#ff375f',
+    screenshots: [
+      'public/projects/smart_ulcer/screen1.jpg',
+      'public/projects/smart_ulcer/screen2.jpg',
+      'public/projects/smart_ulcer/screen3.jpg',
+      'public/projects/smart_ulcer/screen4.jpg'
+    ],
     screenHtml: `
       <div class="ios-screen ios-screen--ulcer">
         <div class="ios-app-header">
@@ -324,31 +345,119 @@ export function initDeviceShowcase() {
     if (!data) return;
     currentApp = appKey;
 
-    // Update phone screen
-    if (screenContainer) {
-      screenContainer.innerHTML = data.screenHtml;
-      // Make simulated tab bar interactive with haptic audio feedback
-      screenContainer.querySelectorAll('.ios-tab-bar span').forEach(tab => {
-        tab.addEventListener('click', (e) => {
-          e.stopPropagation();
-          screenContainer.querySelectorAll('.ios-tab-bar span').forEach(t => t.classList.remove('is-active'));
-          tab.classList.add('is-active');
-          sound.playHapticClick();
-        });
-      });
-    }
-
-    // Update dynamic island
-    if (dynamicIsland) {
-      dynamicIsland.textContent = data.statusPill;
-      dynamicIsland.style.setProperty('--accent', data.accentColor);
-    }
-
     // Update details side
     if (titleEl) titleEl.textContent = data.name;
     if (catEl) catEl.textContent = data.category;
     if (descEl) descEl.textContent = data.description;
     if (techEl) techEl.textContent = data.tech;
+
+    // Update App Store button
+    const appStoreBtn = container.querySelector('#devShowcaseAppStore');
+    if (appStoreBtn) {
+      if (data.appStoreUrl) {
+        appStoreBtn.href = data.appStoreUrl;
+        appStoreBtn.style.display = 'inline-flex';
+      } else {
+        appStoreBtn.style.display = 'none';
+      }
+    }
+
+    // Update phone screen with Live Screenshots / Native UI toggle
+    if (screenContainer) {
+      if (data.screenshots && data.screenshots.length > 0) {
+        let shotIdx = 0;
+        let viewMode = 'shots';
+
+        const buildScreen = () => {
+          if (viewMode === 'shots') {
+            screenContainer.innerHTML = `
+              <div class="ios-screen-mode-bar">
+                <button type="button" class="ios-mode-btn is-active" data-mode="shots">App Store Screens (${data.screenshots.length})</button>
+                <button type="button" class="ios-mode-btn" data-mode="ui">Interactive UI</button>
+              </div>
+              <div class="ios-shots-view">
+                <div class="ios-shots-img-wrap">
+                  <img src="${data.screenshots[shotIdx]}" class="ios-shots-img" alt="${data.name} screenshot ${shotIdx + 1}">
+                </div>
+                <div class="ios-shots-nav">
+                  <button type="button" class="ios-shots-btn ios-shots-prev" aria-label="Previous screenshot">‹</button>
+                  <div class="ios-shots-dots">
+                    ${data.screenshots.map((_, i) => `<i class="${i === shotIdx ? 'is-active' : ''}"></i>`).join('')}
+                  </div>
+                  <button type="button" class="ios-shots-btn ios-shots-next" aria-label="Next screenshot">›</button>
+                </div>
+              </div>
+            `;
+
+            // Navigation buttons
+            screenContainer.querySelector('.ios-shots-prev')?.addEventListener('click', (e) => {
+              e.stopPropagation();
+              shotIdx = (shotIdx - 1 + data.screenshots.length) % data.screenshots.length;
+              sound.playHapticClick();
+              buildScreen();
+            });
+
+            screenContainer.querySelector('.ios-shots-next')?.addEventListener('click', (e) => {
+              e.stopPropagation();
+              shotIdx = (shotIdx + 1) % data.screenshots.length;
+              sound.playHapticClick();
+              buildScreen();
+            });
+
+            // Dots click
+            screenContainer.querySelectorAll('.ios-shots-dots i').forEach((dot, idx) => {
+              dot.style.cursor = 'pointer';
+              dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                shotIdx = idx;
+                sound.playHapticClick();
+                buildScreen();
+              });
+            });
+          } else {
+            screenContainer.innerHTML = `
+              <div class="ios-screen-mode-bar">
+                <button type="button" class="ios-mode-btn" data-mode="shots">App Store Screens</button>
+                <button type="button" class="ios-mode-btn is-active" data-mode="ui">Interactive UI</button>
+              </div>
+              ${data.screenHtml}
+            `;
+
+            // Interactive tab bar in simulated UI
+            screenContainer.querySelectorAll('.ios-tab-bar span').forEach(tab => {
+              tab.addEventListener('click', (e) => {
+                e.stopPropagation();
+                screenContainer.querySelectorAll('.ios-tab-bar span').forEach(t => t.classList.remove('is-active'));
+                tab.classList.add('is-active');
+                sound.playHapticClick();
+              });
+            });
+          }
+
+          // Mode toggle listeners
+          screenContainer.querySelectorAll('.ios-mode-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              viewMode = btn.dataset.mode;
+              sound.playHapticClick();
+              buildScreen();
+            });
+          });
+        };
+
+        buildScreen();
+      } else {
+        screenContainer.innerHTML = data.screenHtml;
+        screenContainer.querySelectorAll('.ios-tab-bar span').forEach(tab => {
+          tab.addEventListener('click', (e) => {
+            e.stopPropagation();
+            screenContainer.querySelectorAll('.ios-tab-bar span').forEach(t => t.classList.remove('is-active'));
+            tab.classList.add('is-active');
+            sound.playHapticClick();
+          });
+        });
+      }
+    }
 
     if (featsEl) {
       featsEl.innerHTML = data.features.map(f => `<li>${f}</li>`).join('');
