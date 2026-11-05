@@ -9,55 +9,69 @@
 
 export const FRAME = [1600, 900];
 
+// Active completed projects showcased in the 3D amphitheatre.
+// Symmetrically flanking the central creator in the light.
 export const CARDS = [
+  {
+    id: 'p01_timeless',
+    name: 'RecovFit',
+    badge: ' Live on App Store',
+    isLive: true,
+    title: 'RecovFit — Patient Recovery & Fitness ( Live on App Store)',
+    box: [220, 90, 480, 320],
+    depth: 0.5,
+    tint: [0.38, 0.22, 0.25]
+  },
+  {
+    id: 'p03_build',
+    name: 'Smart Ulcer Predictor',
+    badge: ' Live on App Store',
+    isLive: true,
+    title: 'Smart Ulcer Predictor — Deep Learning Wound AI ( Live on App Store)',
+    box: [900, 90, 480, 320],
+    depth: 0.5,
+    tint: [0.42, 0.20, 0.26]
+  }
+];
+
+// Full 12-card architecture configuration preserved for future completed releases.
+export const ALL_PIPELINE_CARDS = [
   { id: 'p01_timeless', name: 'RecovFit', badge: ' Live on App Store', isLive: true,
     title: 'RecovFit — Patient Recovery & Fitness ( Live on App Store)',
-    box: [213, 72, 384, 273], depth: 0.45,
-    tint: [0.309, 0.334, 0.382] },
-  { id: 'p02_game', name: 'Urosonic AI', badge: 'Acoustic Medical AI', isLive: false,
-    title: 'Urosonic AI — Acoustic Uroflowmetry Diagnostics',
-    box: [63, 251, 428, 269], depth: 0.25,
-    tint: [0.249, 0.267, 0.295] },
+    box: [220, 90, 480, 320], depth: 0.5, tint: [0.38, 0.22, 0.25] },
   { id: 'p03_build', name: 'Smart Ulcer Predictor', badge: ' Live on App Store', isLive: true,
     title: 'Smart Ulcer Predictor — Deep Learning Wound AI ( Live on App Store)',
-    box: [566, 41, 471, 288], depth: 0.6,
-    tint: [0.414, 0.291, 0.291] },
+    box: [900, 90, 480, 320], depth: 0.5, tint: [0.42, 0.20, 0.26] },
+  { id: 'p02_game', name: 'Urosonic AI', badge: 'Acoustic Medical AI', isLive: false,
+    title: 'Urosonic AI — Acoustic Uroflowmetry Diagnostics',
+    box: [63, 251, 428, 269], depth: 0.25, tint: [0.249, 0.267, 0.295] },
   { id: 'p04_driven', name: 'Dental AI', badge: 'Biomedical Vision', isLive: false,
     title: 'Dental AI — Radiographic Structure Segmentation',
-    box: [998, 95, 460, 377], depth: 0.45,
-    tint: [0.322, 0.278, 0.261] },
+    box: [998, 95, 460, 377], depth: 0.45, tint: [0.322, 0.278, 0.261] },
   { id: 'p05_ideas', name: 'Gamified DSA', badge: 'Interactive Algorithms', isLive: false,
     title: 'Gamified DSA Learning Platform (Phoenix Mascot)',
-    box: [394, 358, 232, 198], depth: 0.8,
-    tint: [0.39, 0.303, 0.234] },
+    box: [394, 358, 232, 198], depth: 0.8, tint: [0.39, 0.303, 0.234] },
   { id: 'p06_sound', name: 'Firebase Sync', badge: 'Realtime & APNs', isLive: false,
     title: 'Firebase Realtime DB & APNs Cloud Sync',
-    box: [568, 364, 173, 203], depth: 0.9,
-    tint: [0.336, 0.324, 0.333] },
+    box: [568, 364, 173, 203], depth: 0.9, tint: [0.336, 0.324, 0.333] },
   { id: 'p07_food', name: 'Oracle SQL', badge: 'Certified Architecture', isLive: false,
     title: 'Oracle AI Database & SQL Architecture',
-    box: [698, 366, 211, 204], depth: 1.0,
-    tint: [0.336, 0.243, 0.217] },
+    box: [698, 366, 211, 204], depth: 1.0, tint: [0.336, 0.243, 0.217] },
   { id: 'p08_travel', name: 'Selenium QA', badge: 'Web Test Automation', isLive: false,
     title: 'Selenium Automated Web QA Matrix',
-    box: [844, 370, 195, 206], depth: 0.9,
-    tint: [0.26, 0.32, 0.366] },
+    box: [844, 370, 195, 206], depth: 0.9, tint: [0.26, 0.32, 0.366] },
   { id: 'p09_space', name: 'Appium QA', badge: 'Mobile Automation', isLive: false,
     title: 'Appium iOS & Android Mobile QA Automation',
-    box: [988, 364, 231, 208], depth: 0.8,
-    tint: [0.336, 0.283, 0.269] },
+    box: [988, 364, 231, 208], depth: 0.8, tint: [0.336, 0.283, 0.269] },
   { id: 'p10_play', name: 'Security Shield', badge: 'OWASP Pentesting', isLive: false,
     title: 'Backend Security Shield & Vulnerability Pentest',
-    box: [1181, 251, 355, 242], depth: 0.3,
-    tint: [0.448, 0.305, 0.235] },
+    box: [1181, 251, 355, 242], depth: 0.3, tint: [0.448, 0.305, 0.235] },
   { id: 'p11_cleaner', name: 'Load Testing', badge: 'Performance & SRE', isLive: false,
     title: 'High-Concurrency Server Load Testing (1,000+ VU)',
-    box: [118, 467, 345, 243], depth: 0.1,
-    tint: [0.311, 0.339, 0.263] },
+    box: [118, 467, 345, 243], depth: 0.1, tint: [0.311, 0.339, 0.263] },
   { id: 'p12_steps', name: 'App Store Deploy', badge: 'Release Engineering', isLive: false,
     title: 'Production App Store Deployment & Signing',
-    box: [1139, 478, 325, 234], depth: 0.1,
-    tint: [0.31, 0.317, 0.302] },
+    box: [1139, 478, 325, 234], depth: 0.1, tint: [0.31, 0.317, 0.302] },
 ];
 
 // the central figure: crop box in frame px (his lighting is baked in)
@@ -84,11 +98,6 @@ export function fitCover(w, h) {
 // Entries: card index -> centre x/y (viewport fractions), width (vw fraction).
 // --------------------------------------------------------------------------
 export const PORTRAIT = new Map([
-  [2, { cx: 0.50, cy: 0.235, w: 0.80 }],   // build
-  [0, { cx: 0.235, cy: 0.385, w: 0.50 }],  // timeless
-  [3, { cx: 0.77, cy: 0.39, w: 0.48 }],    // driven
-  [6, { cx: 0.325, cy: 0.53, w: 0.29 }],   // food
-  [7, { cx: 0.675, cy: 0.53, w: 0.29 }],   // travel
-  [10, { cx: 0.20, cy: 0.815, w: 0.48 }],  // cleaner
-  [11, { cx: 0.80, cy: 0.815, w: 0.48 }],  // steps
+  [0, { cx: 0.50, cy: 0.28, w: 0.88 }],   // RecovFit
+  [1, { cx: 0.50, cy: 0.58, w: 0.88 }],   // Smart Ulcer Predictor
 ]);

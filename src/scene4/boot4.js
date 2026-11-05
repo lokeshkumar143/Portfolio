@@ -98,8 +98,8 @@ export async function initGallery() {
     // the red 01 belongs to the composition, not the viewport corners: it
     // rides just over the hero screen's top-left, where the reference puts it
     if (num && !portrait) {
-      num.style.left = `${588 * f.s + f.ox}px`;
-      num.style.top = `${46 * f.s + f.oy}px`;
+      num.style.left = `${220 * f.s + f.ox}px`;
+      num.style.top = `${60 * f.s + f.oy}px`;
       num.style.fontSize = `${Math.max(10, 15 * f.s)}px`;
     }
 
