@@ -469,6 +469,25 @@ class SoundEngine {
     } catch {}
   }
 
+  playSirenStrobe() {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.linearRampToValueAtTime(880, now + 0.35);
+      osc.frequency.linearRampToValueAtTime(520, now + 0.7);
+      gain.gain.setValueAtTime(0.04, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.75);
+      osc.connect(gain);
+      gain.connect(this.fxGain);
+      osc.start(now);
+      osc.stop(now + 0.75);
+    } catch {}
+  }
+
   playKeyBeep() {
     if (this.muted || !this.initialized || !this.ctx) return;
     try {
