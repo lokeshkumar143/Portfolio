@@ -34,14 +34,15 @@
   <link rel="stylesheet" href="src/styles/projects.css">
   <link rel="stylesheet" href="src/styles/finale.css">
   <link rel="stylesheet" href="src/styles/cinematic.css">
-  <link rel="stylesheet" href="src/styles/bootExperience.css">
+  <link rel="stylesheet" href="src/styles/gameLoader.css">
 </head>
 
 <body>
 
   <!-- the real heading, for search engines and screen readers; the visible
      wordmark is drawn on the canvas so video can be clipped inside its letters -->
-  <h1 class="sr-only">Lokesh Kumar S — iOS Developer. I build elegant, scalable and intelligent mobile applications using Swift and SwiftUI.</h1>
+  <h1 class="sr-only">Lokesh Kumar S — iOS Developer. I build elegant, scalable and intelligent mobile applications
+    using Swift and SwiftUI.</h1>
 
   <div class="stage-wrap">
     <canvas id="stage" aria-hidden="true"></canvas>
@@ -80,7 +81,8 @@
       <div class="hdr__meta">
         <div class="hdr__metaRow">
           <!-- Apple Dynamic Island Telemetry -->
-          <div class="dynamic-island" id="dynamicIsland" role="region" aria-label="Apple Silicon Neural Engine Telemetry">
+          <div class="dynamic-island" id="dynamicIsland" role="region"
+            aria-label="Apple Silicon Neural Engine Telemetry">
             <div class="di-idle" tabindex="0" role="button" aria-label="Expand Apple Silicon Mission Control">
               <span class="di-led" aria-hidden="true"></span>
               <span class="di-title"> Apple Silicon · CoreML Active</span>
@@ -109,7 +111,11 @@
               </div>
               <div class="di-actions">
                 <button type="button" class="di-act-btn js-toggle-spatial">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                    <path d="M2 12h20" />
+                  </svg>
                   <span>VisionOS Spatial HUD</span>
                 </button>
                 <button type="button" class="di-act-btn di-act-btn--sub js-goto-devices">
@@ -122,7 +128,8 @@
             </div>
           </div>
 
-          <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false" aria-label="Toggle cinematic audio">
+          <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false"
+            aria-label="Toggle cinematic audio">
             <span class="sound-btn__bars" aria-hidden="true">
               <i></i><i></i><i></i>
             </span>
@@ -147,7 +154,8 @@
           <span class="welcome__text">iOS DEVELOPER · SWIFT &amp; SWIFTUI · MOBILE ARCHITECTURE</span>
           <b class="welcome__dots">•••</b>
         </p>
-        <p class="welcome__tagline">I build elegant, scalable and intelligent mobile applications using Swift and SwiftUI.</p>
+        <p class="welcome__tagline">I build elegant, scalable and intelligent mobile applications using Swift and
+          SwiftUI.</p>
         <div class="welcome__tech">
           <span class="tech-pill">Swift</span>
           <span class="tech-pill">SwiftUI</span>
@@ -183,11 +191,13 @@
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
         </button>
-        <button type="button" class="hero-btn hero-btn--spatial js-open-spatial" aria-label="Open Apple VisionOS Spatial HUD">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-            <path d="M2 12h20"/>
+        <button type="button" class="hero-btn hero-btn--spatial js-open-spatial"
+          aria-label="Open Apple VisionOS Spatial HUD">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+            <path d="M2 12h20" />
           </svg>
           <span>Spatial HUD</span>
         </button>
@@ -254,7 +264,8 @@
         </div>
         <div class="spatial-hud__barRight">
           <span class="spatial-hud__keyHint">Press <kbd>ESC</kbd> to exit</span>
-          <button type="button" class="spatial-hud__close" id="spatialCloseBtn" aria-label="Exit Spatial Mode">&times;</button>
+          <button type="button" class="spatial-hud__close" id="spatialCloseBtn"
+            aria-label="Exit Spatial Mode">&times;</button>
         </div>
       </div>
 
@@ -286,7 +297,10 @@
 }</code></pre>
             <div class="spatial-panel__footer">
               <button type="button" class="spatial-copy-btn" id="spatialCopySwiftBtn">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
                 <span>Copy Swift 6 Snippet</span>
               </button>
             </div>
@@ -380,28 +394,37 @@
           <span class="about-narrative__badge">Engineering Background</span>
           <h3 class="about-narrative__title">iOS Developer & Technical Mentor at SIMATS</h3>
           <p class="about-narrative__copy">
-            I am <strong>Lokesh Kumar S</strong>, an <strong>iOS Developer at SIMATS Engineering Institution</strong> based in <strong>Vellore, Tamil Nadu, India</strong>. Having progressed from iOS Development Intern to a full-time iOS Developer within two months (from November 2025), I specialize in building elegant, scalable, and native mobile applications using Swift, SwiftUI, and UIKit. My work spans native iOS application development, technical mentoring in Swift and SwiftUI, conducting UI/UX and code reviews, App Store deployment guidance, and rigorous testing across Selenium, Appium, backend security, and load testing.
+            I am <strong>Lokesh Kumar S</strong>, an <strong>iOS Developer at SIMATS Engineering Institution</strong>
+            based in <strong>Vellore, Tamil Nadu, India</strong>. Having progressed from iOS Development Intern to a
+            full-time iOS Developer within two months (from November 2025), I specialize in building elegant, scalable,
+            and native mobile applications using Swift, SwiftUI, and UIKit. My work spans native iOS application
+            development, technical mentoring in Swift and SwiftUI, conducting UI/UX and code reviews, App Store
+            deployment guidance, and rigorous testing across Selenium, Appium, backend security, and load testing.
           </p>
           <div class="about-narrative__grid">
             <div class="about-item">
               <span class="about-item__num">01</span>
               <h4>iOS Application Development</h4>
-              <p>Engineering high-performance native iOS applications with clean MVVM architecture, fluid 120Hz ProMotion animations, Combine reactive pipelines, and CoreData persistence.</p>
+              <p>Engineering high-performance native iOS applications with clean MVVM architecture, fluid 120Hz
+                ProMotion animations, Combine reactive pipelines, and CoreData persistence.</p>
             </div>
             <div class="about-item">
               <span class="about-item__num">02</span>
               <h4>Swift & SwiftUI Mentoring</h4>
-              <p>Conducting technical mentoring and UI/UX code reviews for junior developers and engineering students, fostering clean code paradigms and modern Swift concurrency.</p>
+              <p>Conducting technical mentoring and UI/UX code reviews for junior developers and engineering students,
+                fostering clean code paradigms and modern Swift concurrency.</p>
             </div>
             <div class="about-item">
               <span class="about-item__num">03</span>
               <h4>Automated Testing & Security</h4>
-              <p>Authoring comprehensive mobile test suites with Appium, cross-browser web testing with Selenium, Postman API workflows, backend vulnerability testing, and load audits.</p>
+              <p>Authoring comprehensive mobile test suites with Appium, cross-browser web testing with Selenium,
+                Postman API workflows, backend vulnerability testing, and load audits.</p>
             </div>
             <div class="about-item">
               <span class="about-item__num">04</span>
               <h4>App Store Deployment & Review</h4>
-              <p>Guiding applications through TestFlight beta testing, App Store submission checklists, Apple Human Interface Guidelines compliance, and production release cycles.</p>
+              <p>Guiding applications through TestFlight beta testing, App Store submission checklists, Apple Human
+                Interface Guidelines compliance, and production release cycles.</p>
             </div>
           </div>
         </div>
@@ -559,101 +582,105 @@
         </header>
 
         <div class="skills-grid">
-            <!-- 01: iOS Development (Strongest Visual Emphasis) -->
-            <article class="sk-card sk-card--featured" data-domain="ios">
-              <div class="sk-card__glow"></div>
-              <div class="sk-card__meta">
-                <span class="sk-card__badge">Featured · Native iOS</span>
-                <span class="sk-card__num">01</span>
-              </div>
-              <h3 class="sk-card__title">iOS Development</h3>
-              <p class="sk-card__desc">Engineering high-performance native iOS applications with clean architecture
-                (MVVM/UDF), fluid 120Hz ProMotion animations, Combine reactive pipelines, and strict Apple HIG compliance.</p>
-              <div class="sk-card__chips">
-                <span class="sk-chip sk-chip--hot">Swift</span>
-                <span class="sk-chip sk-chip--hot">SwiftUI</span>
-                <span class="sk-chip sk-chip--hot">UIKit</span>
-                <span class="sk-chip sk-chip--hot">Xcode</span>
-                <span class="sk-chip">Combine</span>
-                <span class="sk-chip">CoreData</span>
-              </div>
-            </article>
+          <!-- 01: iOS Development (Strongest Visual Emphasis) -->
+          <article class="sk-card sk-card--featured" data-domain="ios">
+            <div class="sk-card__glow"></div>
+            <div class="sk-card__meta">
+              <span class="sk-card__badge">Featured · Native iOS</span>
+              <span class="sk-card__num">01</span>
+            </div>
+            <h3 class="sk-card__title">iOS Development</h3>
+            <p class="sk-card__desc">Engineering high-performance native iOS applications with clean architecture
+              (MVVM/UDF), fluid 120Hz ProMotion animations, Combine reactive pipelines, and strict Apple HIG compliance.
+            </p>
+            <div class="sk-card__chips">
+              <span class="sk-chip sk-chip--hot">Swift</span>
+              <span class="sk-chip sk-chip--hot">SwiftUI</span>
+              <span class="sk-chip sk-chip--hot">UIKit</span>
+              <span class="sk-chip sk-chip--hot">Xcode</span>
+              <span class="sk-chip">Combine</span>
+              <span class="sk-chip">CoreData</span>
+            </div>
+          </article>
 
-            <!-- 02: Apple Technologies -->
-            <article class="sk-card" data-domain="apple">
-              <div class="sk-card__glow"></div>
-              <div class="sk-card__meta">
-                <span class="sk-card__badge">Apple Frameworks</span>
-                <span class="sk-card__num">02</span>
-              </div>
-              <h3 class="sk-card__title">Apple Technologies</h3>
-              <p class="sk-card__desc">Deep integration with native Apple frameworks, battery-conscious location services, spatial mapping, and hardware-accelerated CoreML on Apple Silicon.</p>
-              <div class="sk-card__chips">
-                <span class="sk-chip sk-chip--hot">CoreLocation</span>
-                <span class="sk-chip sk-chip--hot">MapKit</span>
-                <span class="sk-chip">CoreML</span>
-                <span class="sk-chip">Apple Neural Engine</span>
-                <span class="sk-chip">Vision</span>
-                <span class="sk-chip">HealthKit</span>
-              </div>
-            </article>
+          <!-- 02: Apple Technologies -->
+          <article class="sk-card" data-domain="apple">
+            <div class="sk-card__glow"></div>
+            <div class="sk-card__meta">
+              <span class="sk-card__badge">Apple Frameworks</span>
+              <span class="sk-card__num">02</span>
+            </div>
+            <h3 class="sk-card__title">Apple Technologies</h3>
+            <p class="sk-card__desc">Deep integration with native Apple frameworks, battery-conscious location services,
+              spatial mapping, and hardware-accelerated CoreML on Apple Silicon.</p>
+            <div class="sk-card__chips">
+              <span class="sk-chip sk-chip--hot">CoreLocation</span>
+              <span class="sk-chip sk-chip--hot">MapKit</span>
+              <span class="sk-chip">CoreML</span>
+              <span class="sk-chip">Apple Neural Engine</span>
+              <span class="sk-chip">Vision</span>
+              <span class="sk-chip">HealthKit</span>
+            </div>
+          </article>
 
-            <!-- 03: Backend Development -->
-            <article class="sk-card" data-domain="backend">
-              <div class="sk-card__glow"></div>
-              <div class="sk-card__meta">
-                <span class="sk-card__badge">Cloud & Backends</span>
-                <span class="sk-card__num">03</span>
-              </div>
-              <h3 class="sk-card__title">Backend & Cloud</h3>
-              <p class="sk-card__desc">Architecting robust RESTful backend APIs, role-based authorization services,
-                relational database schemas, and real-time client synchronization.</p>
-              <div class="sk-card__chips">
-                <span class="sk-chip sk-chip--hot">PHP</span>
-                <span class="sk-chip sk-chip--hot">MySQL</span>
-                <span class="sk-chip sk-chip--hot">Firebase</span>
-                <span class="sk-chip sk-chip--hot">REST APIs</span>
-                <span class="sk-chip">FastAPI</span>
-                <span class="sk-chip">Postman</span>
-              </div>
-            </article>
+          <!-- 03: Backend Development -->
+          <article class="sk-card" data-domain="backend">
+            <div class="sk-card__glow"></div>
+            <div class="sk-card__meta">
+              <span class="sk-card__badge">Cloud & Backends</span>
+              <span class="sk-card__num">03</span>
+            </div>
+            <h3 class="sk-card__title">Backend & Cloud</h3>
+            <p class="sk-card__desc">Architecting robust RESTful backend APIs, role-based authorization services,
+              relational database schemas, and real-time client synchronization.</p>
+            <div class="sk-card__chips">
+              <span class="sk-chip sk-chip--hot">PHP</span>
+              <span class="sk-chip sk-chip--hot">MySQL</span>
+              <span class="sk-chip sk-chip--hot">Firebase</span>
+              <span class="sk-chip sk-chip--hot">REST APIs</span>
+              <span class="sk-chip">FastAPI</span>
+              <span class="sk-chip">Postman</span>
+            </div>
+          </article>
 
-            <!-- 04: Testing & QA Automation -->
-            <article class="sk-card" data-domain="testing">
-              <div class="sk-card__glow"></div>
-              <div class="sk-card__meta">
-                <span class="sk-card__badge">Quality Assurance</span>
-                <span class="sk-card__num">04</span>
-              </div>
-              <h3 class="sk-card__title">Testing & QA Automation</h3>
-              <p class="sk-card__desc">Authoring comprehensive mobile test suites with Appium, cross-browser web testing with Selenium, Postman workflows, and vulnerability testing.</p>
-              <div class="sk-card__chips">
-                <span class="sk-chip sk-chip--hot">Appium</span>
-                <span class="sk-chip sk-chip--hot">Selenium</span>
-                <span class="sk-chip sk-chip--hot">Postman</span>
-                <span class="sk-chip">Load Testing</span>
-                <span class="sk-chip">Backend Vulnerability Testing</span>
-              </div>
-            </article>
+          <!-- 04: Testing & QA Automation -->
+          <article class="sk-card" data-domain="testing">
+            <div class="sk-card__glow"></div>
+            <div class="sk-card__meta">
+              <span class="sk-card__badge">Quality Assurance</span>
+              <span class="sk-card__num">04</span>
+            </div>
+            <h3 class="sk-card__title">Testing & QA Automation</h3>
+            <p class="sk-card__desc">Authoring comprehensive mobile test suites with Appium, cross-browser web testing
+              with Selenium, Postman workflows, and vulnerability testing.</p>
+            <div class="sk-card__chips">
+              <span class="sk-chip sk-chip--hot">Appium</span>
+              <span class="sk-chip sk-chip--hot">Selenium</span>
+              <span class="sk-chip sk-chip--hot">Postman</span>
+              <span class="sk-chip">Load Testing</span>
+              <span class="sk-chip">Backend Vulnerability Testing</span>
+            </div>
+          </article>
 
-            <!-- 05: Development & Workflow -->
-            <article class="sk-card" data-domain="dev">
-              <div class="sk-card__glow"></div>
-              <div class="sk-card__meta">
-                <span class="sk-card__badge">Engineering Workflow</span>
-                <span class="sk-card__num">05</span>
-              </div>
-              <h3 class="sk-card__title">Development & Workflow</h3>
-              <p class="sk-card__desc">Collaborative engineering standards, Git version control, Agile sprints, rigorous peer code reviews, and TestFlight deployment pipelines.</p>
-              <div class="sk-card__chips">
-                <span class="sk-chip sk-chip--hot">Git</span>
-                <span class="sk-chip sk-chip--hot">Agile / Scrum</span>
-                <span class="sk-chip sk-chip--hot">Debugging</span>
-                <span class="sk-chip sk-chip--hot">Code Review</span>
-                <span class="sk-chip">TestFlight</span>
-                <span class="sk-chip">CI/CD</span>
-              </div>
-            </article>
+          <!-- 05: Development & Workflow -->
+          <article class="sk-card" data-domain="dev">
+            <div class="sk-card__glow"></div>
+            <div class="sk-card__meta">
+              <span class="sk-card__badge">Engineering Workflow</span>
+              <span class="sk-card__num">05</span>
+            </div>
+            <h3 class="sk-card__title">Development & Workflow</h3>
+            <p class="sk-card__desc">Collaborative engineering standards, Git version control, Agile sprints, rigorous
+              peer code reviews, and TestFlight deployment pipelines.</p>
+            <div class="sk-card__chips">
+              <span class="sk-chip sk-chip--hot">Git</span>
+              <span class="sk-chip sk-chip--hot">Agile / Scrum</span>
+              <span class="sk-chip sk-chip--hot">Debugging</span>
+              <span class="sk-chip sk-chip--hot">Code Review</span>
+              <span class="sk-chip">TestFlight</span>
+              <span class="sk-chip">CI/CD</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -882,7 +909,8 @@
           </span>
           <span class="fin__devMeta">
             <span class="fin__devName">Lokesh Kumar S</span>
-            <span class="fin__devStatus"><span class="fin__devDot" aria-hidden="true"></span>iOS Developer · Open for Roles</span>
+            <span class="fin__devStatus"><span class="fin__devDot" aria-hidden="true"></span>iOS Developer · Open for
+              Roles</span>
           </span>
         </button>
         <nav class="fin__soc" aria-label="Social">
@@ -909,7 +937,9 @@
       <div class="dev-modal__content">
         <p class="dev-modal__over">iOS Developer · SwiftUI · UIKit · Swift · Vellore, Tamil Nadu, India</p>
         <h3 class="dev-modal__title" id="devModalTitle">Lokesh Kumar S</h3>
-        <p class="dev-modal__tag">iOS Developer at SIMATS Engineering Institution. Specializing in Swift, SwiftUI, UIKit, CoreData, MapKit, Firebase, REST APIs, and Mobile Quality Assurance (Selenium, Appium). Developer of RecovFit, Urosonic, Smart Ulcer Predictor, Gamified DSA, and Dental AI.</p>
+        <p class="dev-modal__tag">iOS Developer at SIMATS Engineering Institution. Specializing in Swift, SwiftUI,
+          UIKit, CoreData, MapKit, Firebase, REST APIs, and Mobile Quality Assurance (Selenium, Appium). Developer of
+          RecovFit, Urosonic, Smart Ulcer Predictor, Gamified DSA, and Dental AI.</p>
 
         <div class="dev-modal__pills">
           <span class="dev-modal__pill">Swift</span>
@@ -1052,41 +1082,41 @@
       <span class="chapter-item__num">01</span>
       <span class="chapter-item__tag">Hero</span>
     </button>
-      <button class="chapter-item" data-target="about" aria-label="Go to Scene 2: About">
-        <span class="chapter-item__line"></span>
-        <span class="chapter-item__num">02</span>
-        <span class="chapter-item__tag">About</span>
-      </button>
-        <button class="chapter-item" data-target="skills" aria-label="Go to Scene 3: Skills">
-          <span class="chapter-item__line"></span>
-          <span class="chapter-item__num">03</span>
-          <span class="chapter-item__tag">Skills</span>
-        </button>
-        <button class="chapter-item" data-target="gallery" aria-label="Go to Scene 4: Projects">
-          <span class="chapter-item__line"></span>
-          <span class="chapter-item__num">04</span>
-          <span class="chapter-item__tag">Projects</span>
-        </button>
-          <button class="chapter-item" data-target="devices" aria-label="Go to Scene 5: Devices">
-            <span class="chapter-item__line"></span>
-            <span class="chapter-item__num">05</span>
-            <span class="chapter-item__tag">Devices</span>
-          </button>
-            <button class="chapter-item" data-target="chrono" aria-label="Go to Scene 6: Journey">
-              <span class="chapter-item__line"></span>
-              <span class="chapter-item__num">06</span>
-              <span class="chapter-item__tag">Journey</span>
-            </button>
-            <button class="chapter-item" data-target="github" aria-label="Go to Scene 7: GitHub">
-              <span class="chapter-item__line"></span>
-              <span class="chapter-item__num">07</span>
-              <span class="chapter-item__tag">GitHub</span>
-            </button>
-            <button class="chapter-item" data-target="fin" aria-label="Go to Scene 8: Finale">
-              <span class="chapter-item__line"></span>
-              <span class="chapter-item__num">08</span>
-              <span class="chapter-item__tag">Finale</span>
-            </button>
+    <button class="chapter-item" data-target="about" aria-label="Go to Scene 2: About">
+      <span class="chapter-item__line"></span>
+      <span class="chapter-item__num">02</span>
+      <span class="chapter-item__tag">About</span>
+    </button>
+    <button class="chapter-item" data-target="skills" aria-label="Go to Scene 3: Skills">
+      <span class="chapter-item__line"></span>
+      <span class="chapter-item__num">03</span>
+      <span class="chapter-item__tag">Skills</span>
+    </button>
+    <button class="chapter-item" data-target="gallery" aria-label="Go to Scene 4: Projects">
+      <span class="chapter-item__line"></span>
+      <span class="chapter-item__num">04</span>
+      <span class="chapter-item__tag">Projects</span>
+    </button>
+    <button class="chapter-item" data-target="devices" aria-label="Go to Scene 5: Devices">
+      <span class="chapter-item__line"></span>
+      <span class="chapter-item__num">05</span>
+      <span class="chapter-item__tag">Devices</span>
+    </button>
+    <button class="chapter-item" data-target="chrono" aria-label="Go to Scene 6: Journey">
+      <span class="chapter-item__line"></span>
+      <span class="chapter-item__num">06</span>
+      <span class="chapter-item__tag">Journey</span>
+    </button>
+    <button class="chapter-item" data-target="github" aria-label="Go to Scene 7: GitHub">
+      <span class="chapter-item__line"></span>
+      <span class="chapter-item__num">07</span>
+      <span class="chapter-item__tag">GitHub</span>
+    </button>
+    <button class="chapter-item" data-target="fin" aria-label="Go to Scene 8: Finale">
+      <span class="chapter-item__line"></span>
+      <span class="chapter-item__num">08</span>
+      <span class="chapter-item__tag">Finale</span>
+    </button>
   </aside>
 
   <!-- ====================================================================== -->

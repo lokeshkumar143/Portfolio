@@ -27,7 +27,7 @@ import { initDynamicIsland } from './scene/dynamicIsland.js';
 import { initSpatialHUD } from './scene/spatialHUD.js';
 import { initUniversalTilt } from './scene/tilt.js';
 import { initMagicalReveal } from './scene/magicalReveal.js';
-import { initBootExperience } from './scene/bootExperience.js';
+import { initGameLoader } from './scene/gameLoader.js';
 
 // a cinematic page manages its own positions; the browser restoring an old
 // scroll offset mid-boot yanks the visitor (and any scripted anchor) around
@@ -109,18 +109,33 @@ async function main() {
   window.addEventListener('resize', debounce(layout, 140));
   window.addEventListener('orientationchange', () => setTimeout(layout, 220));
 
+  // Launch Cinematic Gaming Loading Screen
+  const loader = initGameLoader({
+    onComplete: async ({ visitorName, skipped }) => {
+      try {
+        await assetsReady;
+        await app.clips.hero.play().catch(() => {});
+      } catch (err) {
+        console.warn('[lokesh] asset loading issue:', err);
+      }
+      begin(visitorName);
+    }
+  });
+
   const assetsReady = (async () => {
-    await Promise.all([
-      fontsReady().then(tick),
-      app.stage.loadTextures({
-        grunge: 'public/tex/grunge.png',
-        grain: 'public/tex/grain.png',
-      }).then(tick),
-    ]);
+    loader.updateProgress(0.18, 'Decoding Typography & Core Manifest...');
+    await fontsReady();
+    loader.updateProgress(0.45, 'Fonts Ready. Loading Shaders & Textures...');
+    await app.stage.loadTextures({
+      grunge: 'public/tex/grunge.png',
+      grain: 'public/tex/grain.png',
+    });
+    loader.updateProgress(0.72, 'WebGL Stage Ready. Synchronizing Hero Stream...');
     await app.clips.hero.whenReady();
-    tick();
+    loader.updateProgress(0.95, 'Hero Cinematic Ready. Finalizing Scene...');
     const held = performance.now() - startedAt;
     if (held < MIN_BLACK) await wait(MIN_BLACK - held);
+    loader.setReady();
     return true;
   })();
 
@@ -136,19 +151,6 @@ async function main() {
     .catch((e) => console.warn('[lokesh] finale unavailable:', e.message));
   initDeviceShowcase();
   initGitHub();
-
-  // Launch Cinematic Mechanical Startup & Identity Access Experience
-  initBootExperience({
-    onComplete: async ({ visitorName, skipped }) => {
-      try {
-        await assetsReady;
-        await app.clips.hero.play().catch(() => {});
-      } catch (err) {
-        console.warn('[lokesh] asset loading issue:', err);
-      }
-      begin(visitorName);
-    }
-  });
 }
 
 function begin(visitorName) {
