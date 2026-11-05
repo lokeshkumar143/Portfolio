@@ -1,0 +1,568 @@
+/* ==========================================================================
+   Cinematic Gaming Loading Screen — Original Portfolio Identity
+   Inspired by high-end cinematic gaming interfaces with Ken Burns artwork,
+   editorial typography, real-time asset telemetry, and seamless hero reveal.
+   ========================================================================== */
+
+#gameLoader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #060508;
+  overflow: hidden;
+  user-select: none;
+  font-family: var(--ui, 'Oswald', system-ui, -apple-system, sans-serif);
+  color: #ededed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.85s;
+}
+
+#gameLoader.is-dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Atmospheric Overlays (Film Grain, Vignette, Grid)
+   -------------------------------------------------------------------------- */
+.gl-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(6, 5, 8, 0.2) 20%, rgba(6, 5, 8, 0.85) 80%, #060508 100%);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.gl-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(222, 27, 28, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(222, 27, 28, 0.035) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-position: center center;
+  pointer-events: none;
+  opacity: 0.8;
+  z-index: 3;
+}
+
+.gl-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.25) 2px,
+    rgba(0, 0, 0, 0.25) 4px
+  );
+  pointer-events: none;
+  opacity: 0.55;
+  z-index: 5;
+}
+
+/* Cinematic Flash upon Entry */
+.gl-flash {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  transition: opacity 0.7s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+#gameLoader.is-entering .gl-flash {
+  opacity: 1;
+  transition: opacity 0.08s ease-in;
+}
+
+/* --------------------------------------------------------------------------
+   Artwork Panels (Ken Burns Motion & Cinematic Cross-Fade)
+   -------------------------------------------------------------------------- */
+.gl-art-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.gl-art-slide {
+  position: absolute;
+  inset: -4%;
+  background-size: cover;
+  background-position: center center;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.gl-art-slide.is-active {
+  opacity: 1;
+  animation: glKenBurns 10s ease-out forwards;
+}
+
+@keyframes glKenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.07) translate(-1.2%, -0.8%);
+  }
+}
+
+/* Subtle amber & crimson atmospheric gradient overlay */
+.gl-art-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(222, 27, 28, 0.12) 0%, transparent 50%, rgba(245, 158, 11, 0.08) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Top Bar: Portfolio Wordmark & Controls
+   -------------------------------------------------------------------------- */
+.gl-header {
+  position: relative;
+  z-index: 10;
+  height: 72px;
+  padding: 0 clamp(20px, 4vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(6, 5, 8, 0.88) 0%, transparent 100%);
+}
+
+.gl-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gl-brand__mark {
+  font-family: var(--disp, 'Anton', sans-serif);
+  font-size: clamp(24px, 3.2vw, 32px);
+  letter-spacing: 0.06em;
+  color: #ededed;
+  text-transform: uppercase;
+}
+
+.gl-brand__mark span {
+  color: var(--ink, #de1b1c);
+}
+
+.gl-brand__divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.gl-brand__meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.gl-brand__label {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.gl-brand__version {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  font-family: monospace;
+  color: var(--ink-hot, #ff2a2b);
+}
+
+.gl-header__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gl-btn-audio,
+.gl-btn-skip {
+  background: rgba(14, 12, 18, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ededed;
+  padding: 7px 16px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.gl-btn-audio:hover,
+.gl-btn-skip:hover {
+  background: var(--ink, #de1b1c);
+  color: #ffffff;
+  border-color: var(--ink, #de1b1c);
+  box-shadow: 0 0 16px rgba(222, 27, 28, 0.4);
+}
+
+.gl-btn-skip kbd {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 5px;
+  border-radius: 2px;
+  font-size: 9px;
+}
+
+/* --------------------------------------------------------------------------
+   Center Stage: Gaming Narrative Card & Identity Access
+   -------------------------------------------------------------------------- */
+.gl-stage {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 clamp(20px, 5vw, 80px);
+}
+
+.gl-card {
+  max-width: 620px;
+  background: rgba(10, 9, 14, 0.78);
+  border-left: 3px solid var(--ink, #de1b1c);
+  padding: clamp(24px, 4vw, 42px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85),
+              0 0 35px rgba(222, 27, 28, 0.1);
+  border-radius: 0 6px 6px 0;
+  position: relative;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* HUD Corner Reticles */
+.gl-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid rgba(255, 255, 255, 0.4);
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.gl-card::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 14px;
+  height: 14px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.gl-card__kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-hot, #ff2a2b);
+  font-family: monospace;
+  margin-bottom: 10px;
+}
+
+.gl-card__kicker-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--ink-hot, #ff2a2b);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--ink-hot, #ff2a2b);
+  animation: glPulse 2s infinite ease-in-out;
+}
+
+@keyframes glPulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.gl-card__title {
+  font-family: var(--disp, 'Anton', sans-serif);
+  font-size: clamp(34px, 5.8vw, 62px);
+  line-height: 1.02;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 12px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+}
+
+.gl-card__sub {
+  font-size: clamp(14px, 2vw, 18px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.gl-card__desc {
+  font-size: clamp(13px, 1.4vw, 15px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  letter-spacing: 0.02em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Identity Form / Ready Access Action */
+.gl-access-box {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gl-input-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.gl-input {
+  width: 100%;
+  background: rgba(16, 14, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 3px;
+  padding: 12px 16px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  font-family: monospace;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gl-input:focus {
+  border-color: var(--ink, #de1b1c);
+  box-shadow: 0 0 16px rgba(222, 27, 28, 0.35);
+}
+
+.gl-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.gl-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.gl-btn-enter {
+  background: var(--ink, #de1b1c);
+  color: #ffffff;
+  border: none;
+  padding: 13px 28px;
+  font-family: var(--disp, 'Anton', sans-serif);
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(222, 27, 28, 0.4);
+}
+
+.gl-btn-enter:hover {
+  background: var(--ink-hot, #ff2a2b);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255, 42, 43, 0.6);
+}
+
+.gl-btn-quick {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 12px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.gl-btn-quick:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Bottom Section: Telemetry Status, Real Loading Meter & Percentage
+   -------------------------------------------------------------------------- */
+.gl-footer {
+  position: relative;
+  z-index: 10;
+  padding: 24px clamp(20px, 4vw, 56px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  background: linear-gradient(to top, rgba(6, 5, 8, 0.96) 0%, rgba(6, 5, 8, 0.75) 60%, transparent 100%);
+}
+
+.gl-telemetry {
+  max-width: 600px;
+}
+
+.gl-telemetry__tag {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-hot, #ff2a2b);
+  font-family: monospace;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.gl-telemetry__message {
+  font-size: clamp(13px, 1.5vw, 15px);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: 0.02em;
+  transition: opacity 0.25s ease;
+}
+
+/* Right Side: Progress Meter & Percent Readout */
+.gl-progress-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.gl-progress-hdr {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gl-progress-status {
+  font-family: var(--disp, 'Anton', sans-serif);
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ededed;
+}
+
+.gl-progress-status span {
+  display: inline-block;
+  animation: glDots 1.5s infinite;
+}
+
+@keyframes glDots {
+  0%, 20% { opacity: 0; }
+  40% { opacity: 0.5; }
+  60%, 100% { opacity: 1; }
+}
+
+.gl-progress-percent {
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-hot, #ff2a2b);
+  letter-spacing: 0.05em;
+  min-width: 48px;
+  text-align: right;
+}
+
+.gl-meter {
+  width: clamp(180px, 25vw, 280px);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.gl-meter__fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--ink, #de1b1c), var(--ink-hot, #ff2a2b));
+  box-shadow: 0 0 10px rgba(222, 27, 28, 0.8);
+  transition: width 0.35s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Tablet Responsiveness
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .gl-header {
+    height: 60px;
+    padding: 0 16px;
+  }
+  .gl-brand__divider,
+  .gl-brand__meta {
+    display: none;
+  }
+  .gl-stage {
+    padding: 0 16px;
+  }
+  .gl-card {
+    padding: 20px;
+    margin-top: 10px;
+  }
+  .gl-card__title {
+    font-size: 32px;
+  }
+  .gl-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+  .gl-progress-block {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .gl-meter {
+    width: 100%;
+  }
+  .gl-btn-enter {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion Overrides
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .gl-art-slide.is-active {
+    animation: none;
+    transform: none;
+  }
+  .gl-card__kicker-dot {
+    animation: none;
+  }
+}

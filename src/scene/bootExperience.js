@@ -1,195 +1,136 @@
-// Cinematic Mechanical Startup & Visitor Identity Access Experience
-// Coordinates industrial machine activation, concentric reactor spin, diagnostics,
-// visitor welcome input, and pneumatic blast doors opening into Lokesh Kumar S.'s portfolio.
+// Rockstar Games Style Cinematic Loading & Identity Experience
+// Features iconic L★ emblem intro, GTA V style slideshow with Ken Burns parallax,
+// rotating hints ticker, spinning star loading wheel, and dramatic story mode transition.
 
 import { sound } from '../lib/sound.js';
 
 export function initBootExperience({ onComplete, onAssetProgress } = {}) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isReturning = sessionStorage.getItem('mech_boot_completed') === 'true';
+  const urlParams = new URLSearchParams(window.location.search);
+  const forceBoot = urlParams.has('intro') || urlParams.has('boot') || urlParams.has('reset');
+  if (forceBoot) {
+    sessionStorage.removeItem('mech_boot_completed');
+    sessionStorage.removeItem('mech_visitor_name');
+  }
+  const isReturning = !forceBoot && sessionStorage.getItem('mech_boot_completed') === 'true';
 
-  let currentStage = 1; // 1: Activation, 2: Diagnostics, 3: Identity, 4: Granted
+  if (isReturning) {
+    const savedName = sessionStorage.getItem('mech_visitor_name') || 'GUEST OPERATOR';
+    if (typeof onComplete === 'function') {
+      onComplete({ visitorName: savedName, skipped: true });
+    }
+    return { container: null, bypass: () => {} };
+  }
+
   let visitorName = 'GUEST OPERATOR';
   let isDone = false;
+  let activeSlide = 0;
 
-  // 1. Build and inject DOM
+  const slidesData = [
+    {
+      img: 'public/media/hero.jpg',
+      kicker: 'CHAPTER 01 // ARCHITECTURE',
+      title: 'LOKESH KUMAR S.',
+      sub: 'NATIVE iOS DEVELOPER · SWIFT & SWIFTUI',
+      desc: 'Architecting high-frequency 120Hz ProMotion interfaces, zero-allocation runtime concurrency, and responsive native Apple platforms.',
+    },
+    {
+      img: 'public/media/device_showcase.jpg',
+      kicker: 'CHAPTER 02 // APPLIED AI',
+      title: 'COREML & A18 PRO',
+      sub: 'SUB-4MS ON-DEVICE NEURAL INFERENCE',
+      desc: 'Real-time acoustic analysis, edge machine learning, and hardware-accelerated computer vision with complete user privacy.',
+    },
+    {
+      img: 'public/media/gallery_stage.jpg',
+      kicker: 'CHAPTER 03 // PRODUCTION',
+      title: 'FEATURED ARSENAL',
+      sub: 'END-TO-END MOBILE SYSTEMS & QA',
+      desc: 'Scalable production applications, automated continuous integration pipelines, and high-concurrency client architectures.',
+    },
+  ];
+
+  const rockstarHints = [
+    'HINT: Swift 6 data-race safety prevents background thread corruption in real-time camera pipelines.',
+    'HINT: CoreML models execute entirely on-device with zero network latency or cloud dependence.',
+    'HINT: 120Hz ProMotion animations require strict zero-allocation loops on the main thread.',
+    'HINT: Press [ENTER] or click [ENTER STORY MODE] to jump straight into the portfolio.',
+    'HINT: Acoustic uroflowmetry algorithms process sound frequencies offline for total privacy.',
+  ];
+
+  // 1. Build DOM Container
   const container = document.createElement('div');
   container.id = 'mechBoot';
   container.setAttribute('role', 'dialog');
-  container.setAttribute('aria-label', 'System Activation and Identity Access');
+  container.setAttribute('aria-label', 'Rockstar Games Loading Screen');
 
   container.innerHTML = `
-    <!-- Split Mechanical Blast Doors -->
-    <div class="mech-doors" aria-hidden="true">
-      <div class="mech-door mech-door--left">
-        <div class="mech-door__seam"></div>
-        <div class="mech-door__hazard"></div>
+    <!-- Screen Flash (GTA Camera Shutter Flash) -->
+    <div class="rs-flash" id="rsFlash" aria-hidden="true"></div>
+
+    <!-- Atmospheric Overlays -->
+    <div class="rs-vignette" aria-hidden="true"></div>
+    <div class="rs-scanlines" aria-hidden="true"></div>
+
+    <!-- Phase 1: Iconic Rockstar L★ Logo Intro Splash -->
+    <div class="rs-logo-splash" id="rsLogoSplash" aria-hidden="true">
+      <div class="rs-emblem">
+        <span class="rs-emblem__letter">L</span>
+        <svg class="rs-emblem__star" viewBox="0 0 24 24">
+          <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+        </svg>
       </div>
-      <div class="mech-door mech-door--right">
-        <div class="mech-door__seam"></div>
-        <div class="mech-door__hazard"></div>
-      </div>
+      <h1 class="rs-logo-splash__title">ROCKSTAR CREATIVE STUDIOS</h1>
+      <p class="rs-logo-splash__sub">LOKESH KUMAR S. PRESENTS · iOS DIVISION</p>
     </div>
 
-    <!-- Atmospheric & Grid Optics -->
-    <div class="mech-grid" aria-hidden="true"></div>
-    <div class="mech-vignette" aria-hidden="true"></div>
-    <div class="mech-scanline" aria-hidden="true"></div>
+    <!-- Phase 2: Full-Bleed Slideshow Backgrounds -->
+    <div class="rs-slides-wrap" id="rsSlidesWrap" aria-hidden="true">
+      ${slidesData.map((s, idx) => `
+        <div class="rs-slide ${idx === 0 ? 'is-active' : ''}" style="background-image: url('${s.img}');" data-index="${idx}"></div>
+      `).join('')}
+    </div>
 
     <!-- Top Telemetry Header -->
-    <header class="mech-hdr">
-      <div class="mech-hdr__brand">
-        <span class="mech-hdr__icon" aria-hidden="true"></span>
-        <span class="mech-hdr__title">SIMATS R&amp;D LAB <span>// CORE-OS 2.6</span></span>
+    <header class="rs-header">
+      <div class="rs-header__brand">
+        <svg class="rs-mini-star" viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+        </svg>
+        <span class="rs-header__title">PORTFOLIO // <span>STORY MODE</span></span>
       </div>
 
-      <div class="mech-hdr__center" aria-hidden="true">
-        <span class="mech-hdr__badge" id="mechHdrBadge">REACTOR // ARMED</span>
-      </div>
-
-      <div class="mech-hdr__right">
-        <button type="button" class="mech-btn-audio" id="mechAudioBtn" aria-label="Toggle sound">
+      <div class="rs-header__controls">
+        <button type="button" class="rs-btn-audio" id="rsAudioBtn" aria-label="Toggle sound">
           <span>AUDIO: OFF</span>
         </button>
-        <button type="button" class="mech-btn-skip" id="mechSkipBtn" aria-label="Bypass intro protocol">
+        <button type="button" class="rs-btn-skip" id="rsSkipBtn" aria-label="Bypass intro">
           <span>BYPASS</span>
           <kbd>ESC</kbd>
         </button>
       </div>
     </header>
 
-    <!-- Center Stage: Mechanical Reactor & Control Terminal -->
-    <main class="mech-stage">
-      <div class="mech-reactor-wrap" aria-hidden="true">
-        <svg class="mech-svg" viewBox="0 0 400 400">
-          <defs>
-            <radialGradient id="laserGrad" cx="0%" cy="50%" r="100%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
-              <stop offset="30%" stop-color="#ff4830" stop-opacity="0.8"/>
-              <stop offset="100%" stop-color="#ff4830" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ff6040"/>
-              <stop offset="50%" stop-color="#302025"/>
-              <stop offset="100%" stop-color="#ff4025"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Outer Caliper Tick Ring (360 deg ticks) -->
-          <g class="mech-ring--outer">
-            <circle cx="200" cy="200" r="182" fill="none" stroke="rgba(255, 75, 45, 0.22)" stroke-width="1.5" stroke-dasharray="4 8" />
-            <circle cx="200" cy="200" r="176" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-            <line x1="200" y1="14" x2="200" y2="28" stroke="#ff4830" stroke-width="2"/>
-            <line x1="200" y1="372" x2="200" y2="386" stroke="#ff4830" stroke-width="2"/>
-            <line x1="14" y1="200" x2="28" y2="200" stroke="#ff4830" stroke-width="2"/>
-            <line x1="372" y1="200" x2="386" y2="200" stroke="#ff4830" stroke-width="2"/>
-            <text x="200" y="38" fill="rgba(255, 80, 50, 0.7)" font-size="8" font-family="monospace" text-anchor="middle">000°</text>
-            <text x="365" y="203" fill="rgba(255, 80, 50, 0.7)" font-size="8" font-family="monospace" text-anchor="middle">090°</text>
-            <text x="200" y="368" fill="rgba(255, 80, 50, 0.7)" font-size="8" font-family="monospace" text-anchor="middle">180°</text>
-            <text x="35" y="203" fill="rgba(255, 80, 50, 0.7)" font-size="8" font-family="monospace" text-anchor="middle">270°</text>
-          </g>
-
-          <!-- Middle Industrial Gear Ring -->
-          <g class="mech-ring--gears">
-            <circle cx="200" cy="200" r="148" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="7" stroke-dasharray="12 18" />
-            <circle cx="200" cy="200" r="142" fill="none" stroke="rgba(255, 60, 40, 0.3)" stroke-width="1.5" />
-          </g>
-
-          <!-- Segmented HUD Coordinate Ring -->
-          <g class="mech-ring--hud">
-            <circle cx="200" cy="200" r="118" fill="none" stroke="#ff4830" stroke-width="2.5" stroke-dasharray="75 35 45 20 90 25" />
-            <circle cx="200" cy="200" r="112" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-          </g>
-
-          <!-- Reticle Aperture Ring -->
-          <g class="mech-ring--iris">
-            <circle cx="200" cy="200" r="82" fill="none" stroke="rgba(255, 120, 70, 0.6)" stroke-width="2" stroke-dasharray="24 12 8 12" />
-            <circle cx="200" cy="200" r="76" fill="none" stroke="rgba(255, 75, 45, 0.25)" stroke-width="1" />
-          </g>
-
-          <!-- Rotating Red Laser Beam -->
-          <g class="mech-laser-beam">
-            <line x1="200" y1="200" x2="380" y2="200" stroke="url(#laserGrad)" stroke-width="2.5"/>
-            <circle cx="376" cy="200" r="3" fill="#ffffff" filter="drop-shadow(0 0 6px #ff4830)"/>
-          </g>
-        </svg>
-
-        <!-- Pulsing Crimson Core Energy Orb -->
-        <div class="mech-core-orb"></div>
-      </div>
-
-      <!-- Main Interaction Panel -->
-      <div class="mech-panel">
-        <!-- Stage 1 & 2: System Diagnostics Readout -->
-        <div class="mech-diag" id="mechDiagView">
-          <div class="mech-diag__header">
-            <span class="mech-diag__kicker">
-              <span class="mech-hdr__icon"></span>
-              <span id="mechStatusText">INITIALIZING SYSTEM ARCHITECTURE...</span>
-            </span>
-            <span class="mech-diag__percent" id="mechPercentText">0%</span>
-          </div>
-
-          <div class="mech-diag__meter">
-            <div class="mech-diag__fill" id="mechMeterFill"></div>
-          </div>
-
-          <ul class="mech-diag__list" id="mechDiagList">
-            <li class="mech-diag__item" data-step="0">
-              <span class="mech-diag__itemLabel">
-                <i class="mech-diag__itemDot"></i>
-                <span>POWER CORE ONLINE</span>
-              </span>
-              <span class="mech-diag__itemTag">[PENDING]</span>
-            </li>
-            <li class="mech-diag__item" data-step="1">
-              <span class="mech-diag__itemLabel">
-                <i class="mech-diag__itemDot"></i>
-                <span>VISUAL ENGINE INITIALIZED</span>
-              </span>
-              <span class="mech-diag__itemTag">[PENDING]</span>
-            </li>
-            <li class="mech-diag__item" data-step="2">
-              <span class="mech-diag__itemLabel">
-                <i class="mech-diag__itemDot"></i>
-                <span>NEURAL INTERFACE CONNECTED</span>
-              </span>
-              <span class="mech-diag__itemTag">[PENDING]</span>
-            </li>
-            <li class="mech-diag__item" data-step="3">
-              <span class="mech-diag__itemLabel">
-                <i class="mech-diag__itemDot"></i>
-                <span>IDENTITY SCANNER READY</span>
-              </span>
-              <span class="mech-diag__itemTag">[PENDING]</span>
-            </li>
-            <li class="mech-diag__item" data-step="4">
-              <span class="mech-diag__itemLabel">
-                <i class="mech-diag__itemDot"></i>
-                <span>ACCESS PROTOCOL ACTIVE</span>
-              </span>
-              <span class="mech-diag__itemTag">[PENDING]</span>
-            </li>
-          </ul>
+    <!-- Main Character / Feature Card -->
+    <main class="rs-stage">
+      <div class="rs-card" id="rsCard">
+        <div class="rs-card__kicker" id="rsCardKicker">
+          <span>★</span>
+          <span id="rsKickerText">${slidesData[0].kicker}</span>
         </div>
 
-        <!-- Stage 3: Visitor Identity Access Form -->
-        <form class="mech-auth" id="mechAuthForm" onsubmit="return false;">
-          <h2 class="mech-auth__title">IDENTITY REQUIRED</h2>
-          <p class="mech-auth__sub">ENTER YOUR NAME TO ACCESS THE EXPERIENCE</p>
+        <h2 class="rs-card__title" id="rsCardTitle">${slidesData[0].title}</h2>
+        <div class="rs-card__sub" id="rsCardSub">${slidesData[0].sub}</div>
+        <p class="rs-card__desc" id="rsCardDesc">${slidesData[0].desc}</p>
 
-          <div class="mech-auth__field">
-            <span class="mech-auth__fieldIcon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </span>
+        <!-- Identity Entry Form -->
+        <form class="rs-auth-form" id="rsAuthForm" onsubmit="return false;">
+          <div class="rs-auth-input-wrap">
             <input
               type="text"
-              class="mech-auth__input"
-              id="mechNameInput"
-              placeholder="YOUR NAME OR CODENAME..."
+              class="rs-auth-input"
+              id="rsNameInput"
+              placeholder="ENTER OPERATOR CODENAME..."
               maxlength="30"
               autocomplete="name"
               spellcheck="false"
@@ -197,40 +138,46 @@ export function initBootExperience({ onComplete, onAssetProgress } = {}) {
             />
           </div>
 
-          <div class="mech-auth__actions">
-            <button type="submit" class="mech-btn-access" id="mechSubmitBtn">
-              <span>ACCESS SYSTEM</span>
+          <div class="rs-auth-actions">
+            <button type="submit" class="rs-btn-enter" id="rsEnterBtn">
+              <span>ENTER STORY MODE</span>
               <span aria-hidden="true">▶</span>
             </button>
-            <button type="button" class="mech-btn-guest" id="mechGuestBtn">
-              SKIP &amp; ENTER AS GUEST [ENTER]
+            <button type="button" class="rs-btn-quick" id="rsQuickBtn">
+              QUICK START [ENTER]
             </button>
           </div>
         </form>
-
-        <!-- Stage 4: Access Granted Confirmation Banner -->
-        <div class="mech-granted" id="mechGrantedView">
-          <h2 class="mech-granted__title">ACCESS GRANTED</h2>
-          <p class="mech-granted__welcome" id="mechWelcomeName">WELCOME, OPERATOR</p>
-          <span class="mech-granted__tag">NEURAL LINK CONFIRMED // DECOMPRESSING AIRLOCK</span>
-        </div>
       </div>
     </main>
+
+    <!-- Bottom Rockstar Hints & Rotating Star Spinner -->
+    <footer class="rs-footer">
+      <div class="rs-hints">
+        <div class="rs-hints__tag">DEVELOPER INTEL</div>
+        <div class="rs-hints__text" id="rsHintsText">${rockstarHints[0]}</div>
+      </div>
+
+      <div class="rs-loader-block">
+        <div class="rs-spinner-wrap" aria-hidden="true">
+          <svg class="rs-star-spinner" viewBox="0 0 24 24">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+          </svg>
+        </div>
+
+        <div class="rs-loader-info">
+          <div class="rs-loader-status" id="rsStatusText">LOADING STORY MODE<span>...</span></div>
+          <div class="rs-meter">
+            <div class="rs-meter__fill" id="rsMeterFill"></div>
+          </div>
+        </div>
+      </div>
+    </footer>
   `;
 
   document.body.appendChild(container);
 
-  // Audio Toggle Button
-  const audioBtn = document.getElementById('mechAudioBtn');
-  if (audioBtn) {
-    audioBtn.addEventListener('click', () => {
-      const active = sound.toggle();
-      audioBtn.querySelector('span').textContent = active ? 'AUDIO: ON' : 'AUDIO: OFF';
-      audioBtn.classList.toggle('is-active', active);
-    });
-  }
-
-  // Sound warm up on any click/key inside container
+  // Sound warm-up
   const armSound = () => {
     sound.init();
     container.removeEventListener('pointerdown', armSound);
@@ -239,179 +186,171 @@ export function initBootExperience({ onComplete, onAssetProgress } = {}) {
   container.addEventListener('pointerdown', armSound, { once: true });
   container.addEventListener('keydown', armSound, { once: true });
 
-  // Input keystroke sounds
-  const inputEl = document.getElementById('mechNameInput');
-  if (inputEl) {
-    inputEl.addEventListener('input', () => {
+  // Play Rockstar Bass on start
+  setTimeout(() => {
+    sound.playRockstarBass();
+  }, 100);
+
+  // Audio Toggle Button
+  const audioBtn = document.getElementById('rsAudioBtn');
+  if (audioBtn) {
+    audioBtn.addEventListener('click', () => {
+      const active = sound.toggle();
+      audioBtn.querySelector('span').textContent = active ? 'AUDIO: ON' : 'AUDIO: OFF';
+      audioBtn.classList.toggle('is-active', active);
+    });
+  }
+
+  // Key sound on input
+  const nameInput = document.getElementById('rsNameInput');
+  if (nameInput) {
+    nameInput.addEventListener('input', () => {
       sound.playKeyBeep();
     });
   }
 
-  // Skip / Bypass Button
-  const skipBtn = document.getElementById('mechSkipBtn');
-  const triggerBypass = () => {
-    if (isDone) return;
-    executeUnlock('GUEST OPERATOR', true);
-  };
+  // Phase 1 to Phase 2 Transition (Dismiss Logo Splash after 1.8s)
+  const logoSplash = document.getElementById('rsLogoSplash');
+  setTimeout(() => {
+    if (logoSplash) logoSplash.classList.add('is-hidden');
+  }, reduced ? 200 : 1800);
 
-  if (skipBtn) {
-    skipBtn.addEventListener('click', triggerBypass);
-  }
+  // Slide Rotation every 4.5 seconds
+  const slideEls = container.querySelectorAll('.rs-slide');
+  const kickerEl = document.getElementById('rsKickerText');
+  const titleEl = document.getElementById('rsCardTitle');
+  const subEl = document.getElementById('rsCardSub');
+  const descEl = document.getElementById('rsCardDesc');
+  const cardEl = document.getElementById('rsCard');
 
-  // Keyboard shortcut: ESC to bypass, ENTER to submit
-  const keyHandler = (e) => {
-    if (isDone) return;
-    if (e.key === 'Escape') {
-      triggerBypass();
-    }
-  };
-  window.addEventListener('keydown', keyHandler);
+  let slideInterval;
+  if (!reduced) {
+    slideInterval = setInterval(() => {
+      if (isDone) return;
+      activeSlide = (activeSlide + 1) % slidesData.length;
+      slideEls.forEach((el, idx) => {
+        el.classList.toggle('is-active', idx === activeSlide);
+      });
 
-  // --------------------------------------------------------------------------
-  // Stage Execution
-  // --------------------------------------------------------------------------
-
-  const fillEl = document.getElementById('mechMeterFill');
-  const percentEl = document.getElementById('mechPercentText');
-  const statusEl = document.getElementById('mechStatusText');
-  const badgeEl = document.getElementById('mechHdrBadge');
-  const diagItems = container.querySelectorAll('.mech-diag__item');
-
-  // Stage 1: Machine activation sound & initial pulse
-  sound.playMechanicalBoot();
-
-  // Stage 2: Diagnostics step runner
-  const diagnosticTasks = [
-    { label: 'POWER CORE ONLINE', tag: '[SYS.PWR // 100%]' },
-    { label: 'VISUAL ENGINE INITIALIZED', tag: '[GL.STAGE // READY]' },
-    { label: 'NEURAL INTERFACE CONNECTED', tag: '[COREML // SYNCED]' },
-    { label: 'IDENTITY SCANNER READY', tag: '[BIOMETRIC // ARMED]' },
-    { label: 'ACCESS PROTOCOL ACTIVE', tag: '[SEC.LVL // 04]' },
-  ];
-
-  let currentDiag = 0;
-  const diagInterval = reduced ? 80 : 320;
-
-  const runDiagnostics = () => {
-    if (currentDiag < diagnosticTasks.length) {
-      const item = diagItems[currentDiag];
-      if (item) {
-        item.classList.add('is-active');
-        sound.playDiagnosticTick(740 + currentDiag * 110);
+      if (cardEl) {
+        cardEl.style.opacity = '0';
+        cardEl.style.transform = 'translateX(-15px)';
+        sound.playRockstarShutter();
 
         setTimeout(() => {
-          item.classList.remove('is-active');
-          item.classList.add('is-done');
-          const tag = item.querySelector('.mech-diag__itemTag');
-          if (tag) tag.textContent = diagnosticTasks[currentDiag].tag;
+          const s = slidesData[activeSlide];
+          if (kickerEl) kickerEl.textContent = s.kicker;
+          if (titleEl) titleEl.textContent = s.title;
+          if (subEl) subEl.textContent = s.sub;
+          if (descEl) descEl.textContent = s.desc;
 
-          currentDiag++;
-          const progress = Math.round((currentDiag / diagnosticTasks.length) * 100);
-          if (fillEl) fillEl.style.width = `${progress}%`;
-          if (percentEl) percentEl.textContent = `${progress}%`;
-
-          runDiagnostics();
-        }, diagInterval);
+          cardEl.style.opacity = '1';
+          cardEl.style.transform = 'translateX(0)';
+        }, 300);
       }
-    } else {
-      // Diagnostics 100% complete — Transition to Stage 3 (Identity Input)
-      setTimeout(transitionToIdentity, 300);
-    }
-  };
-
-  setTimeout(runDiagnostics, reduced ? 100 : 500);
-
-  // Transition from Stage 2 to Stage 3
-  function transitionToIdentity() {
-    if (isDone) return;
-    currentStage = 3;
-
-    if (badgeEl) badgeEl.textContent = 'IDENTITY // REQUIRED';
-    const diagView = document.getElementById('mechDiagView');
-    const authForm = document.getElementById('mechAuthForm');
-
-    if (diagView) diagView.style.display = 'none';
-    if (authForm) {
-      authForm.classList.add('is-active');
-      if (inputEl) {
-        setTimeout(() => inputEl.focus(), 150);
-      }
-    }
+    }, 5000);
   }
 
-  // Handle Form Submission (Stage 3 -> Stage 4)
-  const authForm = document.getElementById('mechAuthForm');
-  const guestBtn = document.getElementById('mechGuestBtn');
-
-  const handleSubmit = (e) => {
-    if (e) e.preventDefault();
+  // Hints Rotation every 3.8 seconds
+  const hintsEl = document.getElementById('rsHintsText');
+  let currentHint = 0;
+  const hintInterval = setInterval(() => {
     if (isDone) return;
+    currentHint = (currentHint + 1) % rockstarHints.length;
+    if (hintsEl) {
+      hintsEl.style.opacity = '0';
+      setTimeout(() => {
+        hintsEl.textContent = rockstarHints[currentHint];
+        hintsEl.style.opacity = '1';
+      }, 250);
+    }
+  }, 4200);
 
-    const rawName = inputEl ? inputEl.value.trim() : '';
-    const finalName = rawName || 'GUEST OPERATOR';
-    executeUnlock(finalName, false);
-  };
+  // Progress Bar Simulation
+  const fillEl = document.getElementById('rsMeterFill');
+  const statusEl = document.getElementById('rsStatusText');
+  let progress = 25;
+  const progressTimer = setInterval(() => {
+    if (isDone) return;
+    if (progress < 95) {
+      progress += Math.floor(Math.random() * 15) + 5;
+      if (progress > 95) progress = 95;
+      if (fillEl) fillEl.style.width = `${progress}%`;
+    }
+  }, 500);
 
-  if (authForm) authForm.addEventListener('submit', handleSubmit);
-  if (guestBtn) guestBtn.addEventListener('click', () => executeUnlock('GUEST OPERATOR', false));
-
-  // --------------------------------------------------------------------------
-  // Stage 4: Access Granted & Mechanical Reveal
-  // --------------------------------------------------------------------------
-  function executeUnlock(name, skipped = false) {
+  // Bypass / Unlock Action
+  const triggerUnlock = (name, skipped = false) => {
     if (isDone) return;
     isDone = true;
-    visitorName = name;
-    currentStage = 4;
+    visitorName = name || 'GUEST OPERATOR';
+
+    clearInterval(slideInterval);
+    clearInterval(hintInterval);
+    clearInterval(progressTimer);
+    window.removeEventListener('keydown', keyHandler);
 
     sessionStorage.setItem('mech_boot_completed', 'true');
     sessionStorage.setItem('mech_visitor_name', visitorName);
-    window.removeEventListener('keydown', keyHandler);
 
-    if (badgeEl) {
-      badgeEl.textContent = 'ACCESS // GRANTED';
-      badgeEl.style.borderColor = 'rgba(0, 255, 136, 0.6)';
-      badgeEl.style.color = '#00ff88';
-    }
+    if (fillEl) fillEl.style.width = '100%';
+    if (statusEl) statusEl.innerHTML = 'LAUNCHING STORY MODE<span>...</span>';
 
-    const authForm = document.getElementById('mechAuthForm');
-    const grantedView = document.getElementById('mechGrantedView');
-    const welcomeName = document.getElementById('mechWelcomeName');
+    // Iconic GTA Camera White Flash
+    container.classList.add('is-flashing');
+    sound.playRockstarBass();
 
-    if (authForm) authForm.style.display = 'none';
-    if (welcomeName) welcomeName.textContent = `WELCOME, ${visitorName.toUpperCase()}`;
-    if (grantedView) grantedView.classList.add('is-active');
-
-    // Accelerated reactor hyper-spin
-    container.classList.add('is-warping');
-
-    if (!skipped) {
-      sound.playAccessGranted();
-    }
-
-    // Part the mechanical blast doors with hydraulic release hiss
     setTimeout(() => {
-      sound.playBlastDoorsOpen();
-      container.classList.add('doors-open');
+      container.classList.remove('is-flashing');
+      container.classList.add('is-dismissed');
 
-      // Coordinate with portfolio main.js to begin hero sequence
       if (typeof onComplete === 'function') {
         onComplete({ visitorName, skipped });
       }
 
-      // Smoothly dismiss the mechanical overlay after doors clear viewport
       setTimeout(() => {
-        container.classList.add('is-dismissed');
-        setTimeout(() => {
-          container.remove();
-        }, 800);
-      }, 1250);
-    }, skipped ? 80 : 800);
+        container.remove();
+      }, 800);
+    }, skipped ? 80 : 450);
+  };
+
+  // Skip / Bypass Button
+  const skipBtn = document.getElementById('rsSkipBtn');
+  if (skipBtn) {
+    skipBtn.addEventListener('click', () => triggerUnlock('GUEST OPERATOR', true));
+  }
+
+  // Keyboard Navigation: ESC to bypass, ENTER to start
+  const keyHandler = (e) => {
+    if (isDone) return;
+    if (e.key === 'Escape') {
+      triggerUnlock('GUEST OPERATOR', true);
+    } else if (e.key === 'Enter' && document.activeElement !== nameInput) {
+      triggerUnlock(nameInput ? nameInput.value.trim() : '', false);
+    }
+  };
+  window.addEventListener('keydown', keyHandler);
+
+  // Form Submission
+  const authForm = document.getElementById('rsAuthForm');
+  const quickBtn = document.getElementById('rsQuickBtn');
+
+  if (authForm) {
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = nameInput ? nameInput.value.trim() : '';
+      triggerUnlock(val, false);
+    });
+  }
+
+  if (quickBtn) {
+    quickBtn.addEventListener('click', () => {
+      triggerUnlock('GUEST OPERATOR', false);
+    });
   }
 
   return {
     container,
-    bypass: triggerBypass,
+    bypass: () => triggerUnlock('GUEST OPERATOR', true),
   };
 }
-

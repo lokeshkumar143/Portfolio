@@ -143,6 +143,26 @@ class SoundEngine {
     } catch {}
   }
 
+  // --------------------------------------------------------------
+  // Key press beep – short synthetic click used for input fields
+  // --------------------------------------------------------------
+  playKeyBeep() {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, now);
+      gain.gain.setValueAtTime(0.07, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+      osc.connect(gain);
+      gain.connect(this.fxGain);
+      osc.start(now);
+      osc.stop(now + 0.05);
+    } catch {}
+  }
+
   playWhoosh() {
     if (this.muted || !this.initialized || !this.ctx) return;
     try {
@@ -391,6 +411,61 @@ class SoundEngine {
       gain.connect(this.fxGain);
 
       whiteNoise.start(now);
+    } catch {}
+  }
+
+  // --------------------------------------------------------------
+  // Rockstar-style iconic deep cinematic bass drop & shutter
+  // --------------------------------------------------------------
+  playRockstarBass() {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const sub = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'triangle';
+      sub.type = 'sine';
+
+      osc.frequency.setValueAtTime(95, now);
+      osc.frequency.exponentialRampToValueAtTime(32, now + 0.9);
+
+      sub.frequency.setValueAtTime(55, now);
+      sub.frequency.exponentialRampToValueAtTime(26, now + 1.2);
+
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+
+      osc.connect(gain);
+      sub.connect(gain);
+      gain.connect(this.fxGain);
+
+      osc.start(now);
+      sub.start(now);
+      osc.stop(now + 1.2);
+      sub.stop(now + 1.2);
+    } catch {}
+  }
+
+  playRockstarShutter() {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(1200, now);
+      osc.frequency.exponentialRampToValueAtTime(350, now + 0.06);
+
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+
+      osc.connect(gain);
+      gain.connect(this.fxGain);
+
+      osc.start(now);
+      osc.stop(now + 0.06);
     } catch {}
   }
 
