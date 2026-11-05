@@ -29,44 +29,152 @@
 }
 
 /* --------------------------------------------------------------------------
-   Stage 1: Volcanic Crimson & Black Strobes
+   Stage 1: Multi-Color Police Siren Sweeping Beams (Left to Right & Right to Left)
    -------------------------------------------------------------------------- */
-.rs-strobe-bg {
+.rs-siren-stage {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  overflow: hidden;
   z-index: 2;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+#gameLoader.is-revealed .rs-siren-stage {
+  opacity: 0.25; /* Dims gracefully once the center logo slams in */
+}
+
+/* Left Flank Strobe (Red Police Flasher) */
+.rs-flasher {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  pointer-events: none;
   opacity: 0;
 }
 
-#gameLoader.is-strobing .rs-strobe-bg {
-  opacity: 1;
-  animation: rsColorStrobe 2.4s steps(1) forwards;
+.rs-flasher--left {
+  left: 0;
+  background: radial-gradient(ellipse at 0% 50%, rgba(222, 27, 28, 0.7) 0%, rgba(255, 42, 43, 0.35) 45%, transparent 80%);
+  animation: rsFlashLeft 0.7s infinite;
 }
 
-@keyframes rsColorStrobe {
-  0%   { background-color: #000000; }
-  4%   { background-color: #de1b1c; } /* Signature Portfolio Crimson */
-  8%   { background-color: #000000; }
-  12%  { background-color: #ff2a2b; } /* Hot Red */
-  16%  { background-color: #000000; }
-  20%  { background-color: #de1b1c; }
-  24%  { background-color: #ff2a2b; }
-  28%  { background-color: #000000; }
-  32%  { background-color: #de1b1c; }
-  36%  { background-color: #000000; }
-  40%  { background-color: #ff2a2b; }
-  44%  { background-color: #de1b1c; }
-  48%  { background-color: #000000; }
-  52%  { background-color: #de1b1c; }
-  56%  { background-color: #ff2a2b; }
-  60%  { background-color: #de1b1c; }
-  64%  { background-color: #000000; }
-  68%  { background-color: #ff2a2b; }
-  72%  { background-color: #de1b1c; }
-  78%  { background-color: #ffffff; } /* Bright white lens flash */
-  86%  { background-color: #000000; }
-  100% { background-color: #000000; }
+/* Right Flank Strobe (Electric Blue Police Flasher) */
+.rs-flasher--right {
+  right: 0;
+  background: radial-gradient(ellipse at 100% 50%, rgba(0, 102, 255, 0.7) 0%, rgba(0, 180, 255, 0.35) 45%, transparent 80%);
+  animation: rsFlashRight 0.7s infinite;
+}
+
+@keyframes rsFlashLeft {
+  0%, 12%, 24% { opacity: 0.95; }
+  6%, 18% { opacity: 0; }
+  35%, 100% { opacity: 0; }
+}
+
+@keyframes rsFlashRight {
+  0%, 35% { opacity: 0; }
+  45%, 57%, 69% { opacity: 0.95; }
+  51%, 63% { opacity: 0; }
+  80%, 100% { opacity: 0; }
+}
+
+/* Red Beam: Sweeping Left to Right across the screen */
+.rs-beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(240px, 35vw, 420px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.rs-beam--red-lr {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(222, 27, 28, 0.2) 25%,
+    rgba(255, 42, 43, 0.95) 50%,
+    rgba(222, 27, 28, 0.2) 75%,
+    transparent 100%
+  );
+  box-shadow: 0 0 90px rgba(255, 42, 43, 0.9), 0 0 180px rgba(222, 27, 28, 0.7);
+  animation: rsSweepLeftToRight 1.8s ease-in-out infinite;
+}
+
+/* Electric Blue Beam: Sweeping Right to Left crossing over */
+.rs-beam--blue-rl {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 102, 255, 0.2) 25%,
+    rgba(0, 170, 255, 0.95) 50%,
+    rgba(0, 102, 255, 0.2) 75%,
+    transparent 100%
+  );
+  box-shadow: 0 0 90px rgba(0, 170, 255, 0.9), 0 0 180px rgba(0, 102, 255, 0.7);
+  animation: rsSweepRightToLeft 1.8s ease-in-out infinite;
+  animation-delay: 0.25s;
+}
+
+@keyframes rsSweepLeftToRight {
+  0% {
+    transform: translateX(-180%) skewX(-18deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  48% {
+    transform: translateX(calc(100vw + 180%)) skewX(-18deg);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(calc(100vw + 180%)) skewX(18deg);
+    opacity: 0;
+  }
+  65% {
+    opacity: 1;
+  }
+  98% {
+    transform: translateX(-180%) skewX(18deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(-180%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes rsSweepRightToLeft {
+  0% {
+    transform: translateX(calc(100vw + 180%)) skewX(18deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  48% {
+    transform: translateX(-180%) skewX(18deg);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(-180%) skewX(-18deg);
+    opacity: 0;
+  }
+  65% {
+    opacity: 1;
+  }
+  98% {
+    transform: translateX(calc(100vw + 180%)) skewX(-18deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(calc(100vw + 180%)) skewX(18deg);
+    opacity: 0;
+  }
 }
 
 /* CRT Scanline & Grain Overlay */

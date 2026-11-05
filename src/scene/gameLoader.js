@@ -40,8 +40,13 @@ export function initGameLoader({ onComplete } = {}) {
     <!-- Fullscreen White Flash for Zoom Plunge -->
     <div class="rs-flash" id="rsFlash" aria-hidden="true"></div>
 
-    <!-- Police Siren Color Strobes (Red, Blue, Gold) -->
-    <div class="rs-strobe-bg" aria-hidden="true"></div>
+    <!-- Police Siren Multi-Color Sweeping Beams (Left to Right & Right to Left) -->
+    <div class="rs-siren-stage" id="rsSirenStage" aria-hidden="true">
+      <div class="rs-beam rs-beam--red-lr"></div>
+      <div class="rs-beam rs-beam--blue-rl"></div>
+      <div class="rs-flasher rs-flasher--left"></div>
+      <div class="rs-flasher rs-flasher--right"></div>
+    </div>
 
     <!-- Atmospheric Overlays -->
     <div class="rs-scanlines" aria-hidden="true"></div>
@@ -124,40 +129,46 @@ export function initGameLoader({ onComplete } = {}) {
     });
   }
 
-  // Play Siren Strobe Sound at start and second wave
+  // Play Siren Strobe Sound at start, mid, and final sweep
   setTimeout(() => {
     sound.playSirenStrobe();
   }, 100);
   setTimeout(() => {
     sound.playSirenStrobe();
   }, 1200);
+  setTimeout(() => {
+    sound.playSirenStrobe();
+  }, 2200);
 
-  // Stage 1 -> Stage 2: Reveal the Logo Slam at 2.4s
+  // Stage 1 -> Stage 2: Reveal the Logo Slam at 3.0s
   const revealTimer = setTimeout(() => {
     if (isDone || isZooming) return;
     container.classList.remove('is-strobing');
     container.classList.add('is-revealed');
     sound.playRockstarBass();
-  }, reduced ? 100 : 2400);
+  }, reduced ? 100 : 3000);
 
   // Progress update hooks
   const fillEl = document.getElementById('rsMeterFill');
   const percentEl = document.getElementById('rsPercentText');
   const statusEl = document.getElementById('rsStatusText');
 
-  // Progressive meter ticker over the 5-7 second load window
+  // Progressive meter ticker calibrated for a full 10-second experience
   const meterTicker = setInterval(() => {
     if (isDone || isZooming) {
       clearInterval(meterTicker);
       return;
     }
     if (currentProgress < 95) {
-      currentProgress += Math.floor(Math.random() * 8) + 6;
+      currentProgress += Math.floor(Math.random() * 5) + 4;
       if (currentProgress > 95) currentProgress = 95;
       if (fillEl) fillEl.style.width = `${currentProgress}%`;
       if (percentEl) percentEl.textContent = `${currentProgress}%`;
+      if (currentProgress > 70 && statusEl) {
+        statusEl.innerHTML = `SYNCHRONIZING DIGITAL ENVIRONMENT <span id="rsPercentText">${currentProgress}%</span>`;
+      }
     }
-  }, 420);
+  }, 480);
 
   function updateProgress(fraction, message) {
     if (isDone) return;
@@ -211,10 +222,10 @@ export function initGameLoader({ onComplete } = {}) {
     }, 950);
   }
 
-  // Automatic "Go in" after 6.4 seconds (within 5-7 second loading window)
+  // Automatic "Go in" calibrated for a full 10-second cinematic experience
   const autoGoInTimer = setTimeout(() => {
     goIn(false);
-  }, reduced ? 300 : 6400);
+  }, reduced ? 300 : 9600);
 
   // Click anywhere to plunge in immediately
   container.addEventListener('click', (e) => {
