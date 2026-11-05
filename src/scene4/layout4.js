@@ -18,7 +18,7 @@ export const CARDS = [
     badge: ' Live on App Store',
     isLive: true,
     title: 'RecovFit — Patient Recovery & Fitness ( Live on App Store)',
-    box: [220, 90, 480, 320],
+    box: [280, 55, 500, 335],
     depth: 0.5,
     tint: [0.38, 0.22, 0.25]
   },
@@ -28,7 +28,7 @@ export const CARDS = [
     badge: ' Live on App Store',
     isLive: true,
     title: 'Smart Ulcer Predictor — Deep Learning Wound AI ( Live on App Store)',
-    box: [900, 90, 480, 320],
+    box: [820, 55, 500, 335],
     depth: 0.5,
     tint: [0.42, 0.20, 0.26]
   }
