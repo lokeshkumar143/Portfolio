@@ -217,7 +217,8 @@ export const DEVICE_APPS = {
       'public/projects/smart_ulcer/screen1.jpg',
       'public/projects/smart_ulcer/screen2.jpg',
       'public/projects/smart_ulcer/screen3.jpg',
-      'public/projects/smart_ulcer/screen4.jpg'
+      'public/projects/smart_ulcer/screen4.jpg',
+      'public/projects/smart_ulcer/ipad1.jpg'
     ],
     screenHtml: `
       <div class="ios-screen ios-screen--ulcer">
@@ -330,7 +331,7 @@ export function initDeviceShowcase() {
   const phoneFrame = container.querySelector('.dev-phone');
   const screenContainer = container.querySelector('.dev-phone__screen');
   const dynamicIsland = container.querySelector('.dev-phone__island-pill');
-  const appTabs = container.querySelectorAll('.dev-tab');
+  const appTabs = document.querySelectorAll('.dev-tab');
   const titleEl = container.querySelector('.dev-details__title');
   const catEl = container.querySelector('.dev-details__category');
   const descEl = container.querySelector('.dev-details__desc');
@@ -338,18 +339,107 @@ export function initDeviceShowcase() {
   const featsEl = container.querySelector('.dev-details__features');
   const caseBtn = container.querySelector('.dev-details__caseBtn');
 
+  // Mode pill buttons outside the phone screen
+  const modeBar = document.getElementById('devPhoneModeBar');
+  const modePills = modeBar ? modeBar.querySelectorAll('.dev-mode-pill') : [];
+  let viewMode = 'shots';
+
   let currentApp = 'recovfit';
+  let shotIdx = 0;
+
+  function updateScreen() {
+    const data = DEVICE_APPS[currentApp];
+    if (!data || !screenContainer) return;
+
+    if (viewMode === 'shots' && data.screenshots && data.screenshots.length > 0) {
+      shotIdx = Math.min(shotIdx, data.screenshots.length - 1);
+      screenContainer.innerHTML = `
+        <div class="ios-shots-view">
+          <div class="ios-shots-img-wrap">
+            <img src="${data.screenshots[shotIdx]}" class="ios-shots-img" alt="${data.name} screenshot ${shotIdx + 1}">
+          </div>
+          <div class="ios-shots-nav">
+            <button type="button" class="ios-shots-btn ios-shots-prev" aria-label="Previous screenshot">‹</button>
+            <div class="ios-shots-dots">
+              ${data.screenshots.map((_, i) => `<i class="${i === shotIdx ? 'is-active' : ''}"></i>`).join('')}
+            </div>
+            <span class="ios-shots-counter">${shotIdx + 1} / ${data.screenshots.length}</span>
+            <button type="button" class="ios-shots-btn ios-shots-next" aria-label="Next screenshot">›</button>
+          </div>
+        </div>
+      `;
+
+      // Advance on image click
+      screenContainer.querySelector('.ios-shots-img')?.addEventListener('click', () => {
+        shotIdx = (shotIdx + 1) % data.screenshots.length;
+        sound.playHapticClick();
+        updateScreen();
+      });
+
+      // Navigation chevrons
+      screenContainer.querySelector('.ios-shots-prev')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        shotIdx = (shotIdx - 1 + data.screenshots.length) % data.screenshots.length;
+        sound.playHapticClick();
+        updateScreen();
+      });
+
+      screenContainer.querySelector('.ios-shots-next')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        shotIdx = (shotIdx + 1) % data.screenshots.length;
+        sound.playHapticClick();
+        updateScreen();
+      });
+
+      // Dot click
+      screenContainer.querySelectorAll('.ios-shots-dots i').forEach((dot, idx) => {
+        dot.style.cursor = 'pointer';
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          shotIdx = idx;
+          sound.playHapticClick();
+          updateScreen();
+        });
+      });
+    } else {
+      screenContainer.innerHTML = data.screenHtml;
+      screenContainer.querySelectorAll('.ios-tab-bar span').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          e.stopPropagation();
+          screenContainer.querySelectorAll('.ios-tab-bar span').forEach(t => t.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          sound.playHapticClick();
+        });
+      });
+    }
+  }
+
+  // Mode switcher listeners
+  modePills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      viewMode = pill.dataset.mode || 'shots';
+      modePills.forEach(p => p.classList.toggle('is-active', p.dataset.mode === viewMode));
+      sound.playHapticClick();
+      updateScreen();
+    });
+  });
 
   function renderApp(appKey) {
     const data = DEVICE_APPS[appKey];
     if (!data) return;
     currentApp = appKey;
+    shotIdx = 0;
 
     // Update details side
     if (titleEl) titleEl.textContent = data.name;
     if (catEl) catEl.textContent = data.category;
     if (descEl) descEl.textContent = data.description;
     if (techEl) techEl.textContent = data.tech;
+
+    // Update dynamic island
+    if (dynamicIsland) {
+      dynamicIsland.textContent = data.statusPill || ' App Store Live';
+    }
 
     // Update App Store button
     const appStoreBtn = container.querySelector('#devShowcaseAppStore');
@@ -362,103 +452,7 @@ export function initDeviceShowcase() {
       }
     }
 
-    // Update phone screen with Live Screenshots / Native UI toggle
-    if (screenContainer) {
-      if (data.screenshots && data.screenshots.length > 0) {
-        let shotIdx = 0;
-        let viewMode = 'shots';
-
-        const buildScreen = () => {
-          if (viewMode === 'shots') {
-            screenContainer.innerHTML = `
-              <div class="ios-screen-mode-bar">
-                <button type="button" class="ios-mode-btn is-active" data-mode="shots">App Store Screens (${data.screenshots.length})</button>
-                <button type="button" class="ios-mode-btn" data-mode="ui">Interactive UI</button>
-              </div>
-              <div class="ios-shots-view">
-                <div class="ios-shots-img-wrap">
-                  <img src="${data.screenshots[shotIdx]}" class="ios-shots-img" alt="${data.name} screenshot ${shotIdx + 1}">
-                </div>
-                <div class="ios-shots-nav">
-                  <button type="button" class="ios-shots-btn ios-shots-prev" aria-label="Previous screenshot">‹</button>
-                  <div class="ios-shots-dots">
-                    ${data.screenshots.map((_, i) => `<i class="${i === shotIdx ? 'is-active' : ''}"></i>`).join('')}
-                  </div>
-                  <button type="button" class="ios-shots-btn ios-shots-next" aria-label="Next screenshot">›</button>
-                </div>
-              </div>
-            `;
-
-            // Navigation buttons
-            screenContainer.querySelector('.ios-shots-prev')?.addEventListener('click', (e) => {
-              e.stopPropagation();
-              shotIdx = (shotIdx - 1 + data.screenshots.length) % data.screenshots.length;
-              sound.playHapticClick();
-              buildScreen();
-            });
-
-            screenContainer.querySelector('.ios-shots-next')?.addEventListener('click', (e) => {
-              e.stopPropagation();
-              shotIdx = (shotIdx + 1) % data.screenshots.length;
-              sound.playHapticClick();
-              buildScreen();
-            });
-
-            // Dots click
-            screenContainer.querySelectorAll('.ios-shots-dots i').forEach((dot, idx) => {
-              dot.style.cursor = 'pointer';
-              dot.addEventListener('click', (e) => {
-                e.stopPropagation();
-                shotIdx = idx;
-                sound.playHapticClick();
-                buildScreen();
-              });
-            });
-          } else {
-            screenContainer.innerHTML = `
-              <div class="ios-screen-mode-bar">
-                <button type="button" class="ios-mode-btn" data-mode="shots">App Store Screens</button>
-                <button type="button" class="ios-mode-btn is-active" data-mode="ui">Interactive UI</button>
-              </div>
-              ${data.screenHtml}
-            `;
-
-            // Interactive tab bar in simulated UI
-            screenContainer.querySelectorAll('.ios-tab-bar span').forEach(tab => {
-              tab.addEventListener('click', (e) => {
-                e.stopPropagation();
-                screenContainer.querySelectorAll('.ios-tab-bar span').forEach(t => t.classList.remove('is-active'));
-                tab.classList.add('is-active');
-                sound.playHapticClick();
-              });
-            });
-          }
-
-          // Mode toggle listeners
-          screenContainer.querySelectorAll('.ios-mode-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-              e.stopPropagation();
-              viewMode = btn.dataset.mode;
-              sound.playHapticClick();
-              buildScreen();
-            });
-          });
-        };
-
-        buildScreen();
-      } else {
-        screenContainer.innerHTML = data.screenHtml;
-        screenContainer.querySelectorAll('.ios-tab-bar span').forEach(tab => {
-          tab.addEventListener('click', (e) => {
-            e.stopPropagation();
-            screenContainer.querySelectorAll('.ios-tab-bar span').forEach(t => t.classList.remove('is-active'));
-            tab.classList.add('is-active');
-            sound.playHapticClick();
-          });
-        });
-      }
-    }
-
+    // Update features list
     if (featsEl) {
       featsEl.innerHTML = data.features.map(f => `<li>${f}</li>`).join('');
     }
@@ -474,6 +468,9 @@ export function initDeviceShowcase() {
     if (caseBtn) {
       caseBtn.dataset.projectId = data.id;
     }
+
+    // Render screen
+    updateScreen();
   }
 
   // Initial render
