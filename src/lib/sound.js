@@ -284,6 +284,132 @@ class SoundEngine {
   isAudioActive() {
     return !this.muted && this.initialized && this.ctx && this.ctx.state === 'running';
   }
+
+  playMechanicalBoot() {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const filter = this.ctx.createBiquadFilter();
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(200, now);
+      filter.frequency.exponentialRampToValueAtTime(1400, now + 0.6);
+      filter.Q.setValueAtTime(4.0, now);
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(65, now);
+      osc.frequency.exponentialRampToValueAtTime(260, now + 0.6);
+
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.linearRampToValueAtTime(0.06, now + 0.15);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.fxGain);
+
+      osc.start(now);
+      osc.stop(now + 0.75);
+    } catch {}
+  }
+
+  playDiagnosticTick(freq = 920) {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.4, now + 0.035);
+
+      gain.gain.setValueAtTime(0.03, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+
+      osc.connect(gain);
+      gain.connect(this.fxGain);
+
+      osc.start(now);
+      osc.stop(now + 0.045);
+    } catch {}
+  }
+
+  playAccessGranted() {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const notes = [587.33, 783.99, 1174.66]; // D5, G5, D6 triumphant chord
+      notes.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const startAt = now + idx * 0.07;
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, startAt);
+
+        gain.gain.setValueAtTime(0.001, startAt);
+        gain.gain.linearRampToValueAtTime(0.07, startAt + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startAt + 0.55);
+
+        osc.connect(gain);
+        gain.connect(this.fxGain);
+
+        osc.start(startAt);
+        osc.stop(startAt + 0.6);
+      });
+    } catch {}
+  }
+
+  playBlastDoorsOpen() {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const bufferSize = Math.floor(this.ctx.sampleRate * 0.5);
+      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+      const whiteNoise = this.ctx.createBufferSource();
+      whiteNoise.buffer = buffer;
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1800, now);
+      filter.frequency.exponentialRampToValueAtTime(450, now + 0.5);
+      filter.Q.setValueAtTime(2.0, now);
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.05, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.fxGain);
+
+      whiteNoise.start(now);
+    } catch {}
+  }
+
+  playKeyBeep() {
+    if (this.muted || !this.initialized || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1420 + Math.random() * 120, now);
+      gain.gain.setValueAtTime(0.02, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+      osc.connect(gain);
+      gain.connect(this.fxGain);
+      osc.start(now);
+      osc.stop(now + 0.035);
+    } catch {}
+  }
 }
 
 export const sound = new SoundEngine();

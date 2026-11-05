@@ -27,6 +27,7 @@ import { initDynamicIsland } from './scene/dynamicIsland.js';
 import { initSpatialHUD } from './scene/spatialHUD.js';
 import { initUniversalTilt } from './scene/tilt.js';
 import { initMagicalReveal } from './scene/magicalReveal.js';
+import { initBootExperience } from './scene/bootExperience.js';
 
 // a cinematic page manages its own positions; the browser restoring an old
 // scroll offset mid-boot yanks the visitor (and any scripted anchor) around
@@ -91,14 +92,6 @@ async function main() {
 
   const startedAt = performance.now();
 
-  await Promise.all([
-    fontsReady().then(tick),
-    app.stage.loadTextures({
-      grunge: 'public/tex/grunge.png',
-      grain: 'public/tex/grain.png',
-    }).then(tick),
-  ]);
-
   const mk = (name, loopFade, loop = false) => {
     const c = manifest.clips[name];
     const src = [];
@@ -116,15 +109,22 @@ async function main() {
   window.addEventListener('resize', debounce(layout, 140));
   window.addEventListener('orientationchange', () => setTimeout(layout, 220));
 
-  await app.clips.hero.whenReady();
-  tick();
+  const assetsReady = (async () => {
+    await Promise.all([
+      fontsReady().then(tick),
+      app.stage.loadTextures({
+        grunge: 'public/tex/grunge.png',
+        grain: 'public/tex/grain.png',
+      }).then(tick),
+    ]);
+    await app.clips.hero.whenReady();
+    tick();
+    const held = performance.now() - startedAt;
+    if (held < MIN_BLACK) await wait(MIN_BLACK - held);
+    return true;
+  })();
 
-  const held = performance.now() - startedAt;
-  if (held < MIN_BLACK) await wait(MIN_BLACK - held);
-
-  const playing = await app.clips.hero.play();
-
-  // the later scenes build while the hero plays, so scrolling into them is
+  // The later scenes build while the hero plays, so scrolling into them is
   // instant; each one runs only while it is actually on screen
   initUniverse().then((u) => { app.universe = u; })
     .catch((e) => console.warn('[lokesh] universe unavailable:', e.message));
@@ -137,27 +137,38 @@ async function main() {
   initDeviceShowcase();
   initGitHub();
 
-  begin();
-
-  if (!playing) {
-    const unlock = () => {
-      app.clips.hero.play().catch(() => {});
-      window.removeEventListener('pointerdown', unlock);
-      window.removeEventListener('keydown', unlock);
-      window.removeEventListener('scroll', unlock);
-    };
-    window.addEventListener('pointerdown', unlock, { once: true });
-    window.addEventListener('keydown', unlock, { once: true });
-    window.addEventListener('scroll', unlock, { once: true });
-  }
+  // Launch Cinematic Mechanical Startup & Identity Access Experience
+  initBootExperience({
+    onComplete: async ({ visitorName, skipped }) => {
+      try {
+        await assetsReady;
+        await app.clips.hero.play().catch(() => {});
+      } catch (err) {
+        console.warn('[lokesh] asset loading issue:', err);
+      }
+      begin(visitorName);
+    }
+  });
 }
 
-function begin() {
+function begin(visitorName) {
   boot.classList.add('is-done');
   root.classList.remove('is-booting');
+  root.classList.add('is-booted');
   app.t0 = performance.now();
   app.running = true;
   bindPointer();
+
+  if (visitorName && visitorName !== 'GUEST OPERATOR') {
+    const chip = document.getElementById('chipArtist');
+    if (chip) {
+      const orig = chip.innerHTML;
+      chip.innerHTML = `<span>• OPERATOR: ${visitorName.toUpperCase()} // ACCESS GRANTED •</span>`;
+      setTimeout(() => {
+        chip.innerHTML = orig;
+      }, 8000);
+    }
+  }
 
   // ?t=4.2 starts the sequence part-way through, and ?t=end lands on the
   // settled composition. Purely a review aid for tuning a single beat without
