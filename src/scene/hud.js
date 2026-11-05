@@ -100,14 +100,66 @@ function initChapterRail() {
 
   const items = rail.querySelectorAll('.chapter-item');
   const sections = [
-    { id: 'stage', el: document.querySelector('.stage-wrap') },
-    { id: 'about', el: document.getElementById('about') || document.getElementById('universe') },
-    { id: 'skills', el: document.getElementById('skills') },
-    { id: 'gallery', el: document.getElementById('gallery') },
-    { id: 'devices', el: document.getElementById('devices') },
-    { id: 'chrono', el: document.getElementById('chrono') },
-    { id: 'github', el: document.getElementById('github') },
-    { id: 'fin', el: document.getElementById('fin') },
+    {
+      id: 'stage',
+      getRange: () => {
+        const spacer = document.querySelector('.hero-spacer');
+        const end = spacer ? spacer.offsetHeight : window.innerHeight;
+        return [0, end];
+      }
+    },
+    {
+      id: 'about',
+      getRange: () => {
+        const a = document.getElementById('about');
+        const u = document.getElementById('universe');
+        const start = a ? a.offsetTop : (u ? u.offsetTop : window.innerHeight);
+        const end = u ? (u.offsetTop + u.offsetHeight) : (a ? a.offsetTop + a.offsetHeight : window.innerHeight * 2);
+        return [start, end];
+      }
+    },
+    {
+      id: 'skills',
+      getRange: () => {
+        const el = document.getElementById('skills');
+        return el ? [el.offsetTop, el.offsetTop + el.offsetHeight] : null;
+      }
+    },
+    {
+      id: 'gallery',
+      getRange: () => {
+        const el = document.getElementById('gallery');
+        return el ? [el.offsetTop, el.offsetTop + el.offsetHeight] : null;
+      }
+    },
+    {
+      id: 'devices',
+      getRange: () => {
+        const el = document.getElementById('devices');
+        return el ? [el.offsetTop, el.offsetTop + el.offsetHeight] : null;
+      }
+    },
+    {
+      id: 'chrono',
+      getRange: () => {
+        const el = document.getElementById('chrono');
+        return el ? [el.offsetTop, el.offsetTop + el.offsetHeight] : null;
+      }
+    },
+    {
+      id: 'github',
+      getRange: () => {
+        const el = document.getElementById('github');
+        return el ? [el.offsetTop, el.offsetTop + el.offsetHeight] : null;
+      }
+    },
+    {
+      id: 'fin',
+      getRange: () => {
+        const el = document.getElementById('fin');
+        return el ? [el.offsetTop, el.offsetTop + el.offsetHeight] : null;
+      }
+    },
   ];
 
   function update() {
@@ -115,10 +167,9 @@ function initChapterRail() {
     let activeIdx = 0;
 
     sections.forEach((sec, idx) => {
-      if (!sec.el) return;
-      const top = sec.el.offsetTop;
-      const h = sec.el.offsetHeight;
-      if (scrollMid >= top && scrollMid < top + h) {
+      const range = sec.getRange();
+      if (!range) return;
+      if (scrollMid >= range[0] && scrollMid < range[1]) {
         activeIdx = idx;
       }
     });
@@ -138,6 +189,9 @@ function initChapterRail() {
       sound.playWhoosh();
       if (targetId === 'stage') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (targetId === 'about') {
+        const el = document.getElementById('universe') || document.getElementById('about');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
       } else {
         const el = document.getElementById(targetId);
         if (el) el.scrollIntoView({ behavior: 'smooth' });

@@ -108,14 +108,19 @@ html.is-booting .hdr { opacity: 0; }
    ========================================================================== */
 
 .hdr {
-  position: absolute; top: 0; left: 0; right: 0;
+  position: fixed; top: 0; left: 0; right: 0;
   height: var(--hdr-h);
   display: flex;
   align-items: center;
   gap: clamp(12px, 1.6vw, 26px);
   padding: 0 var(--edge);
-  z-index: 20;
+  z-index: 95;
   pointer-events: none;
+  background: linear-gradient(180deg, rgba(6, 5, 8, 0.94) 0%, rgba(6, 5, 8, 0.72) 65%, transparent 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 60, 40, 0.12);
+  transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
 }
 .hdr > * { pointer-events: auto; }
 
@@ -400,14 +405,14 @@ html.is-booting .hdr { opacity: 0; }
    ========================================================================== */
 
 .menu {
-  position: absolute; inset: 0;
-  z-index: 18;
+  position: fixed; inset: 0;
+  z-index: 98;
   display: grid;
   place-content: center;
   gap: 8px;
-  background: rgba(0, 0, 0, .93);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, .95);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   opacity: 0;
   visibility: hidden;
   transition: opacity .45s ease, visibility .45s;

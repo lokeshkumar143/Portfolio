@@ -54,7 +54,7 @@
 
 .universe__title {
   position: absolute;
-  top: clamp(26px, 6.5vh, 66px);
+  top: clamp(74px, 9.5vh, 102px);
   left: 50%;
   transform: translate(-50%, 14px);
   z-index: 2;
@@ -157,21 +157,30 @@
 }
 
 .uni-cluster--left {
-  left: clamp(20px, 4.5vw, 68px);
+  left: clamp(24px, 4.5vw, 68px);
   align-items: flex-start;
 }
 
 .uni-cluster--right {
-  right: clamp(20px, 4.5vw, 68px);
+  right: clamp(84px, 8.5vw, 136px);
   align-items: flex-end;
+}
+
+@media (max-width: 900px) {
+  .uni-cluster--right {
+    right: clamp(16px, 3.5vw, 36px);
+  }
+  .uni-cluster--left {
+    left: clamp(16px, 3.5vw, 36px);
+  }
 }
 
 .uni-node {
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(12, 10, 14, 0.74);
-  border: 1px solid rgba(255, 60, 40, 0.22);
+  background: rgba(12, 10, 14, 0.82);
+  border: 1px solid rgba(255, 60, 40, 0.28);
   border-radius: 12px;
   padding: 10px 18px;
   backdrop-filter: blur(14px);
@@ -179,6 +188,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 14px rgba(255, 50, 30, 0.1);
   cursor: pointer;
   user-select: none;
+  max-width: clamp(220px, 22vw, 290px);
   will-change: transform, opacity, filter, box-shadow;
 
   /* Start hidden in the deep cosmos for magical one-by-one ignition */

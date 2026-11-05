@@ -43,10 +43,6 @@
      wordmark is drawn on the canvas so video can be clipped inside its letters -->
   <h1 class="sr-only">Lokesh Kumar S — iOS Developer. I build elegant, scalable and intelligent mobile applications using Swift and SwiftUI.</h1>
 
-  <div class="stage-wrap">
-    <canvas id="stage" aria-hidden="true"></canvas>
-
-    <!-- ------------------------------------------------------------------ -->
     <header class="hdr" id="hdr">
       <svg class="hdr__rule" id="hdrRule" aria-hidden="true" preserveAspectRatio="none">
         <polyline id="hdrRulePath" fill="none" stroke="currentColor" stroke-width="1.25"
@@ -139,6 +135,12 @@
       </button>
     </header>
 
+  <div class="stage-wrap">
+    <canvas id="stage" aria-hidden="true"></canvas>
+
+    <!-- ------------------------------------------------------------------ -->
+
+
     <!-- ------------------------------------------------------------------ -->
     <div class="furniture" aria-hidden="true">
       <div class="welcome" id="welcome">
@@ -225,7 +227,24 @@
       </button>
     </div>
 
-    <!-- ------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------ -->
+    <div class="boot" id="boot">
+      <div class="boot__bar"><i id="bootFill"></i></div>
+      <button class="boot__enter" id="bootEnter" hidden>
+        <span>Enter</span>
+      </button>
+    </div>
+
+
+    <noscript>
+      <div class="fallback">
+        <p>LOKESH KUMAR S.</p>
+        <small>This opening is an animated experience. Please enable JavaScript.</small>
+      </div>
+    </noscript>
+  </div>
+
+  <!-- ------------------------------------------------------------------ -->
     <nav class="menu" id="menu" aria-label="Primary, expanded" hidden>
       <ul>
         <li><a href="#" class="is-active" data-nav>Home</a></li>
@@ -237,15 +256,7 @@
       <p class="menu__tag">••• Welcome to my world •••</p>
     </nav>
 
-    <!-- ------------------------------------------------------------------ -->
-    <div class="boot" id="boot">
-      <div class="boot__bar"><i id="bootFill"></i></div>
-      <button class="boot__enter" id="bootEnter" hidden>
-        <span>Enter</span>
-      </button>
-    </div>
-
-    <!-- Apple VisionOS Spatial Computing HUD Overlay -->
+  <!-- Apple VisionOS Spatial Computing HUD Overlay -->
     <div class="spatial-hud" id="spatialHUD" aria-label="Apple VisionOS Spatial Computing HUD" aria-hidden="true">
       <div class="spatial-hud__bar">
         <div class="spatial-hud__barLeft">
@@ -353,14 +364,6 @@
         <span class="spatial-reticle__coords" id="spatialCoords">X:0.000 Y:0.000 · ANE:SYNC</span>
       </div>
     </div>
-
-    <noscript>
-      <div class="fallback">
-        <p>LOKESH KUMAR S.</p>
-        <small>This opening is an animated experience. Please enable JavaScript.</small>
-      </div>
-    </noscript>
-  </div>
 
   <main class="flow">
     <!-- the hero above is position:fixed, so this reserves its scroll height -->
@@ -1052,10 +1055,10 @@
       <span class="chapter-item__num">01</span>
       <span class="chapter-item__tag">Hero</span>
     </button>
-      <button class="chapter-item" data-target="about" aria-label="Go to Scene 2: About">
+      <button class="chapter-item" data-target="about" aria-label="Go to Scene 2: Universe">
         <span class="chapter-item__line"></span>
         <span class="chapter-item__num">02</span>
-        <span class="chapter-item__tag">About</span>
+        <span class="chapter-item__tag">Universe</span>
       </button>
         <button class="chapter-item" data-target="skills" aria-label="Go to Scene 3: Skills">
           <span class="chapter-item__line"></span>
