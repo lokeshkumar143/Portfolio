@@ -12,33 +12,33 @@
 export const YEARS = [
   {
     year: 2021,
-    key: 'Foundations',
-    lines: ['Higher Secondary', 'Computing Curiosity', 'Logic Foundations'],
+    key: 'Schooling · 11th',
+    lines: ['Higher Secondary (11th)', 'Maths & Science', 'Computing Curiosity'],
   },
   {
     year: 2022,
-    key: 'CS Engineering',
-    lines: ['SIMATS B.E. CSE', 'Software Systems', 'Core Engineering'],
+    key: '12th & College Entry',
+    lines: ['12th Grade Completion', 'Joined SIMATS B.E. CSE', 'Foundational Logic'],
   },
   {
     year: 2023,
-    key: 'Algorithms & Mobile',
-    lines: ['Data Structures', 'Swift & UIKit Basics', 'System Paradigms'],
+    key: 'College · Core CS',
+    lines: ['B.E. CSE 2nd Year', 'Data Structures (DSA)', 'Algorithms & Systems'],
   },
   {
     year: 2024,
-    key: 'Full-Stack & QA',
-    lines: ['Selenium & Appium QA', 'Security Audits', 'Load Testing'],
+    key: 'College · Engineering',
+    lines: ['B.E. CSE 3rd Year', 'Web & Database Systems', 'Software QA & Testing'],
   },
   {
     year: 2025,
-    key: 'iOS Dev & Trainer',
-    lines: ['Full-Time in 2 Mos', 'SwiftUI Architecture', 'Engineering Mentor'],
+    key: 'Building Apps · iOS',
+    lines: ['Started Building Apps', 'Swift & SwiftUI Native', 'Healthcare & AI Projects'],
   },
   {
     year: 2026,
-    key: 'Production & AI',
-    lines: ['App Store Shipping', 'CoreML On-Device', 'Mentoring 100+ Devs'],
+    key: 'Live On App Store',
+    lines: ['App Store Shipping', 'RecovFit & Ulcer AI', 'B.E. CSE Graduation'],
   },
 ];
 
