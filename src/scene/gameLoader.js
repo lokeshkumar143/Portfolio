@@ -1,262 +1,177 @@
-// Rockstar Games Style Intro & Logo Reveal Sequence
-// Stage 1: Police siren color strobe (blue, red, gold)
-// Stage 2: Iconic L★ emblem slam reveal with heavy bass thud
-// Stage 3: Hyperspeed "Go in" zoom plunge directly into the portfolio
+// Original cinematic portfolio entry sequence.
+// The visual language is inspired by premium game launch screens, without
+// using Rockstar/GTA branding, logos, police strobes, or copied artwork.
 
 import { sound } from '../lib/sound.js';
 
+const MIN_DISPLAY_MS = 4200;
+const EXIT_MS = 620;
+
 export function initGameLoader({ onComplete } = {}) {
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const urlParams = new URLSearchParams(window.location.search);
-  const skipRequested = urlParams.has('skip') || urlParams.has('fast');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const startedAt = performance.now();
+  let progress = 0;
+  let ready = false;
+  let finished = false;
+  let skipRequested = false;
+  let completionTimer = 0;
 
-  // Always clear previous session blocks so it displays reliably on every refresh
-  sessionStorage.removeItem('portfolio_loader_completed');
-  sessionStorage.removeItem('mech_boot_completed');
-
-  if (skipRequested) {
-    if (typeof onComplete === 'function') {
-      onComplete({ visitorName: 'LOKESH', skipped: true });
-    }
-    return {
-      updateProgress: () => {},
-      setReady: () => {},
-      bypass: () => {},
-    };
-  }
-
-  let isDone = false;
-  let isZooming = false;
-  let currentProgress = 20;
-
-  // 1. Build and inject DOM
-  const container = document.createElement('div');
+  const container = document.createElement('section');
   container.id = 'gameLoader';
-  container.className = 'is-strobing';
-  container.setAttribute('role', 'dialog');
-  container.setAttribute('aria-label', 'Rockstar Games Style Intro');
-
+  container.className = 'game-loader';
+  container.setAttribute('aria-label', 'Portfolio loading screen');
   container.innerHTML = `
-    <!-- Fullscreen White Flash for Zoom Plunge -->
-    <div class="rs-flash" id="rsFlash" aria-hidden="true"></div>
+    <div class="game-loader__backdrop" aria-hidden="true"></div>
+    <div class="game-loader__grain" aria-hidden="true"></div>
+    <div class="game-loader__shade" aria-hidden="true"></div>
 
-    <!-- Police Siren Multi-Color Sweeping Beams (Left to Right & Right to Left) -->
-    <div class="rs-siren-stage" id="rsSirenStage" aria-hidden="true">
-      <div class="rs-beam rs-beam--red-lr"></div>
-      <div class="rs-beam rs-beam--blue-rl"></div>
-      <div class="rs-flasher rs-flasher--left"></div>
-      <div class="rs-flasher rs-flasher--right"></div>
-    </div>
-
-    <!-- Atmospheric Overlays -->
-    <div class="rs-scanlines" aria-hidden="true"></div>
-    <div class="rs-vignette" aria-hidden="true"></div>
-
-    <!-- Top Bar -->
-    <header class="rs-top-bar">
-      <div class="rs-top-brand">
-        LOKESH KUMAR S. <span>// iOS DEVELOPER</span>
-      </div>
-
-      <div class="rs-top-actions">
-        <button type="button" class="rs-btn-audio" id="rsAudioBtn" aria-label="Toggle sound">
-          <span>AUDIO: OFF</span>
-        </button>
-        <button type="button" class="rs-btn-skip" id="rsSkipBtn" aria-label="Skip intro">
-          <span>SKIP</span>
-          <kbd>ESC</kbd>
-        </button>
+    <header class="game-loader__top">
+      <a class="game-loader__brand" href="#" aria-label="Lokesh Kumar home">
+        <span class="game-loader__brand-mark">L<span>.</span></span>
+        <span class="game-loader__brand-copy">
+          <strong>LOKESH KUMAR S.</strong>
+          <small>INDEPENDENT DEVELOPER · PORTFOLIO 2026</small>
+        </span>
+      </a>
+      <div class="game-loader__top-right">
+        <span class="game-loader__edition">DIGITAL EXPERIENCE</span>
+        <button class="game-loader__sound" id="gameLoaderSound" type="button" aria-pressed="false">SOUND OFF</button>
+        <button class="game-loader__skip" id="gameLoaderSkip" type="button">SKIP INTRO <kbd>ESC</kbd></button>
       </div>
     </header>
 
-    <!-- Center Stage: The Iconic L★ Rockstar-Style Logo in Portfolio Crimson Theme -->
-    <main class="rs-center-stage">
-      <div class="rs-logo-box" id="rsLogoBox">
-        <div class="rs-badge">
-          <span class="rs-badge__letter">L</span>
-          <svg class="rs-badge__star" viewBox="0 0 24 24">
-            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-          </svg>
-        </div>
-
-        <h1 class="rs-logo-title">LOKESH KUMAR S.</h1>
-        <p class="rs-logo-sub">••• IOS DEVELOPER • SWIFT &amp; SWIFTUI • MOBILE ARCHITECTURE •••</p>
-        <p class="rs-logo-loc">VELLORE, TAMIL NADU, INDIA</p>
-
-        <div class="rs-logo-cue" id="rsLogoCue">
-          <span>• TAP OR PRESS ENTER TO ENTER •</span>
-        </div>
+    <main class="game-loader__main">
+      <p class="game-loader__eyebrow"><span></span> AN INTERACTIVE PORTFOLIO EXPERIENCE</p>
+      <div class="game-loader__title-wrap">
+        <p class="game-loader__pretitle">CREATIVE TECHNOLOGIST / iOS ENGINEER</p>
+        <h1 class="game-loader__title">BUILT TO<br><em>CREATE.</em></h1>
       </div>
+      <div class="game-loader__caption">
+        <span class="game-loader__caption-line"></span>
+        <p id="gameLoaderMessage">INITIALIZING THE EXPERIENCE</p>
+      </div>
+      <button class="game-loader__enter" id="gameLoaderEnter" type="button" disabled>
+        <span>ENTER PORTFOLIO</span><b aria-hidden="true">↗</b>
+      </button>
     </main>
 
-    <!-- Bottom Telemetry Bar -->
-    <footer class="rs-bottom-bar">
-      <div class="rs-loading-text" id="rsStatusText">
-        NATIVE SYSTEMS INITIALIZING <span id="rsPercentText">20%</span>
+    <footer class="game-loader__bottom">
+      <div class="game-loader__location">
+        <span>01</span>
+        <span>VELLORE, INDIA</span>
       </div>
-
-      <div class="rs-star-loader">
-        <svg class="rs-spinner-star" viewBox="0 0 24 24" aria-hidden="true">
-          <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-        </svg>
-
-        <div class="rs-meter-line">
-          <div class="rs-meter-fill" id="rsMeterFill"></div>
+      <div class="game-loader__progress">
+        <div class="game-loader__progress-meta">
+          <span id="gameLoaderStatus" role="status" aria-live="polite">PREPARING DIGITAL ENVIRONMENT</span>
+          <span id="gameLoaderPercent">00%</span>
+        </div>
+        <div class="game-loader__track" role="progressbar" aria-label="Portfolio loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="gameLoaderBar">
+          <span id="gameLoaderFill"></span>
         </div>
       </div>
+      <div class="game-loader__signature">SWIFT · SWIFTUI · WEBGL</div>
     </footer>
   `;
 
   document.body.appendChild(container);
 
-  // Audio warm up on interaction
-  const armSound = () => {
-    sound.init();
-    container.removeEventListener('pointerdown', armSound);
-    container.removeEventListener('keydown', armSound);
-  };
-  container.addEventListener('pointerdown', armSound, { once: true });
-  container.addEventListener('keydown', armSound, { once: true });
+  const message = container.querySelector('#gameLoaderMessage');
+  const status = container.querySelector('#gameLoaderStatus');
+  const percent = container.querySelector('#gameLoaderPercent');
+  const fill = container.querySelector('#gameLoaderFill');
+  const bar = container.querySelector('#gameLoaderBar');
+  const enter = container.querySelector('#gameLoaderEnter');
+  const skip = container.querySelector('#gameLoaderSkip');
+  const audio = container.querySelector('#gameLoaderSound');
 
-  // Sound Toggle Button
-  const audioBtn = document.getElementById('rsAudioBtn');
-  if (audioBtn) {
-    audioBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const active = sound.toggle();
-      audioBtn.querySelector('span').textContent = active ? 'AUDIO: ON' : 'AUDIO: OFF';
-      audioBtn.classList.toggle('is-active', active);
-    });
+  function renderProgress(value, label) {
+    progress = Math.max(progress, Math.min(100, Math.round(value)));
+    fill.style.width = `${progress}%`;
+    percent.textContent = `${String(progress).padStart(2, '0')}%`;
+    bar.setAttribute('aria-valuenow', String(progress));
+    if (label) {
+      const clean = String(label).replace(/<[^>]*>/g, '').trim();
+      status.textContent = clean.toUpperCase();
+      message.textContent = clean.toUpperCase();
+    }
   }
 
-  // Play Siren Strobe Sound at start, mid, and final sweep
-  setTimeout(() => {
-    sound.playSirenStrobe();
-  }, 100);
-  setTimeout(() => {
-    sound.playSirenStrobe();
-  }, 1200);
-  setTimeout(() => {
-    sound.playSirenStrobe();
-  }, 2200);
-
-  // Stage 1 -> Stage 2: Reveal the Logo Slam at 3.0s
-  const revealTimer = setTimeout(() => {
-    if (isDone || isZooming) return;
-    container.classList.remove('is-strobing');
-    container.classList.add('is-revealed');
-    sound.playRockstarBass();
-  }, reduced ? 100 : 3000);
-
-  // Progress update hooks
-  const fillEl = document.getElementById('rsMeterFill');
-  const percentEl = document.getElementById('rsPercentText');
-  const statusEl = document.getElementById('rsStatusText');
-
-  // Progressive meter ticker calibrated for a full 10-second experience
-  const meterTicker = setInterval(() => {
-    if (isDone || isZooming) {
-      clearInterval(meterTicker);
-      return;
-    }
-    if (currentProgress < 95) {
-      currentProgress += Math.floor(Math.random() * 5) + 4;
-      if (currentProgress > 95) currentProgress = 95;
-      if (fillEl) fillEl.style.width = `${currentProgress}%`;
-      if (percentEl) percentEl.textContent = `${currentProgress}%`;
-      if (currentProgress > 70 && statusEl) {
-        statusEl.innerHTML = `SYNCHRONIZING DIGITAL ENVIRONMENT <span id="rsPercentText">${currentProgress}%</span>`;
+  function complete(skipped = false) {
+    if (finished || !ready) return;
+    finished = true;
+    window.clearTimeout(completionTimer);
+    window.removeEventListener('keydown', onKeyDown);
+    container.classList.add('is-exiting');
+    window.setTimeout(() => {
+      container.remove();
+      if (typeof onComplete === 'function') {
+        onComplete({ visitorName: 'LOKESH', skipped });
       }
-    }
-  }, 480);
+    }, reducedMotion ? 0 : EXIT_MS);
+  }
 
-  function updateProgress(fraction, message) {
-    if (isDone) return;
-    const target = Math.round(Math.min(100, Math.max(0, fraction * 100)));
-    if (target > currentProgress) {
-      currentProgress = target;
+  function requestSkip() {
+    if (finished) return;
+    skipRequested = true;
+    if (ready) {
+      complete(true);
+    } else {
+      status.textContent = 'FINISHING ESSENTIAL STARTUP — THEN ENTERING';
+      message.textContent = 'ALMOST THERE. PREPARING YOUR EXPERIENCE.';
+      skip.textContent = 'WAITING…';
+      skip.disabled = true;
     }
-    if (fillEl) fillEl.style.width = `${currentProgress}%`;
-    if (percentEl) percentEl.textContent = `${currentProgress}%`;
-    if (message && statusEl) {
-      statusEl.innerHTML = `${message.toUpperCase()} <span id="rsPercentText">${currentProgress}%</span>`;
+  }
+
+  function onKeyDown(event) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      requestSkip();
+    } else if ((event.key === 'Enter' || event.key === ' ') && ready) {
+      event.preventDefault();
+      complete(false);
     }
+  }
+
+  skip.addEventListener('click', requestSkip);
+  enter.addEventListener('click', () => complete(false));
+  window.addEventListener('keydown', onKeyDown);
+
+  // Sound is opt-in and is initialized only after a deliberate user gesture.
+  audio.addEventListener('click', () => {
+    const active = sound.toggle();
+    audio.textContent = active ? 'SOUND ON' : 'SOUND OFF';
+    audio.setAttribute('aria-pressed', String(active));
+    audio.classList.toggle('is-active', active);
+  });
+
+  function updateProgress(fraction, label) {
+    if (finished || ready) return;
+    const numeric = Number(fraction);
+    if (!Number.isFinite(numeric)) return;
+    renderProgress(numeric * 100, label);
   }
 
   function setReady() {
-    updateProgress(1.0, 'EXPERIENCE READY');
-  }
-
-  // Stage 3: "GO IN" — Hyperspeed Zoom Tunnel Plunge
-  function goIn(skipped = false) {
-    if (isDone || isZooming) return;
-    isZooming = true;
-    clearTimeout(revealTimer);
-    clearTimeout(autoGoInTimer);
-    clearInterval(meterTicker);
-    window.removeEventListener('keydown', keyHandler);
-
-    if (skipped) {
-      isDone = true;
-      container.classList.add('is-dismissed');
-      if (typeof onComplete === 'function') {
-        onComplete({ visitorName: 'LOKESH', skipped: true });
-      }
-      setTimeout(() => container.remove(), 400);
+    if (finished || ready) return;
+    ready = true;
+    renderProgress(100, 'EXPERIENCE READY');
+    enter.disabled = false;
+    container.classList.add('is-ready');
+    message.textContent = 'YOUR NEXT EXPERIENCE STARTS HERE.';
+    if (skipRequested) {
+      complete(true);
       return;
     }
-
-    // Trigger Hyperspeed Zoom Plunge
-    container.classList.remove('is-strobing');
-    container.classList.add('is-revealed', 'is-zooming-in');
-    sound.playRockstarBass();
-    sound.playWhoosh();
-
-    setTimeout(() => {
-      isDone = true;
-      container.classList.add('is-dismissed');
-      if (typeof onComplete === 'function') {
-        onComplete({ visitorName: 'LOKESH', skipped: false });
-      }
-      setTimeout(() => container.remove(), 800);
-    }, 950);
+    const remaining = Math.max(0, MIN_DISPLAY_MS - (performance.now() - startedAt));
+    completionTimer = window.setTimeout(() => complete(false), reducedMotion ? 0 : remaining);
   }
 
-  // Automatic "Go in" calibrated for a full 10-second cinematic experience
-  const autoGoInTimer = setTimeout(() => {
-    goIn(false);
-  }, reduced ? 300 : 9600);
-
-  // Click anywhere to plunge in immediately
-  container.addEventListener('click', (e) => {
-    if (e.target.closest('#rsAudioBtn') || e.target.closest('#rsSkipBtn')) return;
-    goIn(false);
-  });
-
-  // Skip button
-  const skipBtn = document.getElementById('rsSkipBtn');
-  if (skipBtn) {
-    skipBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      goIn(true);
-    });
-  }
-
-  // Keyboard controls: ESC to skip, ENTER or SPACE to go in
-  const keyHandler = (e) => {
-    if (isDone) return;
-    if (e.key === 'Escape') {
-      goIn(true);
-    } else if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      goIn(false);
-    }
-  };
-  window.addEventListener('keydown', keyHandler);
+  if (reducedMotion) container.classList.add('is-reduced-motion');
 
   return {
     updateProgress,
     setReady,
-    bypass: () => goIn(true),
+    bypass: requestSkip,
   };
 }
