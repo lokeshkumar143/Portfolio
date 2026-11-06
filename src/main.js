@@ -34,11 +34,9 @@ import { initGameLoader } from './scene/gameLoader.js';
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 const MEDIA = 'public/media/';
-const MIN_BLACK = 620;          // the darkness must be felt, even on a fast line
 
 const root = document.documentElement;
 const boot = document.getElementById('boot');
-const bootFill = document.getElementById('bootFill');
 const bootEnter = document.getElementById('bootEnter');
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -83,15 +81,6 @@ async function main() {
     return degrade('media manifest missing');
   }
 
-  const steps = 3;
-  let done = 0;
-  const tick = () => {
-    done++;
-    bootFill.style.width = `${Math.min(100, Math.round((done / steps) * 100))}%`;
-  };
-
-  const startedAt = performance.now();
-
   const mk = (name, loopFade, loop = false) => {
     const c = manifest.clips[name];
     const src = [];
@@ -133,8 +122,6 @@ async function main() {
     loader.updateProgress(0.72, 'WebGL Stage Ready. Synchronizing Hero Stream...');
     await app.clips.hero.whenReady();
     loader.updateProgress(0.95, 'Hero Cinematic Ready. Finalizing Scene...');
-    const held = performance.now() - startedAt;
-    if (held < MIN_BLACK) await wait(MIN_BLACK - held);
     loader.setReady();
     return true;
   })();
