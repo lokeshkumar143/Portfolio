@@ -7,7 +7,7 @@ const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?so
 export const CURATED_REPOS = [
   {
     name: 'RecovFit-iOS',
-    html_url: 'https://github.com/lokeshkumar143',
+    html_url: 'https://github.com/lokeshkumar143/RecovFit-iOS',
     description: 'Comprehensive native iOS application for post-operative patient recovery, exercise compliance tracking, and doctor consultation scheduling with PHP/MySQL backend.',
     language: 'Swift',
     stargazers_count: 8,
@@ -16,7 +16,7 @@ export const CURATED_REPOS = [
   },
   {
     name: 'Urosonic-Uroflowmetry',
-    html_url: 'https://github.com/lokeshkumar143',
+    html_url: 'https://github.com/lokeshkumar143/Urosonic-Uroflowmetry',
     description: 'Smartphone-based non-invasive uroflowmetry solution utilizing acoustic signal processing to capture urine sound waves and reconstruct clinical flow rate curves.',
     language: 'Python',
     stargazers_count: 6,
@@ -25,7 +25,7 @@ export const CURATED_REPOS = [
   },
   {
     name: 'Gamified-DSA-Learning',
-    html_url: 'https://github.com/lokeshkumar143',
+    html_url: 'https://github.com/lokeshkumar143/Gamified-DSA-Learning',
     description: 'Duolingo-inspired interactive programming education platform designed to gamify Data Structures and Algorithms with Phoenix mascot coaching.',
     language: 'Swift',
     stargazers_count: 11,
@@ -34,7 +34,7 @@ export const CURATED_REPOS = [
   },
   {
     name: 'Dental-AI-Segmentation',
-    html_url: 'https://github.com/lokeshkumar143',
+    html_url: 'https://github.com/lokeshkumar143/Dental-AI-Segmentation',
     description: 'Deep learning architecture in PyTorch using OpenCV preprocessing for automated dental anatomy and pathology segmentation on panoramic radiographs.',
     language: 'Python',
     stargazers_count: 9,
@@ -52,7 +52,7 @@ export const CURATED_REPOS = [
   },
   {
     name: 'SIMATS-Training-Curriculum',
-    html_url: 'https://github.com/lokeshkumar143',
+    html_url: 'https://github.com/lokeshkumar143/SIMATS-Training-Curriculum',
     description: 'Production application architecture, Swift/SwiftUI patterns, and full-stack software curriculum developed while serving as Technical Trainer at SIMATS.',
     language: 'Swift',
     stargazers_count: 12,

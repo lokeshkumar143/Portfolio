@@ -39,6 +39,9 @@
 
 <body>
 
+  <!-- Global anamorphic vignette & film grain atmosphere -->
+  <div class="vignette-overlay" aria-hidden="true"></div>
+
   <!-- the real heading, for search engines and screen readers; the visible
      wordmark is drawn on the canvas so video can be clipped inside its letters -->
   <h1 class="sr-only">Lokesh Kumar S — iOS Developer. I build elegant, scalable and intelligent mobile applications
@@ -736,6 +739,15 @@
         <button class="dev-tab" data-app="ulcer" role="tab" aria-selected="false">
           <span>Smart Ulcer Predictor </span>
         </button>
+        <button class="dev-tab" data-app="urosonic" role="tab" aria-selected="false">
+          <span>Urosonic AI</span>
+        </button>
+        <button class="dev-tab" data-app="dsa" role="tab" aria-selected="false">
+          <span>Gamified DSA</span>
+        </button>
+        <button class="dev-tab" data-app="dental" role="tab" aria-selected="false">
+          <span>Dental AI</span>
+        </button>
       </div>
 
       <div class="dev-showcase__body" id="deviceShowcase">
@@ -1144,7 +1156,7 @@
     <span class="cursor-text" id="cursorText"></span>
   </div>
 
-  <script type="module" src="src/main.js"></script>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>

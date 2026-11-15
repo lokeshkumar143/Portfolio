@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@gl/*": ["src/gl/*"],
+      "@lib/*": ["src/lib/*"],
+      "@scene/*": ["src/scene/*"],
+      "@scene2/*": ["src/scene2/*"],
+      "@scene3/*": ["src/scene3/*"],
+      "@scene4/*": ["src/scene4/*"],
+      "@scene6/*": ["src/scene6/*"]
+    }
+  },
+  "include": ["src", "src/types.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

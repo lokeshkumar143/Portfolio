@@ -8,12 +8,11 @@
    ========================================================================== */
 
 /* --- Global Anamorphic Atmosphere ----------------------------------------- */
-body::after {
-  content: '';
+.vignette-overlay {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 900;
+  z-index: 2;
   background:
     radial-gradient(ellipse 110% 90% at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.45) 85%, rgba(0, 0, 0, 0.75) 100%),
     url('../../public/tex/grain.png') repeat;

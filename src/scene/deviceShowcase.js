@@ -89,6 +89,11 @@ export const DEVICE_APPS = {
     ],
     statusPill: 'Audio Sensor Armed',
     accentColor: '#0a84ff',
+    screenshots: [
+      'public/projects/urosonic/screen1.jpg',
+      'public/projects/urosonic/screen2.jpg',
+      'public/projects/urosonic/screen3.jpg'
+    ],
     screenHtml: `
       <div class="ios-screen ios-screen--urosonic">
         <div class="ios-app-header">
@@ -149,6 +154,11 @@ export const DEVICE_APPS = {
     ],
     statusPill: '14 Day Streak 🔥',
     accentColor: '#ff9f0a',
+    screenshots: [
+      'public/projects/dsa/screen1.jpg',
+      'public/projects/dsa/screen2.jpg',
+      'public/projects/dsa/screen3.jpg'
+    ],
     screenHtml: `
       <div class="ios-screen ios-screen--dsa">
         <div class="ios-app-header">
@@ -277,6 +287,11 @@ export const DEVICE_APPS = {
     ],
     statusPill: 'Model IoU: 84.2%',
     accentColor: '#bf5af2',
+    screenshots: [
+      'public/projects/dental/screen1.jpg',
+      'public/projects/dental/screen2.jpg',
+      'public/projects/dental/screen3.jpg'
+    ],
     screenHtml: `
       <div class="ios-screen ios-screen--dental">
         <div class="ios-app-header">
