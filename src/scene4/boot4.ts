@@ -62,7 +62,7 @@ export async function initGallery(): Promise<GalleryInstance | null> {
     el.style.zIndex = String(10 + Math.round((1 - c.depth) * 20));
     el.style.setProperty('--i', String(i));   // float dephasing
     el.innerHTML = `<span class="g-card__in">`
-      + `<img src="public/projects/${c.id}.png" alt="" `
+      + `<img src="/projects/${c.id}.png" alt="" `
     + `draggable="false" loading="eager" decoding="async">`
       + `<span class="g-card__label">${c.title}</span></span>`;
     el.addEventListener('pointerenter', () => sound.playHover());

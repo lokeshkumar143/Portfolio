@@ -41,11 +41,11 @@ export const DEVICE_APPS: Record<string, DeviceApp> = {
     statusPill: ' App Store Live',
     accentColor: '#30d158',
     screenshots: [
-      'public/projects/recovfit/screen1.jpg',
-      'public/projects/recovfit/screen2.jpg',
-      'public/projects/recovfit/screen3.jpg',
-      'public/projects/recovfit/screen4.jpg',
-      'public/projects/recovfit/screen5.jpg'
+      '/projects/recovfit/screen1.jpg',
+      '/projects/recovfit/screen2.jpg',
+      '/projects/recovfit/screen3.jpg',
+      '/projects/recovfit/screen4.jpg',
+      '/projects/recovfit/screen5.jpg'
     ],
     screenHtml: `
       <div class="ios-screen ios-screen--recovfit">
@@ -112,11 +112,11 @@ export const DEVICE_APPS: Record<string, DeviceApp> = {
     statusPill: ' App Store Live',
     accentColor: '#ff375f',
     screenshots: [
-      'public/projects/smart_ulcer/screen1.jpg',
-      'public/projects/smart_ulcer/screen2.jpg',
-      'public/projects/smart_ulcer/screen3.jpg',
-      'public/projects/smart_ulcer/screen4.jpg',
-      'public/projects/smart_ulcer/ipad1.jpg'
+      '/projects/smart_ulcer/screen1.jpg',
+      '/projects/smart_ulcer/screen2.jpg',
+      '/projects/smart_ulcer/screen3.jpg',
+      '/projects/smart_ulcer/screen4.jpg',
+      '/projects/smart_ulcer/ipad1.jpg'
     ],
     screenHtml: `
       <div class="ios-screen ios-screen--ulcer">
@@ -362,5 +362,30 @@ export function initDeviceShowcase(): void {
       requestAnimationFrame(tiltLoop);
     };
     requestAnimationFrame(tiltLoop);
+  }
+
+  // Live video background playback & reactive ambient lighting
+  const section = document.getElementById('devices');
+  const film = document.getElementById('deviceFilm') as HTMLVideoElement | null;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (section && film) {
+    new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          if (!reduced) film.play().catch(() => {});
+        } else {
+          film.pause();
+        }
+      }
+    }, { threshold: 0.12 }).observe(section);
+
+    section.addEventListener('pointermove', (e: PointerEvent) => {
+      const r = section.getBoundingClientRect();
+      const x = (((e.clientX - r.left) / r.width) * 100).toFixed(1);
+      const y = (((e.clientY - r.top) / r.height) * 100).toFixed(1);
+      section.style.setProperty('--dev-glow-x', `${x}%`);
+      section.style.setProperty('--dev-glow-y', `${y}%`);
+    }, { passive: true });
   }
 }

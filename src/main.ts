@@ -35,7 +35,7 @@ import { initGameLoader } from './scene/gameLoader.js';
 // scroll offset mid-boot yanks the visitor (and any scripted anchor) around
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-const MEDIA = 'public/media/';
+const MEDIA = '/media/';
 const MIN_BLACK = 620; // the darkness must be felt, even on a fast line
 
 const root = document.documentElement;
@@ -157,8 +157,8 @@ async function main(): Promise<void> {
     loader.updateProgress(0.45, 'Fonts Ready. Loading Shaders & Textures...');
     if (!app.stage) return false;
     await app.stage.loadTextures({
-      grunge: 'public/tex/grunge.png',
-      grain: 'public/tex/grain.png',
+      grunge: '/tex/grunge.png',
+      grain: '/tex/grain.png',
     });
     loader.updateProgress(0.72, 'WebGL Stage Ready. Synchronizing Hero Stream...');
     await app.clips.hero.whenReady();

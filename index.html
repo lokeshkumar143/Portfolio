@@ -14,20 +14,20 @@
   <meta property="og:title" content="Lokesh Kumar S — iOS Developer | SwiftUI · UIKit · Swift">
   <meta property="og:description"
     content="I build elegant, scalable and intelligent mobile applications using Swift and SwiftUI. Native iOS Application Development, UIKit, Firebase, and Applied AI.">
-  <meta property="og:image" content="public/media/developer_nod.jpg">
+  <meta property="og:image" content="/media/developer_nod.jpg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://github.com/lokeshkumar143/Portfolio">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Lokesh Kumar S — iOS Developer | SwiftUI · UIKit · Swift">
   <meta name="twitter:description"
     content="I build elegant, scalable and intelligent mobile applications using Swift and SwiftUI. Native iOS, UIKit, Firebase, and REST APIs.">
-  <meta name="twitter:image" content="public/media/developer_nod.jpg">
+  <meta name="twitter:image" content="/media/developer_nod.jpg">
 
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-weight='bold' fill='%23de1b1c'>L</text></svg>">
-  <link rel="preload" href="public/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="public/fonts/oswald-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="public/fonts/oswald-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/oswald-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/oswald-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="src/styles/app.css">
   <link rel="stylesheet" href="src/styles/universe.css">
   <link rel="stylesheet" href="src/styles/chrono.css">
@@ -72,7 +72,7 @@
         <li><a href="#devices" data-nav>Devices</a></li>
         <li><a href="#chrono" data-nav>Journey</a></li>
         <li><a href="#github" data-nav>GitHub</a></li>
-        <li><a href="public/resume.pdf" target="_blank" data-nav>Resume</a></li>
+        <li><a href="/resume.pdf" target="_blank" data-nav>Resume</a></li>
         <li><a href="mailto:lokeshkumar142005@gmail.com" class="js-open-devcard" data-nav>Contact</a></li>
       </ul>
     </nav>
@@ -179,7 +179,7 @@
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
-        <a href="public/resume.pdf" target="_blank" class="hero-btn" data-nav>
+        <a href="/resume.pdf" target="_blank" class="hero-btn" data-nav>
           <span>Download Resume</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             aria-hidden="true">
@@ -261,7 +261,7 @@
       <li><a href="#" class="is-active" data-nav>Home</a></li>
       <li><a href="#gallery" data-nav>Work</a></li>
       <li><a href="#chrono" data-nav>Journey</a></li>
-      <li><a href="public/resume.pdf" target="_blank" data-nav>Resume</a></li>
+      <li><a href="/resume.pdf" target="_blank" data-nav>Resume</a></li>
       <li><a href="mailto:lokeshkumar142005@gmail.com" class="js-open-devcard" data-nav>Contact</a></li>
     </ul>
     <p class="menu__tag">••• Welcome to my world •••</p>
@@ -458,9 +458,9 @@
           <li>CoreData</li>
           <li>FastAPI</li>
         </ul>
-        <video id="uniFilm" muted playsinline loop preload="metadata" poster="public/media/universe.jpg"
+        <video id="uniFilm" muted playsinline loop preload="metadata" poster="/media/universe.jpg"
           aria-hidden="true">
-          <source src="public/media/universe.mp4" type="video/mp4">
+          <source src="/media/universe.mp4" type="video/mp4">
         </video>
 
         <div class="universe__constellation" id="uniConstellation" aria-label="Technical Skill Constellation">
@@ -694,14 +694,14 @@
     <section class="gallery" id="gallery" aria-labelledby="galleryTitle">
       <div class="gallery__pin">
         <video id="galleryFilm" class="gallery__film" muted playsinline loop preload="metadata"
-          poster="public/media/gallery_stage.jpg" aria-hidden="true">
-          <source src="public/media/gallery_stage.mp4" type="video/mp4">
+          poster="/media/gallery_stage.jpg" aria-hidden="true">
+          <source src="/media/gallery_stage.mp4" type="video/mp4">
         </video>
         <canvas id="galleryStage" aria-hidden="true"></canvas>
 
         <div class="gallery__world">
           <div class="gallery__deck" id="galleryDeck"></div>
-          <img class="gallery__person" id="galleryPerson" src="public/projects/person.png" alt="Lokesh Kumar S"
+          <img class="gallery__person" id="galleryPerson" src="/projects/person.png" alt="Lokesh Kumar S"
             draggable="false">
         </div>
 
@@ -725,6 +725,13 @@
     <!-- ==================================================================== -->
     <!-- SECTION 05 — APPLE-STYLE DEVICE SHOWCASE -->
     <section class="dev-showcase" id="devices" aria-labelledby="devicesTitle">
+      <video id="deviceFilm" class="dev-showcase__film" muted playsinline loop preload="metadata"
+        poster="/media/device_showcase.jpg" aria-hidden="true">
+        <source src="/media/device_showcase.mp4" type="video/mp4">
+      </video>
+      <div class="dev-showcase__ambient-glow" aria-hidden="true"></div>
+      <div class="dev-showcase__grid-overlay" aria-hidden="true"></div>
+
       <div class="dev-showcase__header">
         <p class="dev-showcase__over">Section 05 · Apple Ecosystem Experience</p>
         <h2 class="dev-showcase__title" id="devicesTitle">Interactive iOS Architecture Showcase</h2>
@@ -812,8 +819,8 @@
     <section class="chrono" id="chrono" aria-labelledby="chronoTitle">
       <div class="chrono__pin">
         <video id="chronoFilm" class="chrono__film" muted playsinline loop preload="metadata"
-          poster="public/media/chrono_chamber.jpg" aria-hidden="true">
-          <source src="public/media/chrono_chamber.mp4" type="video/mp4">
+          poster="/media/chrono_chamber.jpg" aria-hidden="true">
+          <source src="/media/chrono_chamber.mp4" type="video/mp4">
         </video>
         <canvas id="chronoStage" aria-hidden="true"></canvas>
 
@@ -897,8 +904,8 @@
       <!-- the second frame of the finale: slides in from the left on scroll. -->
       <figure class="fin__frame2" id="finFrame2" aria-hidden="true">
         <video id="finFrame2Video" class="fin__frame2Video" muted playsinline loop preload="metadata"
-          poster="public/media/device_showcase.jpg" aria-hidden="true">
-          <source src="public/media/device_showcase.mp4" type="video/mp4">
+          poster="/media/device_showcase.jpg" aria-hidden="true">
+          <source src="/media/device_showcase.mp4" type="video/mp4">
         </video>
         <div class="fin__frame2Cap">
           <p class="fin__frame2Over">Ecosystem · Hardware & Craft</p>
@@ -911,9 +918,9 @@
         <button class="fin__devBadge" id="devBadgeBtn" type="button"
           aria-label="Open Lokesh Kumar S Profile and Contact Form">
           <span class="fin__devAvatar">
-            <video class="fin__devVideo" muted playsinline loop autoplay poster="public/media/developer_nod.jpg"
+            <video class="fin__devVideo" muted playsinline loop autoplay poster="/media/developer_nod.jpg"
               aria-hidden="true">
-              <source src="public/media/developer_nod.mp4" type="video/mp4">
+              <source src="/media/developer_nod.mp4" type="video/mp4">
             </video>
           </span>
           <span class="fin__devMeta">
@@ -926,7 +933,7 @@
           <a href="mailto:lokeshkumar142005@gmail.com" class="js-open-devcard" data-nav>Contact</a>
           <a href="https://github.com/lokeshkumar143" target="_blank" rel="me">GitHub</a>
           <a href="https://www.linkedin.com/in/lokesh-kumar-s-16984a268/" target="_blank" rel="me">LinkedIn</a>
-          <a href="public/resume.pdf" target="_blank" rel="me">Resume</a>
+          <a href="/resume.pdf" target="_blank" rel="me">Resume</a>
         </nav>
         <small class="fin__c">&copy; 2026 Lokesh Kumar S &mdash; Vellore, Tamil Nadu, India</small>
       </div>
@@ -938,8 +945,8 @@
     <div class="dev-modal__sheet">
       <button class="dev-modal__close" id="devModalClose" type="button" aria-label="Close dialog">&times;</button>
       <div class="dev-modal__media">
-        <video class="dev-modal__video" muted playsinline loop poster="public/media/developer_nod.jpg">
-          <source src="public/media/developer_nod.mp4" type="video/mp4">
+        <video class="dev-modal__video" muted playsinline loop poster="/media/developer_nod.jpg">
+          <source src="/media/developer_nod.mp4" type="video/mp4">
         </video>
         <div class="dev-modal__overlay"></div>
       </div>
@@ -1017,7 +1024,7 @@
           <a href="https://github.com/lokeshkumar143" target="_blank" rel="me" class="dev-modal__btn">
             <span>GitHub</span>
           </a>
-          <a href="public/resume.pdf" target="_blank" rel="me" class="dev-modal__btn">
+          <a href="/resume.pdf" target="_blank" rel="me" class="dev-modal__btn">
             <span>Resume PDF</span>
           </a>
         </div>
@@ -1045,7 +1052,7 @@
       <div class="proj-modal__body">
         <div class="proj-modal__left">
           <div class="proj-modal__art">
-            <img id="projModalImg" src="public/projects/p01_timeless.png" alt="Project artwork">
+            <img id="projModalImg" src="/projects/p01_timeless.png" alt="Project artwork">
             <div class="proj-modal__artOverlay"></div>
           </div>
           <div class="proj-modal__gallery" id="projModalGallery"></div>

@@ -32,13 +32,13 @@ export const PROJECT_DETAILS: Record<string, ProjectDetail> = {
     subtitle: 'Live on Apple App Store (ID: 6753745934) · Developed for SIMATS',
     appStoreUrl: 'https://apps.apple.com/in/app/recovfit/id6753745934',
     appId: '6753745934',
-    icon: 'public/projects/recovfit/icon.jpg',
+    icon: '/projects/recovfit/icon.jpg',
     screenshots: [
-      'public/projects/recovfit/screen1.jpg',
-      'public/projects/recovfit/screen2.jpg',
-      'public/projects/recovfit/screen3.jpg',
-      'public/projects/recovfit/screen4.jpg',
-      'public/projects/recovfit/screen5.jpg'
+      '/projects/recovfit/screen1.jpg',
+      '/projects/recovfit/screen2.jpg',
+      '/projects/recovfit/screen3.jpg',
+      '/projects/recovfit/screen4.jpg',
+      '/projects/recovfit/screen5.jpg'
     ],
     desc: 'An official live iOS & iPadOS medical recovery and fitness application published on the Apple App Store. Empowers post-operative and physical rehabilitation patients with personalized recovery plans, doctor-patient consultation booking, a real-time video calling system for scheduled clinical appointments, and an integrated AI chatbot for instant query guidance.',
     tech: ['Swift', 'SwiftUI', 'Xcode', 'WebRTC Video Calling', 'AI Clinical Chatbot', 'PHP', 'MySQL', 'REST APIs'],
@@ -86,13 +86,13 @@ export const PROJECT_DETAILS: Record<string, ProjectDetail> = {
     subtitle: 'Live on Apple App Store (ID: 6755873140) · Deep Learning Clinical Tool',
     appStoreUrl: 'https://apps.apple.com/in/app/smart-ulcer-predictor/id6755873140',
     appId: '6755873140',
-    icon: 'public/projects/smart_ulcer/icon.jpg',
+    icon: '/projects/smart_ulcer/icon.jpg',
     screenshots: [
-      'public/projects/smart_ulcer/screen1.jpg',
-      'public/projects/smart_ulcer/screen2.jpg',
-      'public/projects/smart_ulcer/screen3.jpg',
-      'public/projects/smart_ulcer/screen4.jpg',
-      'public/projects/smart_ulcer/ipad1.jpg'
+      '/projects/smart_ulcer/screen1.jpg',
+      '/projects/smart_ulcer/screen2.jpg',
+      '/projects/smart_ulcer/screen3.jpg',
+      '/projects/smart_ulcer/screen4.jpg',
+      '/projects/smart_ulcer/ipad1.jpg'
     ],
     desc: 'An AI-powered medical support application published on the Apple App Store for iPad and iPhone. Employs advanced deep learning image recognition models to analyze skin ulcer photos and deliver instant diagnostic predictions: Healing, Not Healing, or Normal Skin to support early clinical awareness and monitoring.',
     tech: ['Swift', 'SwiftUI', 'CoreML', 'Vision Framework', 'Deep Learning', 'PyTorch', 'Image Recognition', 'iPadOS & iOS'],
@@ -373,7 +373,7 @@ export function openProjectModal(id: string): void {
   if (imgPreview) {
     const mainSrc = data.screenshots && data.screenshots.length > 0
       ? data.screenshots[0]
-      : `public/projects/${id}.png`;
+      : `/projects/${id}.png`;
     imgPreview.src = mainSrc;
     imgPreview.alt = data.title;
   }

@@ -29,7 +29,7 @@ export async function initFinale(): Promise<FinaleInstance | null> {
 
   const fin = new Finale(back, glB, front, glF);
   try {
-    const meta = await fetch('public/fin/fin.json').then((r) => r.json());
+    const meta = await fetch('/fin/fin.json').then((r) => r.json());
     fin.manBox = meta.man;
   } catch { /* the default box matches the shipped extraction */ }
   await fin.load();
@@ -51,7 +51,7 @@ export async function initFinale(): Promise<FinaleInstance | null> {
   if (!frame2Ready && frame2 && frame2Img) {
     const candidates = [
       'footer%202nd%20image.jpg',
-      'public/fin/frame2.jpg',
+      '/fin/frame2.jpg',
       'Footer%20image%202.jpg',
     ];
     (function tryNext(i) {
