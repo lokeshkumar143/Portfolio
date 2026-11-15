@@ -31,7 +31,7 @@ export const T3 = {
   live: 1.05,
 };
 
-export function sample3(t, n = 6) {
+export function sample3(t: number, n: number = 6) {
   const wake = smoothstep(0, 1, span(t, T3.warm, T3.warm + 1.8));
   const rail = easeOutCubic(span(t, T3.rail, T3.rail + T3.railDur));
   const clock = easeOutExpo(span(t, T3.clock, T3.clock + T3.clockDur));

@@ -34,8 +34,8 @@ export class Furniture {
     this.arrowsL = root.getElementById('arrowsL');
     this.arrowsR = root.getElementById('arrowsR');
     this.dotsBR = root.getElementById('dotsBR');
-    this.rule = root.getElementById('hdrRule') as SVGSVGElement | null;
-    this.rulePath = root.getElementById('hdrRulePath') as SVGPolylineElement | null;
+    this.rule = root.getElementById('hdrRule') as unknown as SVGSVGElement | null;
+    this.rulePath = root.getElementById('hdrRulePath') as unknown as SVGPolylineElement | null;
     this.hdr = root.getElementById('hdr');
     this._build();
   }

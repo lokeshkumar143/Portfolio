@@ -85,13 +85,13 @@ const REF = {
  * the timeline never runs off the edge. Returning plain pixel coordinates keeps
  * the DOM cards and the WebGL scene reading from one source of truth.
  */
-export function fitScene(w, h) {
+export function fitScene(w: number, h: number) {
   const refAspect = 16 / 9;
   const aspect = w / h;
   const portrait = aspect < 0.95;
 
   // uniform scale plus an offset, so nothing is ever stretched
-  let scale;
+  let scale: number;
   let ox = 0;
   let oy = 0;
   if (aspect >= refAspect) {
@@ -102,7 +102,7 @@ export function fitScene(w, h) {
     oy = (h - 720 * scale) * 0.5;
   }
 
-  const P = ([fx, fy]) => [ox + fx * 1280 * scale, oy + fy * 720 * scale];
+  const P = ([fx, fy]: number[] | [number, number]) => [ox + fx * 1280 * scale, oy + fy * 720 * scale];
 
   let nodes;
   let cards;
@@ -164,7 +164,7 @@ export function fitScene(w, h) {
   };
 }
 
-function fitCircle(pts) {
+function fitCircle(pts: any[]) {
   const A = pts.map((p) => [p[0], p[1], 1]);
   const b = pts.map((p) => -(p[0] * p[0] + p[1] * p[1]));
   const [D, E, F] = solve3(A, b);
@@ -174,7 +174,7 @@ function fitCircle(pts) {
 }
 
 /** Normal-equation solve of an over-determined 3-column system. */
-function solve3(A, b) {
+function solve3(A: any[], b: any[]) {
   const N = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
   const r = [0, 0, 0];
   for (let k = 0; k < A.length; k++) {
@@ -215,7 +215,7 @@ function solve3(A, b) {
  * timeline. The hand reads that continuum (so it moves smoothly and can sit
  * between years), while the cards read its rounded value.
  */
-export function timeAt(layout, px, py) {
+export function timeAt(layout: any, px: number, py: number) {
   // portrait reads the vertical rail of nodes; landscape reads the card curve
   const pts = layout.portrait
     ? layout.nodes.map((n) => [n[0], n[1]])
@@ -243,7 +243,7 @@ export function timeAt(layout, px, py) {
 }
 
 /** Interpolate an angle list at a fractional index, the short way round. */
-export function angleAt(list, u) {
+export function angleAt(list: number[], u: number) {
   const i = Math.max(0, Math.min(list.length - 2, Math.floor(u)));
   const t = Math.max(0, Math.min(1, u - i));
   let a = list[i];

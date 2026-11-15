@@ -4,12 +4,12 @@
  * interpolation, so tilted cards have correctly foreshortened artwork.
  */
 
-export type Mat4 = Float32Array;
+export type Mat4 = Float32Array<any>;
 export type Vec3 = [number, number, number];
 export type Vec2 = [number, number];
 
 /** Create identity matrix. */
-export function identity(o = new Float32Array(16)): Mat4 {
+export function identity(o: any = new Float32Array(16)): any {
   o.fill(0);
   o[0] = o[5] = o[10] = o[15] = 1;
   return o;
@@ -21,8 +21,8 @@ export function perspective(
   aspect: number,
   near: number,
   far: number,
-  o = new Float32Array(16)
-): Mat4 {
+  o: any = new Float32Array(16)
+): any {
   const f = 1 / Math.tan(fovY / 2);
   o.fill(0);
   o[0] = f / aspect;
@@ -34,7 +34,7 @@ export function perspective(
 }
 
 /** Multiply two 4x4 matrices (column-major). */
-export function multiply(a: Mat4, b: Mat4, o = new Float32Array(16)): Mat4 {
+export function multiply(a: any, b: any, o: any = new Float32Array(16)): any {
   for (let c = 0; c < 4; c++) {
     const b0 = b[c * 4];
     const b1 = b[c * 4 + 1];
@@ -53,11 +53,11 @@ export function multiply(a: Mat4, b: Mat4, o = new Float32Array(16)): Mat4 {
  * Rotation order: Ry * Rx * Rz (yaw, pitch, roll)
  */
 export function compose(
-  pos: Vec3,
-  rot: Vec3,
-  scale: Vec2,
-  o = new Float32Array(16)
-): Mat4 {
+  pos: Vec3 | any,
+  rot: Vec3 | any,
+  scale: Vec2 | any,
+  o: any = new Float32Array(16)
+): any {
   const [rx, ry, rz] = rot;
   const cx = Math.cos(rx);
   const sx = Math.sin(rx);

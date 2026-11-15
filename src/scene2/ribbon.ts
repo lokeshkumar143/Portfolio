@@ -26,6 +26,15 @@ const SEGMENTS = 340;
 const TRAIL_SECONDS = 7.5;
 
 export class Ribbon {
+  gl: any;
+  figureZ: number;
+  count: number;
+  vao: any;
+  posBuf: any;
+  sideBuf: any;
+  verts: Float32Array;
+  headPos: number[] = [0, 0, 0];
+
   constructor(gl, figureZ = 1.6) {
     this.gl = gl;
     this.figureZ = figureZ;

@@ -15,9 +15,14 @@ import { sound } from '../lib/sound.js';
 
 const SEAM = 0.45;   // seconds of veil on each side of the wrap
 
-export async function initUniverse() {
+export interface UniverseInstance {
+  film: HTMLVideoElement;
+  section: HTMLElement;
+}
+
+export async function initUniverse(): Promise<UniverseInstance | null> {
   const section = document.getElementById('universe');
-  const film = document.getElementById('uniFilm');
+  const film = document.getElementById('uniFilm') as HTMLVideoElement | null;
   const veil = document.getElementById('uniVeil');
   const constellation = document.getElementById('uniConstellation');
   if (!section || !film || !veil) return null;
@@ -98,9 +103,9 @@ export async function initUniverse() {
 
   // 3D Constellation Gyroscopic Parallax & Sound Interaction
   if (constellation && !reduced) {
-    const clusterL = constellation.querySelector('.uni-cluster--left');
-    const clusterR = constellation.querySelector('.uni-cluster--right');
-    const nodes = constellation.querySelectorAll('.uni-node');
+    const clusterL = constellation.querySelector('.uni-cluster--left') as HTMLElement | null;
+    const clusterR = constellation.querySelector('.uni-cluster--right') as HTMLElement | null;
+    const nodes = constellation.querySelectorAll('.uni-node') as NodeListOf<HTMLElement>;
 
     let cx = 0, cy = 0, tcx = 0, tcy = 0;
     section.addEventListener('pointermove', (e) => {

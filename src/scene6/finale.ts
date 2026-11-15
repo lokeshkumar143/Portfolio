@@ -14,6 +14,21 @@ import { V6, F6_PLATE, F6_MAN, F6_SMOKE } from '../gl/shaders6.js';
 const FRAME = [1600, 900];
 
 export class Finale {
+  back: any;
+  front: any;
+  pB: any;
+  pF: any;
+  quadB: any;
+  quadF: any;
+  texB: any;
+  texF: any;
+  par: { x: number; y: number };
+  manBox: number[];
+  cssW: number = 0;
+  cssH: number = 0;
+  dpr: number = 1;
+  fit: any;
+
   constructor(back, glB, front, glF) {
     this.back = { canvas: back, gl: glB };
     this.front = { canvas: front, gl: glF };

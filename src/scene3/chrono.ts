@@ -32,6 +32,24 @@ import { sample3 } from './timeline3.js';
 import { damp, clamp, lerp } from '../lib/ease.js';
 
 export class Chrono {
+  canvas: any;
+  gl: any;
+  progs: any;
+  quad: any;
+  tex: any;
+  front: any;
+  layout: any;
+  res: [number, number] = [1, 1];
+  u: number = 5;
+  targetU: number = 5;
+  heat: number = 0;
+  pointer: { x: number; y: number; tx: number; ty: number; inside: boolean };
+  active: number = 5;
+  figAspect: number = 1;
+  cssW: number = 1;
+  cssH: number = 1;
+  dpr: number = 1;
+
   constructor(canvas, gl, front = null) {
     this.canvas = canvas;
     this.gl = gl;

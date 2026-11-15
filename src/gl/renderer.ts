@@ -167,3 +167,9 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
     i.src = src;
   });
 }
+
+export const program = createProgram;
+export const unitQuad = createUnitQuad;
+export const texture = createTexture;
+export const upload = uploadTexture;
+export const bind = bindTexture;

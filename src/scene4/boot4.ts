@@ -19,12 +19,17 @@ import { sound } from '../lib/sound.js';
 
 const damp = (v, to, k, dt) => v + (to - v) * (1 - Math.exp(-k * dt));
 
-export async function initGallery() {
+export interface GalleryInstance {
+  gallery: any;
+  section: HTMLElement;
+}
+
+export async function initGallery(): Promise<GalleryInstance | null> {
   const section = document.getElementById('gallery');
-  const canvas = document.getElementById('galleryStage');
+  const canvas = document.getElementById('galleryStage') as HTMLCanvasElement | null;
   const deck = document.getElementById('galleryDeck');
-  const person = document.getElementById('galleryPerson');
-  const film = document.getElementById('galleryFilm');
+  const person = document.getElementById('galleryPerson') as HTMLElement | null;
+  const film = document.getElementById('galleryFilm') as HTMLVideoElement | null;
   if (!section || !canvas || !deck || !person) return null;
 
   const gl = createGL(canvas);
@@ -36,7 +41,7 @@ export async function initGallery() {
   await gallery.load();
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const labels = [...section.querySelectorAll('.g-label')];
+  const labels = [...section.querySelectorAll('.g-label')] as HTMLElement[];
   const num = document.getElementById('galleryNum');
 
   // ---- cards ---------------------------------------------------------------
@@ -129,10 +134,10 @@ export async function initGallery() {
 
   // hover: the deck learns something is hot so siblings can ease back
   deck.addEventListener('pointerover', (e) => {
-    if (e.target.closest('.g-card')) deck.classList.add('is-hot');
+    if ((e.target as Element | null)?.closest('.g-card')) deck.classList.add('is-hot');
   });
   deck.addEventListener('pointerout', (e) => {
-    if (!e.relatedTarget || !e.relatedTarget.closest('.g-card')) {
+    if (!(e.relatedTarget as Element | null)?.closest('.g-card')) {
       deck.classList.remove('is-hot');
     }
   });
@@ -237,14 +242,14 @@ export async function initGallery() {
   labels.forEach((el, i) => el.style.setProperty('--li', String(i)));
 
   // review hook: canvas only (the cards are DOM; screenshot the pane for those)
-  window.__shot4 = async (name = 'gallery', at = null) => {
+  (window as any).__shot4 = async (name = 'gallery', at: number | null = null) => {
     const t = at !== null ? at : (performance.now() - state.started) / 1000;
     gallery.render(t, sample4(t));
     const url = canvas.toDataURL('image/png');
     await fetch(`/__shot?name=${encodeURIComponent(name)}`, { method: 'POST', body: url });
     return `${canvas.width}x${canvas.height} @ t=${t.toFixed(2)}`;
   };
-  window.__gallery = { gallery, state, section };
+  (window as any).__gallery = { gallery, state, section };
 
   return { gallery, section };
 }

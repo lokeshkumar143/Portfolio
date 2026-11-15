@@ -12,6 +12,18 @@ import { F3_POST } from '../gl/shaders3.js';
 import { FRAME, FLOOR_OUT, FLOOR_IN, RING, fitCover } from './layout4.js';
 
 export class Gallery {
+  canvas: any;
+  gl: any;
+  progs: any;
+  quad: any;
+  tex: any;
+  par: { x: number; y: number };
+  dolly: number;
+  res: [number, number] = [0, 0];
+  cssW: number = 0;
+  cssH: number = 0;
+  fit: any;
+
   constructor(canvas, gl) {
     this.canvas = canvas;
     this.gl = gl;
@@ -50,7 +62,7 @@ export class Gallery {
   }
 
   /** An ellipse in frame px -> frame fractions for the shader. */
-  _ell([cx, cy, rx, ry]) {
+  _ell([cx, cy, rx, ry]: number[]): [number, number, number, number] {
     return [cx / FRAME[0], cy / FRAME[1], rx / FRAME[0], ry / FRAME[1]];
   }
 

@@ -6,6 +6,10 @@
 // cards and a rebuilt ribbon.
 
 export class Sparks {
+  gl: any;
+  count: number;
+  vao: any;
+
   constructor(gl, count = 900) {
     this.gl = gl;
     this.count = count;

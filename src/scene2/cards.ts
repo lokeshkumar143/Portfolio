@@ -48,8 +48,8 @@ export function buildCards() {
     // a card facing dead-on reads as a sticker; each turns slightly toward the
     // centre of the room, as they do in the reference
     rest: [
-      (0.5 - ry) * 0.34 + (rnd() - 0.5) * 0.07,
-      (0.5 - rx) * 0.58 + (rnd() - 0.5) * 0.07,
+      (0.5 - Number(ry)) * 0.34 + (rnd() - 0.5) * 0.07,
+      (0.5 - Number(rx)) * 0.58 + (rnd() - 0.5) * 0.07,
       (rnd() - 0.5) * 0.10,
     ],
     // every card floats to its own rhythm, or they pulse as one organism
@@ -74,7 +74,7 @@ export function buildCards() {
  * camZ / d equals the card's apparent-size ratio makes the depths agree with
  * the poster; x and y then follow directly from the measured centre.
  */
-export function layoutCards(cards, aspect, fovY, camZ, opts = {}) {
+export function layoutCards(cards: any[], aspect: number, fovY: number, camZ: number, opts: any = {}) {
   const tanH = Math.tan(fovY / 2);
   const spread = opts.spread ?? 1;
   const lift = opts.lift ?? 1;

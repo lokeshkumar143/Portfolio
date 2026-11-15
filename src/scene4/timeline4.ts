@@ -11,23 +11,23 @@
 //   -> everything breathes, and the pointer owns the depth
 
 const T = {
-  wake: [0.0, 0.85],     // black -> faint room
-  ring: [0.5, 1.55],     // overhead rim lights, with a strike of flicker
-  floor: [0.85, 1.95],   // circle ignition + travelling spark
-  deck: [1.25, 3.4],     // the whole card system assembles inside this window
-  person: [2.75, 3.85],  // he arrives once his gallery is mostly up
-  labels: [3.3, 4.35],   // captions
-  live: 4.1,             // floats + pointer authority from here
+  wake: [0.0, 0.85] as [number, number],
+  ring: [0.5, 1.55] as [number, number],
+  floor: [0.85, 1.95] as [number, number],
+  deck: [1.25, 3.4] as [number, number],
+  person: [2.75, 3.85] as [number, number],
+  labels: [3.3, 4.35] as [number, number],
+  live: 4.1,
 };
 
 export const T4 = T;
 
-const clamp01 = (v) => Math.min(1, Math.max(0, v));
-const span = ([a, b], t) => clamp01((t - a) / (b - a));
-const ease = (v) => v * v * (3 - 2 * v);
+const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+const span = ([a, b]: [number, number], t: number) => clamp01((t - a) / (b - a));
+const ease = (v: number) => v * v * (3 - 2 * v);
 
 /** Sample the sequence at t seconds. */
-export function sample4(t) {
+export function sample4(t: number) {
   const wake = ease(span(T.wake, t));
   const ringIn = span(T.ring, t);
   // the rim catches like a struck tube: two dropouts on the way up
@@ -59,7 +59,7 @@ export function sample4(t) {
  * @param {number} order  the card's position 0..N-1 in far->near order
  * @param {number} n      card count
  */
-export function cardIn(deck, order, n) {
+export function cardIn(deck: number, order: number, n: number): number {
   const spread = 0.55;                    // how much of the window the stagger uses
   const start = (order / Math.max(1, n - 1)) * spread;
   const dur = 1 - spread;
@@ -67,7 +67,7 @@ export function cardIn(deck, order, n) {
 }
 
 /** Back-out ease with a small overshoot — the pop, then the settle. */
-export function popEase(v) {
+export function popEase(v: number): number {
   const s = 1.35;
   const u = v - 1;
   return 1 + u * u * ((s + 1) * u + s);

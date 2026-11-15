@@ -9,10 +9,15 @@ import { sample6, T6 } from './timeline6.js';
 
 const damp = (v, to, k, dt) => v + (to - v) * (1 - Math.exp(-k * dt));
 
-export async function initFinale() {
+export interface FinaleInstance {
+  fin: any;
+  section: HTMLElement;
+}
+
+export async function initFinale(): Promise<FinaleInstance | null> {
   const section = document.getElementById('fin');
-  const back = document.getElementById('finBack');
-  const front = document.getElementById('finMan');
+  const back = document.getElementById('finBack') as HTMLCanvasElement | null;
+  const front = document.getElementById('finMan') as HTMLCanvasElement | null;
   if (!section || !back || !front) return null;
 
   const glB = createGL(back);
@@ -30,7 +35,7 @@ export async function initFinale() {
   await fin.load();
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const caps = [...section.querySelectorAll('.f-cap')];
+  const caps = [...section.querySelectorAll('.f-cap')] as HTMLElement[];
   caps.forEach((el, i) => el.style.setProperty('--li', String(i)));
 
   // ---- frame 2 -------------------------------------------------------------
@@ -40,8 +45,8 @@ export async function initFinale() {
   const stage1 = document.getElementById('finStage1');
   const dim = document.getElementById('finDim');
   const frame2 = document.getElementById('finFrame2');
-  const frame2Video = document.getElementById('finFrame2Video');
-  const frame2Img = document.getElementById('finFrame2Img');
+  const frame2Video = document.getElementById('finFrame2Video') as HTMLVideoElement | null;
+  const frame2Img = document.getElementById('finFrame2Img') as HTMLImageElement | null;
   let frame2Ready = !!frame2Video;
   if (!frame2Ready && frame2 && frame2Img) {
     const candidates = [
@@ -153,20 +158,22 @@ export async function initFinale() {
     else if (state.visible) start();
   });
 
-  window.__shot6 = async (name = 'finale', at = null) => {
+  (window as any).__shot6 = async (name = 'finale', at: number | null = null) => {
     const t = at !== null ? at : (performance.now() - state.started) / 1000;
     fin.render(t, sample6(t));
     const flat = document.createElement('canvas');
     flat.width = back.width;
     flat.height = back.height;
     const cx = flat.getContext('2d');
-    cx.drawImage(back, 0, 0);
-    cx.drawImage(front, 0, 0);
+    if (cx) {
+      cx.drawImage(back, 0, 0);
+      cx.drawImage(front, 0, 0);
+    }
     const url = flat.toDataURL('image/png');
     await fetch(`/__shot?name=${encodeURIComponent(name)}`, { method: 'POST', body: url });
     return `${flat.width}x${flat.height} @ t=${t.toFixed(2)}`;
   };
-  window.__finale = { fin, state, section };
+  (window as any).__finale = { fin, state, section };
 
   return { fin, section };
 }

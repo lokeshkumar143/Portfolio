@@ -31,7 +31,7 @@ export const T2 = {
   alive: 7.40,
 };
 
-export function sample2(t) {
+export function sample2(t: number) {
   // --- atmosphere ---------------------------------------------------------
   const wake = smoothstep(0, 1, span(t, T2.wake, T2.wake + 2.2));
   const gather = smoothstep(0, 1, span(t, T2.gather, T2.gather + 1.5));

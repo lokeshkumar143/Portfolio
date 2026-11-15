@@ -14,11 +14,17 @@ import { T3 } from './timeline3.js';
 import { sound } from '../lib/sound.js';
 import { clamp } from '../lib/ease.js';
 
-export async function initChrono() {
+export interface ChronoInstance {
+  chrono: any;
+  section: HTMLElement;
+  setTarget: (target: number) => void;
+}
+
+export async function initChrono(): Promise<ChronoInstance | null> {
   const section = document.getElementById('chrono');
-  const canvas = document.getElementById('chronoStage');
+  const canvas = document.getElementById('chronoStage') as HTMLCanvasElement | null;
   const deck = document.getElementById('chronoDeck');
-  const film = document.getElementById('chronoFilm');
+  const film = document.getElementById('chronoFilm') as HTMLVideoElement | null;
   if (!section || !canvas || !deck) return null;
 
   const gl = createGL(canvas);
@@ -30,7 +36,7 @@ export async function initChrono() {
   // The figure's layer: a second, transparent context on the canvas stacked
   // over the card deck, so he stands in front of the timeline. Optional — if
   // the browser refuses another context he simply draws behind, as before.
-  const frontCanvas = document.getElementById('chronoFront');
+  const frontCanvas = document.getElementById('chronoFront') as HTMLCanvasElement | null;
   const glFront = frontCanvas ? createGL(frontCanvas, { alpha: true }) : null;
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -242,7 +248,7 @@ export async function initChrono() {
   });
 
   // review hook, same contract as the other two scenes
-  window.__shot3 = async (name = 'chrono', at = null) => {
+  (window as any).__shot3 = async (name = 'chrono', at: number | null = null) => {
     const t = at !== null ? at : (performance.now() - state.started) / 1000;
     chrono.render(t, 0.016);
     // flatten both layers, back canvas then front, exactly as stacked
@@ -250,14 +256,16 @@ export async function initChrono() {
     flat.width = canvas.width;
     flat.height = canvas.height;
     const c2 = flat.getContext('2d');
-    c2.drawImage(canvas, 0, 0);
-    if (chrono.front) c2.drawImage(chrono.front.canvas, 0, 0);
+    if (c2) {
+      c2.drawImage(canvas, 0, 0);
+      if (chrono.front) c2.drawImage(chrono.front.canvas, 0, 0);
+    }
     const url = flat.toDataURL('image/png');
     await fetch(`/__shot?name=${encodeURIComponent(name)}`,
       { method: 'POST', body: url });
     return `${canvas.width}x${canvas.height} @ t=${t.toFixed(2)}`;
   };
-  window.__chrono = chrono;
+  (window as any).__chrono = chrono;
 
   return { chrono, section, setTarget };
 }

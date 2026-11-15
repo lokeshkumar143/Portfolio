@@ -84,7 +84,7 @@ export const FLOOR_IN = [798, 741, 240, 57];
 export const RING = [802, 34, 392, 148];
 
 /** Cover-fit the reference frame onto a viewport. */
-export function fitCover(w, h) {
+export function fitCover(w: number, h: number) {
   const s = Math.max(w / FRAME[0], h / FRAME[1]);
   return { s, ox: (w - FRAME[0] * s) / 2, oy: (h - FRAME[1] * s) / 2 };
 }

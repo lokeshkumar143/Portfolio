@@ -39,6 +39,36 @@ const CAM_Z = 8.2;
 const FOV = 0.85;
 
 export class Universe {
+  canvas: any;
+  gl: any;
+  cards: any;
+  debris: any;
+  pointer: { x: number; y: number; tx: number; ty: number; inside: boolean };
+  hovered: number;
+  quality: number;
+  time: number;
+  dolly: number;
+  progs: any;
+  quad: any;
+  ribbon: Ribbon;
+  sparks: Sparks;
+  tex: any;
+  logos: Record<string, any>;
+  proj: Float32Array;
+  mvp: Float32Array;
+  model: Float32Array;
+  mvpTmp: Float32Array;
+  figMvp: Float32Array;
+  res: [number, number];
+  core: [number, number];
+  figureAspect: number = 1;
+  cssW: number = 0;
+  cssH: number = 0;
+  dpr: number = 1;
+  portrait: boolean = false;
+  fig: any;
+  ringScale: number = 1.0;
+
   constructor(canvas, gl) {
     this.canvas = canvas;
     this.gl = gl;

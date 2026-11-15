@@ -27,6 +27,15 @@ export const CURATED_REPOS: RepoData[] = [
     topics: ['swift', 'swiftui', 'ios-app', 'healthcare', 'php-backend', 'mysql']
   },
   {
+    name: 'Smart-Ulcer-Predictor',
+    html_url: 'https://github.com/lokeshkumar143/Smart-Ulcer-Predictor',
+    description: 'Deep learning clinical wound diagnostic tool for iPadOS & iOS using Vision & CoreML to classify ulcer tissue states (Healing, Not Healing, Normal Skin).',
+    language: 'Swift',
+    stargazers_count: 12,
+    forks_count: 3,
+    topics: ['swift', 'swiftui', 'coreml', 'vision-framework', 'deep-learning', 'ios-app']
+  },
+  {
     name: 'Urosonic-Uroflowmetry',
     html_url: 'https://github.com/lokeshkumar143/Urosonic-Uroflowmetry',
     description: 'Smartphone-based non-invasive uroflowmetry solution utilizing acoustic signal processing to capture urine sound waves and reconstruct clinical flow rate curves.',
