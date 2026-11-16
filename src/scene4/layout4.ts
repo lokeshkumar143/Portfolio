@@ -99,5 +99,5 @@ export function fitCover(w: number, h: number) {
 // --------------------------------------------------------------------------
 export const PORTRAIT = new Map([
   [0, { cx: 0.50, cy: 0.28, w: 0.88 }],   // RecovFit
-  [1, { cx: 0.50, cy: 0.58, w: 0.88 }],   // Smart Ulcer Predictor
+  [1, { cx: 0.50, cy: 0.65, w: 0.88 }],   // Smart Ulcer Predictor
 ]);

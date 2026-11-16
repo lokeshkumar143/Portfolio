@@ -236,6 +236,14 @@
 .gallery.is-portrait .g-label--real,
 .gallery.is-portrait .g-label--tomorrow { bottom: clamp(14px, 3vh, 30px); }
 .gallery.is-portrait .g-label--num { display: none; }
+.gallery.is-portrait .gallery__person {
+  opacity: 0.35 !important;
+  pointer-events: none !important;
+  z-index: 5 !important;
+}
+.gallery.is-portrait .g-card {
+  z-index: 10 !important;
+}
 
 /* --------------------------------------------------------------------------
    Fallbacks

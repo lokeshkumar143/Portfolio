@@ -88,7 +88,7 @@ const REF = {
 export function fitScene(w: number, h: number) {
   const refAspect = 16 / 9;
   const aspect = w / h;
-  const portrait = aspect < 0.95;
+  const portrait = w < 860 || aspect < 0.95;
 
   // uniform scale plus an offset, so nothing is ever stretched
   let scale: number;

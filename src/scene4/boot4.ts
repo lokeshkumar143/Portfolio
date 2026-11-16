@@ -78,7 +78,7 @@ export async function initGallery(): Promise<GalleryInstance | null> {
     const h = window.innerHeight;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const f = gallery.resize(w, h, dpr);
-    portrait = w / h < 0.75;
+    portrait = w < 860 || w / h < 0.88;
     section.classList.toggle('is-portrait', portrait);
 
     for (let i = 0; i < cards.length; i++) {

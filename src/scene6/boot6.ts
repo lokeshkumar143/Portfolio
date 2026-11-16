@@ -15,7 +15,7 @@ export interface FinaleInstance {
 }
 
 export async function initFinale(): Promise<FinaleInstance | null> {
-  const section = document.getElementById('fin');
+  const section = document.getElementById('finale') || document.getElementById('fin');
   const back = document.getElementById('finBack') as HTMLCanvasElement | null;
   const front = document.getElementById('finMan') as HTMLCanvasElement | null;
   if (!section || !back || !front) return null;

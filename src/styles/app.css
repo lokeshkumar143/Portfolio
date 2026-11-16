@@ -104,7 +104,7 @@ html.is-booting .hdr { opacity: 0; }
   position: fixed; inset: 0;
   overflow: hidden;
   background: #000;
-  z-index: 1;
+  z-index: 0;
 }
 
 #stage {
@@ -416,26 +416,32 @@ html.is-booting .hdr { opacity: 0; }
 
 .menu {
   position: fixed; inset: 0;
-  z-index: 98;
-  display: grid;
-  place-content: center;
-  gap: 8px;
-  background: rgba(0, 0, 0, .95);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: rgba(4, 3, 5, .96);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  overflow-y: auto;
+  max-height: 100svh;
+  padding: 36px 20px;
+  box-sizing: border-box;
   opacity: 0;
   visibility: hidden;
   transition: opacity .45s ease, visibility .45s;
 }
 .is-menu .menu { opacity: 1; visibility: visible; }
-.menu ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.menu ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; align-items: center; }
 .menu a {
   display: block;
   text-align: center;
   text-decoration: none;
   font-family: var(--disp);
-  font-size: clamp(38px, 11vw, 64px);
-  line-height: 1.06;
+  font-size: clamp(24px, 6.5vw, 42px);
+  line-height: 1.15;
   color: var(--ink);
   background-color: var(--ink);
   background-image: url('/tex/grunge.png');
@@ -446,7 +452,7 @@ html.is-booting .hdr { opacity: 0; }
   -webkit-text-fill-color: transparent;
   filter: saturate(1.3) contrast(1.12) brightness(1.15);
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(20px);
   transition: opacity .4s ease, transform .55s var(--ease-out);
 }
 .menu a.is-active, .menu a:hover { filter: saturate(1.5) contrast(1.2) brightness(1.4); }

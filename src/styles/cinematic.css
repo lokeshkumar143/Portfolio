@@ -1429,8 +1429,19 @@ body.has-custom-cursor button {
 /* ==========================================================================
    Scene 02: About Me Narrative
    ========================================================================== */
-.about-sec {
+.about-sec,
+.universe,
+.skills-sec,
+.gallery,
+.dev-showcase,
+.chrono,
+.gh-section,
+.fin {
   position: relative;
+  z-index: 2;
+}
+
+.about-sec {
   padding: clamp(80px, 10vh, 120px) clamp(20px, 4vw, 60px);
   background: #060508;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -1773,8 +1784,9 @@ body.has-custom-cursor button {
 
 .dev-phone {
   position: relative;
-  width: 320px;
-  height: 650px;
+  width: min(320px, calc(100vw - 32px));
+  max-width: 100%;
+  height: clamp(540px, 78vh, 650px);
   background: #111015;
   border-radius: 54px;
   box-shadow:

@@ -163,9 +163,9 @@ function initChapterRail(): void {
       }
     },
     {
-      id: 'fin',
+      id: 'finale',
       getRange: () => {
-        const el = document.getElementById('fin');
+        const el = document.getElementById('finale') || document.getElementById('fin');
         return el ? [el.offsetTop, el.offsetTop + el.offsetHeight] : null;
       }
     },
@@ -186,6 +186,19 @@ function initChapterRail(): void {
     items.forEach((item, idx) => {
       item.classList.toggle('is-active', idx === activeIdx);
     });
+
+    // Also synchronize active indicator on desktop header navigation
+    const navLinks = document.querySelectorAll('.hdr__nav a') as NodeListOf<HTMLAnchorElement>;
+    if (navLinks.length > 0) {
+      // 0: stage -> Home(0), 1: about -> About(1), 2: skills -> Skills(2),
+      // 3: gallery -> Projects(3), 4: devices -> Devices(4), 5: chrono -> Journey(5),
+      // 6: github -> GitHub(6), 7: finale -> Contact(8) (Resume is index 7)
+      const mapping = [0, 1, 2, 3, 4, 5, 6, 8];
+      const targetLinkIdx = mapping[activeIdx] ?? 0;
+      navLinks.forEach((link, idx) => {
+        link.classList.toggle('is-active', idx === targetLinkIdx);
+      });
+    }
   }
 
   window.addEventListener('scroll', update, { passive: true });
@@ -199,7 +212,10 @@ function initChapterRail(): void {
       if (targetId === 'stage') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (targetId === 'about') {
-        const el = document.getElementById('universe') || document.getElementById('about');
+        const el = document.getElementById('about') || document.getElementById('universe');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else if (targetId === 'fin' || targetId === 'finale') {
+        const el = document.getElementById('finale') || document.getElementById('fin');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       } else {
         const el = document.getElementById(targetId || '');
