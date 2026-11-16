@@ -1379,6 +1379,29 @@ body.has-custom-cursor button {
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
 }
 
+@media (max-width: 768px) {
+  .welcome {
+    width: 94vw;
+    max-width: 94vw;
+  }
+  .welcome__kicker {
+    white-space: normal;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    line-height: 1.4;
+    padding: 0 4px;
+  }
+  .welcome__text {
+    letter-spacing: 0.10em;
+  }
+  .welcome__tagline {
+    font-size: 10.5px;
+    line-height: 1.45;
+    padding: 0 8px;
+  }
+}
+
 .welcome__dots {
   color: #ff3b2f;
   letter-spacing: 0.14em;
@@ -2450,7 +2473,7 @@ body.has-custom-cursor button {
 
 .gh-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: clamp(16px, 2vw, 28px);
   max-width: 1120px;
   margin: 0 auto;
@@ -3500,7 +3523,9 @@ body.has-custom-cursor button {
 }
 
 .welcome__kicker.magical-revealed,
-.welcome__tagline.magical-revealed {
+.welcome__tagline.magical-revealed,
+.is-welcome .welcome__kicker,
+.is-welcome .welcome__tagline {
   opacity: 1;
   transform: translateY(0);
 }
@@ -3511,21 +3536,27 @@ body.has-custom-cursor button {
   transition: opacity 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
-.welcome__tech .tech-pill.magical-revealed {
+.welcome__tech .tech-pill.magical-revealed,
+.is-welcome .welcome__tech .tech-pill {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
+.hero-actions .hero-btn,
 .hero-btns .hero-btn {
   opacity: 0;
   transform: translateY(16px) scale(0.92);
   transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.35s ease,
-              border-color 0.35s ease;
+              border-color 0.3s ease,
+              background 0.3s ease;
 }
 
-.hero-btns .hero-btn.magical-revealed {
+.hero-actions .hero-btn.magical-revealed,
+.hero-btns .hero-btn.magical-revealed,
+.is-cues .hero-actions .hero-btn,
+.is-settled .hero-actions .hero-btn {
   opacity: 1;
   transform: translateY(0) scale(1);
 }

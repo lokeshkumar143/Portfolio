@@ -342,7 +342,56 @@
 
 @media (max-width: 900px) {
   .universe__constellation {
-    display: none; /* keep mobile clean and focus on the core cosmos film */
+    display: block !important;
+    pointer-events: auto;
+    opacity: 1;
+    transform: none;
+  }
+  .uni-cluster {
+    position: absolute;
+    width: 92vw;
+    left: 4vw !important;
+    right: auto !important;
+    transform: none;
+    align-items: center;
+  }
+  .uni-cluster--left {
+    top: auto;
+    bottom: clamp(140px, 20vh, 180px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .uni-cluster--right {
+    top: auto;
+    bottom: clamp(60px, 9vh, 90px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .uni-node {
+    padding: 6px 14px;
+    border-radius: 9999px;
+    max-width: none;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  }
+  .uni-node__tag {
+    display: none;
+  }
+  .uni-node__title {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .uni-node__icon {
+    font-size: 11px;
   }
 }
 

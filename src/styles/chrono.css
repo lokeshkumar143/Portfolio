@@ -331,14 +331,17 @@
 .chrono.is-portrait .yr {
   transform:
     translate(-50%, -50%)
-    translateY(calc((1 - var(--near, 0)) * 22px))
+    translateY(calc((1 - var(--near, 0)) * 16px))
     scale(calc(.94 + .06 * var(--near, 0)));
-  /* only the active card is visible and hittable */
-  opacity: calc(var(--in, 1) * max(0, var(--near, 0) * 3 - 2));
+  /* active card stays crisp and visible on mobile */
+  opacity: 0;
   pointer-events: none;
-  transition: opacity .45s ease, transform .55s var(--ease-out);
+  transition: opacity .35s ease, transform .45s var(--ease-out);
 }
-.chrono.is-portrait .yr.is-active { pointer-events: auto; }
+.chrono.is-portrait .yr.is-active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
 .chrono.is-portrait .yr__lines { display: grid; }
 
 /* the year numerals become the tap targets */
@@ -349,6 +352,11 @@
   pointer-events: auto;
   cursor: pointer;
   opacity: calc(var(--in, 1) * (.42 + .58 * var(--near, 0)));
+}
+.chrono.is-portrait .yr-tag.is-active {
+  color: var(--amber, #ffa03c) !important;
+  opacity: 1 !important;
+  font-weight: 700;
 }
 .chrono.is-portrait .chrono__hint { top: auto; bottom: clamp(18px, 4vh, 44px); }
 
